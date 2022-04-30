@@ -1,4 +1,4 @@
-package com.projecthandmedown.projecthandmedown.models;
+package com.projecthandmedown.models;
 import javax.persistence.*;
 import java.util.List;
 
