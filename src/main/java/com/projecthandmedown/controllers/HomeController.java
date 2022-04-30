@@ -1,4 +1,4 @@
-package com.projecthandmedown.projecthandmedown.controllers;
+package com.projecthandmedown.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
