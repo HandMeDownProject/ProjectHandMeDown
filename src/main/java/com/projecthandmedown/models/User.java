@@ -40,6 +40,14 @@ public class User {
 
     }
 
+    public User(String username, String email, String password, String userLocation, String userPhone) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.userLocation = userLocation;
+        this.userPhone = userPhone;
+    }
+
     public User(Long id, String username, String email, String password, String userLocation, Boolean userIsAdmin, String userPhone, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
         this.id = id;
         this.username = username;

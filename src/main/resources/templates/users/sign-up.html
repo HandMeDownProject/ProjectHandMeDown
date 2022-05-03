@@ -9,13 +9,24 @@
 <form th:action="@{/sign-up}" method="POST" th:object="${user}">
     <label for="username">Username</label>
     <input id="username" th:field="*{username}" />
-
+    <br>
+    <br>
     <label for="email">Email</label>
     <input id="email" th:field="*{email}" />
-
+    <br>
+    <br>
     <label for="password">Password</label>
     <input id="password" type="password" th:field="*{password}" />
-
+    <br>
+    <br>
+    <label for="user-phone">Phone Number</label>
+    <input id="user-phone" type="text" th:field="*{userPhone}" />
+    <br>
+    <br>
+    <label for="user-location">Location</label>
+    <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" />
+    <br>
+    <br>
     <input value="Sign me up!" type="submit" />
 </form>
 <br>
