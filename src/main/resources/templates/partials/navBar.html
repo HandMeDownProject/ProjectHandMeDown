@@ -1,0 +1,38 @@
+<nav class=" " th:fragment="navBar">
+    <a class="" href="/">Project Hand Me Down</a>
+
+
+    <div class="" id="navbarSupportedContent">
+        <ul class="">
+            <li class=""><a class="" th:href="@{/sign-up}">Register</a></li>
+            <li class=""><a class="" th:href="@{/login}">Login</a></li>
+            <li class=""><a class="" th:href="@{/profile}">Profile</a></li>
+
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class=" " style="margin-top: 8px">Logout</button>
+                </form>
+            </li>
+            <!--            <%-->
+            <!--            if (request.getSession().getAttribute("user") == null) { %>-->
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" href="/login">Login</a>-->
+            <!--            </li>-->
+            <!--            <% } else { %>-->
+            <!--            <li class="nav-item">-->
+            <!--                <a  href="/profile">Profile</a>-->
+            <!--            </li>-->
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" href="/logout">Logout</a>-->
+            <!--            </li>-->
+            <!--            <% } %>-->
+
+        </ul>
+        <form class="">
+            <input id="input" class="" type="search" placeholder="Search" aria-label="Search">
+            <button id="search" class="" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
