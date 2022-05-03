@@ -1,12 +1,12 @@
 package com.projecthandmedown.controllers;
+import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collections;
+
 import java.util.List;
 
 @Controller
@@ -20,6 +20,17 @@ public class ActivityController {
         this.activityDao = activityDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
+    }
+
+    @GetMapping("/activities")
+    public String activitiesView(Model model){
+
+       List<Activity> activities =activityDao.findAll();
+       model.addAttribute("activities",activities);
+
+        return "activities/activitiesView";
+
+
     }
 
 //    public PostController(PostRepository postDao, UserRepository userDAO) {
