@@ -3,6 +3,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,8 +14,20 @@ public class User {
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//    private List<Post> posts;
+    @Column(nullable = false)
+    private String userLocation;
+    @Column(nullable = false)
+    private Boolean userIsAdmin;
+    @Column(nullable = false, length = 20)
+    private String userPhone;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ForumPost> forumPosts;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Listing> listings;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ForumReply> forumReplies;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Activity> activities;
 
     public User() {
     }
@@ -24,21 +37,21 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+
     }
 
-    public User(Long id, String username, String email, String password, List<Post> posts) {
+    public User(Long id, String username, String email, String password, String userLocation, Boolean userIsAdmin, String userPhone, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.posts = posts;
-    }
-
-    public User(String username, String email, String password, List<Post> posts) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.posts = posts;
+        this.userLocation = userLocation;
+        this.userIsAdmin = userIsAdmin;
+        this.userPhone = userPhone;
+        this.forumPosts = forumPosts;
+        this.listings = listings;
+        this.forumReplies = forumReplies;
+        this.activities = activities;
     }
 
     public Long getId() {
@@ -73,12 +86,62 @@ public class User {
         this.password = password;
     }
 
-//    public List<Post> getPosts() {
-//        return posts;
-//    }
-//
-//    public void setPosts(List<Post> posts) {
-//        this.posts = posts;
-//    }
+    public String getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(String userLocation) {
+        this.userLocation = userLocation;
+    }
+
+    public Boolean getUserIsAdmin() {
+        return userIsAdmin;
+    }
+
+    public void setUserIsAdmin(Boolean userIsAdmin) {
+        this.userIsAdmin = userIsAdmin;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public List<ForumPost> getForumPosts() {
+        return forumPosts;
+    }
+
+    public void setForumPosts(List<ForumPost> forumPosts) {
+        this.forumPosts = forumPosts;
+    }
+
+    public List<Listing> getListings() {
+        return listings;
+    }
+
+    public void setListings(List<Listing> listings) {
+        this.listings = listings;
+    }
+
+    public List<ForumReply> getForumReplies() {
+        return forumReplies;
+    }
+
+    public void setForumReplies(List<ForumReply> forumReplies) {
+        this.forumReplies = forumReplies;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+
 }
 
