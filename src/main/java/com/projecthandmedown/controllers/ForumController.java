@@ -27,12 +27,12 @@ public class ForumController {
 //        this.userDAO = userDAO;
 //    }
 
-//    @GetMapping("/")
-////    @ResponseBody
-//    public String posts(Model model) {
-//        model.addAttribute("posts", postDao.findAll());
-//        return "posts/index";
-//    }
+    @GetMapping("/forum")
+//    @ResponseBody
+    public String posts(Model model) {
+        model.addAttribute("posts", forumPostDao.findAll());
+        return "forumView";
+    }
 //
 //    @GetMapping("/posts/{id}")
 ////    @ResponseBody
