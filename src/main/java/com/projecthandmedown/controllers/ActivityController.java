@@ -32,6 +32,12 @@ public class ActivityController {
 
 
     }
+    @GetMapping("activities/{id}")
+    public String activityview(Model model, @PathVariable Long id){
+
+
+        return "activities/activityView";
+    }
 
 //    public PostController(PostRepository postDao, UserRepository userDAO) {
 //        this.postDao = postDao;
