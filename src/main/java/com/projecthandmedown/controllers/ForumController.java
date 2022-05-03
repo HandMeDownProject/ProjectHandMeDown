@@ -2,12 +2,9 @@ package com.projecthandmedown.controllers;
 import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class ForumController {
@@ -27,12 +24,12 @@ public class ForumController {
 //        this.userDAO = userDAO;
 //    }
 
-//    @GetMapping("/")
-////    @ResponseBody
-//    public String posts(Model model) {
-//        model.addAttribute("posts", postDao.findAll());
-//        return "posts/index";
-//    }
+    @GetMapping("/forum")
+//    @ResponseBody
+    public String posts(Model model) {
+        model.addAttribute("posts", forumPostDao.findAll());
+        return "forum";
+    }
 //
 //    @GetMapping("/posts/{id}")
 ////    @ResponseBody
