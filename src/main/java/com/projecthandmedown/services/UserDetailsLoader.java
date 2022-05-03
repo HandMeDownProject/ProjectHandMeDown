@@ -1,4 +1,6 @@
 package com.projecthandmedown.services;
+import com.projecthandmedown.models.User;
+import com.projecthandmedown.models.UserWithRoles;
 import com.projecthandmedown.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

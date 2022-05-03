@@ -1,12 +1,14 @@
 package com.projecthandmedown.repositories;
+import com.projecthandmedown.models.ForumPost;
+import com.projecthandmedown.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ForumPostRepository extends JpaRepository<Post, Long> {
+public interface ForumPostRepository extends JpaRepository<ForumPost, Long> {
 
-    Post getById(long id);
-    List<Post> getByUser(User user);
+    ForumPost getById(long id);
+    List<ForumPost> getByUser(User user);
 
 }
 

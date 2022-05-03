@@ -1,4 +1,5 @@
 package com.projecthandmedown.controllers;
+import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
