@@ -5,6 +5,7 @@
 <body>
 <!--<header th:include="partials::my-header"></header>-->
 <!--<nav th:include="partials::my-navbar"></nav>-->
+<nav th:include="/partials/navBar.html :: navBar"></nav>
 <h1>Log In</h1>
 <div th:if="${param.error}">
     Invalid Username and Password.
