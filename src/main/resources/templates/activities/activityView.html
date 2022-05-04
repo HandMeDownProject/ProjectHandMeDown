@@ -8,7 +8,13 @@
     <title>activity individual</title>
 </head>
 <body>
-git
-
+<h4>individual Activity</h4>
+<h1 th:text="${activity.title}"></h1>
+<p th:text="${activity.body}"></p>
+<img th:src="${activity.imageUrl}" th:alt="${activity.title}">
+<p th:text="${activity.webUrl}"></p>
+<p th:text="${activity.user.getUsername()}"></p>
+<button type="submit"></button>
+<button type="submit"></button>
 </body>
 </html>
