@@ -5,6 +5,7 @@
 <body>
 <!--<header th:include="partials::my-header"></header>-->
 <!--<nav th:include="partials::my-navbar"></nav>-->
+<nav th:include="/partials/navBar.html :: navBar"></nav>
 <h1>Create an account</h1>
 <form th:action="@{/sign-up}" method="POST" th:object="${user}">
     <label for="username">Username</label>

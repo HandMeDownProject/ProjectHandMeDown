@@ -1,6 +1,7 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,13 @@ public class UserController {
         user.setUserIsAdmin(false);
         userDao.save(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/profile")
+    public String showUserProfile(Model model){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
+        return "users/profile";
     }
 
 
