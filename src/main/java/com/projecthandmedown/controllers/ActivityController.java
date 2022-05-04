@@ -43,6 +43,7 @@ public class ActivityController {
         return "activities/activityView";
     }
 
+
     @GetMapping("/activities/create")
     public String createActivity(Model model){
         model.addAttribute("activity", new Activity());
@@ -91,6 +92,9 @@ public class ActivityController {
 //        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
 //        return "redirect:/";
 //    }
+
+
+
 
 //    @GetMapping("/activities/{id}/edit")
 //    public String editActivity(@PathVariable Long id, Model model) {

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @Controller
 public class ForumController {
 
@@ -30,14 +32,14 @@ public class ForumController {
         model.addAttribute("posts", forumPostDao.findAll());
         return "forums/forum";
     }
-//
-//    @GetMapping("/posts/{id}")
-////    @ResponseBody
-//    public String postID(@PathVariable long id, Model model) {
-//        model.addAttribute("posts", postDao.findAllById(Collections.singleton(id)));
-//        return "posts/show";
-//    }
-//
+
+    @GetMapping("/forum_post/{id}")
+//    @ResponseBody
+    public String postID(@PathVariable long id, Model model) {
+        model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
+        return "forums/forumPostView";
+    }
+
 //    @GetMapping("/users/{id}")
 ////    @ResponseBody
 //    public String userID(@PathVariable long id, Model model) {

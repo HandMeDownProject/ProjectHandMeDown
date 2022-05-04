@@ -1,4 +1,7 @@
 package com.projecthandmedown.controllers;
+import com.projecthandmedown.models.Activity;
+import com.projecthandmedown.models.Listing;
+import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
@@ -34,6 +37,39 @@ public class ListingController {
         model.addAttribute("listings", listingDao.findAll());
         return "listings/listingsView";
     }
+
+    @GetMapping("/listing/{id}")
+    public String listingView(Model model, @PathVariable Long id){
+        Listing listing = listingDao.getById(id);
+        model.addAttribute("listing",listing);
+
+
+        return "listings/listing";
+    }
+
+    @GetMapping("/create/listing")
+    public String createListingView(Model model){
+        model.addAttribute("listing", new Listing());
+//        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//        if(listing.getTitle().equals("") || listing.getBody().equals("")){
+//            return "listings/listingsView";
+//        }
+//        listingDao.save(listing);
+//        emailService.prepareAndSend(listing, "listing created", "Confirmation: your listing has been created");
+
+
+        return "listings/createListing";
+    }
+
+    @PostMapping("/create/listing")
+    public String listingsAdd(@ModelAttribute Listing listing) {
+        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        listingDao.save(listing);
+
+        return "redirect:/listings";
+    }
+
 //
 //    @GetMapping("/posts/{id}")
 ////    @ResponseBody
