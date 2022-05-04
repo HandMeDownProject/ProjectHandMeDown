@@ -1,8 +1,10 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
+import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +42,57 @@ public class ActivityController {
 
         return "activities/activityView";
     }
+
+
+    @GetMapping("/activities/create")
+    public String createActivity(Model model){
+        model.addAttribute("activity", new Activity());
+        //model.addAttribute("user", new User());
+
+        return "activities/activityCreate";
+
+    }
+
+    @PostMapping("/activities/create")
+    public String addActivity(@ModelAttribute Activity activity){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        activity.setUser(user); // <-- this will be setting     user for post.
+
+        if(activity.getTitle().equals("") || activity.getBody().equals("")){
+            return "activities/activityCreate";
+        }
+
+
+        System.out.println(activity.getTitle());
+        System.out.println(activity.getBody());
+        activityDao.save(activity);
+
+        emailService.prepareAndSendActivity(activity,activity.getTitle(),activity.getBody());
+
+
+        return "redirect:/activities";
+    }
+//    @GetMapping("/posts/create")
+////    @ResponseBody
+//    public String create(Model model) {
+//        model.addAttribute("post", new Post());
+//        model.addAttribute("user", new User());
+//        return "posts/create";
+//    }
+//
+//    @PostMapping("/posts/create")
+//    public String post(@ModelAttribute Post post) {
+//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//        if(post.getTitle().equals("") || post.getBody().equals("")){
+//            return "posts/create";
+//        }
+//        postDao.save(post);
+//        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
+//        return "redirect:/";
+//    }
+
 
 
 
