@@ -41,6 +41,8 @@ public class ActivityController {
         return "activities/activityView";
     }
 
+
+
 //    @GetMapping("/activities/{id}/edit")
 //    public String editActivity(@PathVariable Long id, Model model) {
 //        Activity activity = activityDao.getById(id);
