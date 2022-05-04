@@ -7,9 +7,13 @@
 <body>
   <nav th:include="/partials/navBar.html :: navBar"></nav>
   <h1>Sending User Message</h1>
-  <form action="#">
+  <form th:action="@{/messaging/{id}(id=${messageReceiver.getId()})}" th:object="${message}" method="post">
       <h1>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h1>
-      <textarea rows="12" cols="100" name="message"></textarea>
+      <label for="title">title:
+          <input th:field="*{subject}" id="title" type="text">
+      </label>
+      <br>
+      <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea>
       <button type="submit">Send Message</button>
   </form>
 </body>
