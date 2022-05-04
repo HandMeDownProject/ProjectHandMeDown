@@ -5,7 +5,7 @@
 
 </head>
 <body>
-<form th:action="@{/listings}" th:method="post" th:object="${listing}">
+<form th:action="@{/create/listing}" th:method="post" th:object="${listing}">
     <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
 
     <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>

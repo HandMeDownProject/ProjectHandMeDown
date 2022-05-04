@@ -8,7 +8,7 @@
 <h1>This is the marketplace!</h1>
 
 <div th:each="listing : ${listings}">
-    <h4 th:text="${listing.title}"></h4>
+    <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"></h4></a>
     <p th:text="${listing.body}"></p>
     <img th:src="${listing.imageUrl}" th:alt="${listing.title}">
     <p th:text="${listing.price}"></p>

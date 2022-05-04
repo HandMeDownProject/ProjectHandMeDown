@@ -48,7 +48,8 @@ public class ListingController {
     }
 
     @GetMapping("/create/listing")
-    public String createListingView(@ModelAttribute Listing listing){
+    public String createListingView(Model model){
+        model.addAttribute("listing", new Listing());
 //        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //        if(listing.getTitle().equals("") || listing.getBody().equals("")){
 //            return "listings/listingsView";
@@ -58,6 +59,15 @@ public class ListingController {
 
 
         return "listings/createListing";
+    }
+
+    @PostMapping("/create/listing")
+    public String listingsAdd(@ModelAttribute Listing listing) {
+        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        listingDao.save(listing);
+
+        return "redirect:/listings";
     }
 
 //
