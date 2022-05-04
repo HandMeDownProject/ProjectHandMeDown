@@ -28,7 +28,7 @@ public class ForumController {
 //    @ResponseBody
     public String posts(Model model) {
         model.addAttribute("posts", forumPostDao.findAll());
-        return "forum";
+        return "forums/forum";
     }
 //
 //    @GetMapping("/posts/{id}")

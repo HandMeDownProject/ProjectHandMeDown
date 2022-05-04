@@ -23,17 +23,17 @@ public class ListingController {
         this.userDAO = userDAO;
     }
 
-//    public PostController(PostRepository postDao, UserRepository userDAO) {
-//        this.postDao = postDao;
+//    public ListingController(ListingRepository listingDao, UserRepository userDAO) {
+//        this.listingDao = listingDao;
 //        this.userDAO = userDAO;
 //    }
 
-//    @GetMapping("/")
-////    @ResponseBody
-//    public String posts(Model model) {
-//        model.addAttribute("posts", postDao.findAll());
-//        return "posts/index";
-//    }
+    @GetMapping("/listings")
+//    @ResponseBody
+    public String listings(Model model) {
+        model.addAttribute("listings", listingDao.findAll());
+        return "listings/listingsView";
+    }
 //
 //    @GetMapping("/posts/{id}")
 ////    @ResponseBody
