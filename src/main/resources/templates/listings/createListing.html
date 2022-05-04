@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="/partials/head.html :: head">
+
+</head>
+<body>
+<form th:action="@{/listings}" th:method="post" th:object="${listing}">
+    <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
+
+    <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>
+    <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"/>
+<!--    <input th:field="*{image_url}" type="text" name="ListingImg" id="ListingImg" class="" placeholder="img file here"/>-->
+    <button type="submit">Create Listing</button>
+</form>
+
+</body>
+</html>
+
+
