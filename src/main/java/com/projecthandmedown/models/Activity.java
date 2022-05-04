@@ -20,6 +20,7 @@ public class Activity implements Serializable {
     private String imageUrl;
     @Column(nullable = true)
     private String webUrl;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
