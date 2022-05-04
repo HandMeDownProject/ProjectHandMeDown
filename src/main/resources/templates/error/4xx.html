@@ -13,5 +13,16 @@
         <h1>You don't have permission to view this page.</h1>
     </div>
 </th:block>
+<h2>Error message:</h2>
+<p th:text="${message}">Error Message</p>
+<h2>Status Code:</h2>
+<p th:text="${status}">Status Code</p>
+<h2>Exception:</h2>
+<p th:text="${exception}">Exception</p>
+<h2>Stacktrace:</h2>
+<p th:text="${trace}">Stacktrace</p>
+<h2>Binding Errors:</h2>
+<p th:text="${errors}">Binding Errors</p>
+
 </body>
 </html>
