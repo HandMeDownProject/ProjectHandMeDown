@@ -12,13 +12,14 @@
 <br><br>
 
 <div th:each="activity : ${activities}">
-    <h4 th:text="${activity.title}" ></h4>
+    <h2 th:text="${activity.title}" ></h2>
     <p th:text="${activity.body}"></p>
     <img th:src="${activity.imageUrl}" th:alt="${activity.title}">
     <p th:text="${activity.webUrl}"></p>
     <p th:text="${activity.user.getUsername()}"></p>
-    <a th:href="@{'/activities/{id}'(id= ${activity.id})}">go to this Activity post</a>
-    <a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this Activity post</a>
+    <a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a><br>
+    <a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">Edit</a><br>
+
 </div>
 </body>
 </html>
