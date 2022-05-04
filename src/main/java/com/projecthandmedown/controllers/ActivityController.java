@@ -33,7 +33,7 @@ public class ActivityController {
 
     }
     @GetMapping("/activities/{id}")
-    public String activityview(Model model, @PathVariable Long id){
+    public String activityView(Model model, @PathVariable Long id){
         Activity activity = activityDao.getById(id);
         model.addAttribute("activity",activity);
 
@@ -41,13 +41,13 @@ public class ActivityController {
         return "activities/activityView";
     }
 
-    @GetMapping("/activities/{id}/edit")
-    public String editActivity(@PathVariable Long id, Model model){
-        Activity activity = activityDao.getById(id);
-
-        model.addAttribute("activity",activity);
-        return "";
-
+//    @GetMapping("/activities/{id}/edit")
+//    public String editActivity(@PathVariable Long id, Model model) {
+//        Activity activity = activityDao.getById(id);
+//
+//        model.addAttribute("activity", activity);
+//        return "";
+//    }
 
 //    public PostController(PostRepository postDao, UserRepository userDAO) {
 //        this.postDao = postDao;
