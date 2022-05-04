@@ -3,12 +3,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="/partials/head.html :: head">
 <body>
+<h1>Creating posts here!</h1>
 
-<form th:action="@{/create/post}" th:method="post" th:object="${listing}">
-    <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
-
-    <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>
-    <button type="submit">Create Listing</button>
+<form th:action="@{/create/post}" th:method="post" th:object="${post}">
+    <input th:field="*{title}" type="text" name="postTitle" id="postTitle" class="" placeholder="Title"/><br>
+    <input th:field="*{body}" type="text" name="postBody" id="PostBody" class="" placeholder="Body"/>
+    <button type="submit">Post</button>
 </form>
 
 </body>
