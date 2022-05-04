@@ -63,10 +63,6 @@ public class ActivityController {
         if(activity.getTitle().equals("") || activity.getBody().equals("")){
             return "activities/activityCreate";
         }
-
-
-        System.out.println(activity.getTitle());
-        System.out.println(activity.getBody());
         activityDao.save(activity);
 
         emailService.prepareAndSendActivity(activity,activity.getTitle(),activity.getBody());
@@ -74,6 +70,36 @@ public class ActivityController {
 
         return "redirect:/activities";
     }
+
+
+    @GetMapping("/activities/{id}/edit")
+    public String editPost(@PathVariable Long id, Model model){
+        Activity activity = activityDao.getById(id);
+
+        model.addAttribute("activity",activity);
+        return "activities/activityEdit";
+
+    }
+
+    @PostMapping("activities/edit")
+    public String editAndSubmit(@ModelAttribute Activity activity){
+
+
+        activityDao.save(activity);
+
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        activity.setUser(user); // <-- this will be setting     user for post.
+//
+//        if(activity.getUser().equals(user) ) {
+//            return "redirect:/activities";
+//        }
+//
+        return "redirect:/activities";
+    }
+
+
+
 //    @GetMapping("/posts/create")
 ////    @ResponseBody
 //    public String create(Model model) {
