@@ -42,7 +42,11 @@ public class UserController {
     @GetMapping("/profile")
     public String showUserProfile(Model model){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", loggedInUser);
+        User fromDao = userDao.getUserById(loggedInUser.getId());
+        model.addAttribute("user", fromDao);
+        if(fromDao.getUserIsAdmin()){
+            return "users/admin";
+        }
         return "users/profile";
     }
 

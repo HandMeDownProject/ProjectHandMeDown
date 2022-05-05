@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Profile Page</title>
+</head>
+<body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
+<h1>This is the Admin page</h1>
+<h1>Hello, <span th:text="${user.getUsername()}"></span>!</h1>
+</body>
+</html>
