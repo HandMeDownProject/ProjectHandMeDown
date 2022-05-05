@@ -1,7 +1,11 @@
 package com.projecthandmedown.controllers;
+import com.projecthandmedown.models.ForumPost;
+import com.projecthandmedown.models.Listing;
+import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +44,44 @@ public class ForumController {
         return "forums/forumPostView";
     }
 
+    @GetMapping("/create/post")
+    public String createPostingView(Model model){
+        model.addAttribute("post", new ForumPost());
+//        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//        if(listing.getTitle().equals("") || listing.getBody().equals("")){
+//            return "listings/listingsView";
+//        }
+//        listingDao.save(listing);
+//        emailService.prepareAndSend(listing, "listing created", "Confirmation: your listing has been created");
+        return "forums/createForumPost";
+    }
+
+    @PostMapping("/create/post")
+    public String forumPostAdd(@ModelAttribute ForumPost post) {
+        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        forumPostDao.save(post);
+        return "redirect:/forum";
+    }
+
+//    @GetMapping("/create/post")
+////    @ResponseBody
+//    public String create(Model model) {
+//        model.addAttribute("post", new ForumPost());
+////        model.addAttribute("user", new User());
+//        return "forums/createForumPost";
+//    }
+//
+//    @PostMapping("/create/post")
+//    public String post(@ModelAttribute ForumPost post) {
+//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+////        if(post.getTitle().equals("") || post.getBody().equals("")){
+////            return "forum/createForumPost";
+////        }
+//        forumPostDao.save(post);
+////        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
+//        return "redirect:/forum";
+//    }
+
 //    @GetMapping("/users/{id}")
 ////    @ResponseBody
 //    public String userID(@PathVariable long id, Model model) {
@@ -57,25 +99,6 @@ public class ForumController {
 //    public String users(Model model) {
 //        model.addAttribute("users", userDAO.findAll());
 //        return "users";
-//    }
-//
-//    @GetMapping("/posts/create")
-////    @ResponseBody
-//    public String create(Model model) {
-//        model.addAttribute("post", new Post());
-//        model.addAttribute("user", new User());
-//        return "posts/create";
-//    }
-//
-//    @PostMapping("/posts/create")
-//    public String post(@ModelAttribute Post post) {
-//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        if(post.getTitle().equals("") || post.getBody().equals("")){
-//            return "posts/create";
-//        }
-//        postDao.save(post);
-//        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
-//        return "redirect:/";
 //    }
 //
 //    @GetMapping("posts/{id}/edit")
