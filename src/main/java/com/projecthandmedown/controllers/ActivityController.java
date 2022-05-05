@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -59,7 +60,8 @@ public class ActivityController {
     }
 
     @PostMapping("/activities/create")
-    public String addActivity(@ModelAttribute Activity activity){
+    public String addActivity(@ModelAttribute Activity activity,        RedirectAttributes attr
+    ){
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -69,6 +71,8 @@ public class ActivityController {
             return "activities/activityCreate";
         }
         activityDao.save(activity);
+        attr.addFlashAttribute("createMsg","Successfully added a new post");
+
 
         emailService.prepareAndSendActivity(activity,activity.getTitle(),activity.getBody());
 
@@ -95,9 +99,10 @@ public class ActivityController {
     }
 
     @GetMapping ("activities/{id}/delete")
-    public String deleteActivity(@PathVariable Long id,Model model){
+    public String deleteActivity(@PathVariable Long id,Model model, RedirectAttributes attr){
         Activity activity = activityDao.getById(id);
         activityDao.delete(activity);
+        attr.addFlashAttribute("deleteMsg","Successfully deleted the post");
         return "redirect:/activities";
     }
 
