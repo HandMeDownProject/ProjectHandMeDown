@@ -13,6 +13,13 @@ class IndexController {
     public  String hello() {
         return "index";
     }
+
+    @GetMapping("/about")
+    public  String aboutUs() {
+        return "aboutUs";
+    }
+
+
 //    @GetMapping("/landing")
 //    @ResponseBody
 //    public String hello() {
