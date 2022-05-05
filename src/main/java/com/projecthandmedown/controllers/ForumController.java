@@ -50,6 +50,7 @@ public class ForumController {
 //    @ResponseBody
     public String postID(@PathVariable long id, Model model) {
         model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
+        model.addAttribute("reply", new ForumReply());
         ForumReply replies = forumReplyDao.getById(id);
         model.addAttribute("replies", forumReplyDao.findAll());
         return "forums/forumPostView";
@@ -92,7 +93,15 @@ public class ForumController {
     public String delete(@PathVariable long id, Model model) {
         ForumPost post = forumPostDao.getById(id);
         forumPostDao.delete(post);
-        return "redirect:/";
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/create/reply/{id}")
+    public String addReply(@PathVariable Long id, @ModelAttribute ForumReply reply) {
+        reply.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        reply.setForumPost(forumPostDao.getById(id));
+        forumReplyDao.save(reply);
+        return "redirect:/forum_post/{id}";
     }
 //
 //    @PostMapping("/edit/post")
