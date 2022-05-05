@@ -87,6 +87,13 @@ public class ListingController {
         listingDao.save(listing);
         return "redirect:/listings";
     }
+
+    @GetMapping ("listing/delete/{id}")
+    public String deleteListing(@PathVariable Long id,Model model){
+        Listing listing = listingDao.getById(id);
+        listingDao.delete(listing);
+        return "redirect:/listings";
+    }
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
 //        activity.setUser(user); // <-- this will be setting     user for post.

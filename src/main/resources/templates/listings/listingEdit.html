@@ -11,19 +11,19 @@
 
 <form th:action="@{/listing/edit}" th:object="${listing}" method="post" >
 
-    <label for="title">title:
+    <label for="title">Listing Title:
         <input th:field="*{title}" id="title" type="text">
     </label><br>
 
-    <label for="body">New Activity
+    <label for="body">Listing Body
         <input th:field="*{body}" id="body" type="text">
     </label><br>
 
-    <label for="imageUrl">picture
+    <label for="imageUrl">Picture
         <input th:field="*{imageUrl}" id="imageUrl" type="text">
     </label><br>
 
-    <label for="webUrl">Activity info URL here
+    <label for="webUrl">Price
         <input th:field="*{price}" id="webUrl" type="text">
     </label><br>
     <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
@@ -31,7 +31,7 @@
 
 
 
-    <button type="submit">Save my post!</button>
+    <button type="submit">Save my Listing!</button>
 </form>
 
 
