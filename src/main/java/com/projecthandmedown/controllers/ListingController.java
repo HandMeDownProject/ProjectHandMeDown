@@ -21,9 +21,6 @@ public class ListingController {
     private final UserRepository userDAO;
     private final EmailService emailService;
 
-    @Value ("${filestack.api.key}")
-    private String filestackKey;
-
 
     public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService) {
         this.listingDao = listingDao;
@@ -40,7 +37,6 @@ public class ListingController {
 //    @ResponseBody
     public String listings(Model model) {
         model.addAttribute("listings", listingDao.findAll());
-        model.addAttribute(filestackKey);
         return "listings/listingsView";
     }
 
@@ -53,9 +49,13 @@ public class ListingController {
         return "listings/listing";
     }
 
+    @Value ("${filestack.api.key}")
+    private String filestackKey;
+
     @GetMapping("/create/listing")
     public String createListingView(Model model){
         model.addAttribute("listing", new Listing());
+        model.addAttribute("filestackKey", filestackKey);
 //        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //        if(listing.getTitle().equals("") || listing.getBody().equals("")){
 //            return "listings/listingsView";
