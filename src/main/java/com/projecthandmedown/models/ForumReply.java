@@ -23,6 +23,10 @@ public class ForumReply implements Serializable {
     public ForumReply() {
     }
 
+    public ForumReply(String body) {
+        this.body = body;
+    }
+
     public ForumReply(long id, String body, User user, ForumPost forumPost) {
         this.id = id;
         this.body = body;

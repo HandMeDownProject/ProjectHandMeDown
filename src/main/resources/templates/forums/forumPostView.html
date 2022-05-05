@@ -9,6 +9,13 @@
         <p th:text="${posts.getBody()}"></p>
         <h5><span th:text="${posts.getUser().getUsername()}">username</span></h5>
     </div>
+    <div  th:each="reply : ${replies}">
+        <p th:text="${reply.body}"></p>
+    </div>
+    <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
+        <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>
+        <button type="submit">Submit Reply</button>
+    </form>
     <button><a th:href="@{/report}">report post</a></button>
 </div>
 
