@@ -18,23 +18,17 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 function upload() {
-    let apiKey = "AaMdvKkEKR6S97yjW0hiEz";
+    var apiKey = "[[${filestackKey}]]";
     const client = filestack.init(apiKey);
     const options = {
         onUploadDone: file => {
             let imgURL = file.filesUploaded[0].url;
             console.log(imgURL);
             document.getElementById("ListingImage").value = imgURL;
-
         }
-
     };
-
     client.picker(options).open();
-
-}
-
-    /*]]>*/
+}/*]]>*/
 </script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>

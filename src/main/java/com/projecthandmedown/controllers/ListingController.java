@@ -5,6 +5,7 @@ import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class ListingController {
     private final ListingRepository listingDao;
     private final UserRepository userDAO;
     private final EmailService emailService;
+
+    @Value ("${filestack.api.key}")
+    private String filestackKey;
 
 
     public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService) {
@@ -36,6 +40,7 @@ public class ListingController {
 //    @ResponseBody
     public String listings(Model model) {
         model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute(filestackKey);
         return "listings/listingsView";
     }
 
