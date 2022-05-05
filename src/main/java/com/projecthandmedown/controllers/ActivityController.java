@@ -86,17 +86,18 @@ public class ActivityController {
 
 
         activityDao.save(activity);
-
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        activity.setUser(user); // <-- this will be setting     user for post.
-//
-//        if(activity.getUser().equals(user) ) {
-//            return "redirect:/activities";
-//        }
-//
         return "redirect:/activities";
     }
+
+    @GetMapping ("activities/{id}/delete")
+    public String deleteActivity(@PathVariable Long id,Model model){
+        Activity activity = activityDao.getById(id);
+        activityDao.delete(activity);
+        return "redirect:/activities";
+    }
+
+
+
 
 
 

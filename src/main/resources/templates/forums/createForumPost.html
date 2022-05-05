@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="/partials/head.html :: head">
+<body>
+<h1>Creating posts here!</h1>
+
+<form th:action="@{/create/post}" th:method="post" th:object="${post}">
+    <input th:field="*{title}" type="text" name="postTitle" id="postTitle" class="" placeholder="Title"/><br>
+    <input th:field="*{body}" type="text" name="postBody" id="PostBody" class="" placeholder="Body"/>
+    <button type="submit">Post</button>
+</form>
+
+</body>
+</html>

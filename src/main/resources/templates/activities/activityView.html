@@ -16,5 +16,7 @@
 <p th:text="${activity.webUrl}"></p>
 <p th:text="${activity.user.getUsername()}"></p>
 
+<a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a><br><br>
+<a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a>
 </body>
 </html>

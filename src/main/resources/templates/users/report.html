@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Page</title>
+</head>
+<body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
+<form th:action="@{/report}" th:object="${message}" method="post" >
+    <h1>Sending report to an Admin</span></h1>
+    <label for="title">title:
+        <input th:field="*{subject}" id="title" type="text">
+    </label>
+    <br>
+    <textarea rows="12" cols="100" name="report" th:field="*{body}"></textarea>
+    <button type="submit">Send Report</button>
+</form>
+</body>
+</html>
