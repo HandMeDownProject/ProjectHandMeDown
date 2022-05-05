@@ -13,7 +13,27 @@
 <!--    <input th:field="*{image_url}" type="text" name="ListingImg" id="ListingImg" class="" placeholder="img file here"/>-->
     <button type="submit">Create Listing</button>
 </form>
+<button type="button" onclick="upload()">upload image</button>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+function upload() {
+    let apiKey = "AaMdvKkEKR6S97yjW0hiEz";
+    const client = filestack.init(apiKey);
+    const options = {
+        onUploadDone: file => {
+            let imgURL = file.filesUploaded[0].url;
+            console.log(imgURL);
+        }
 
+    };
+
+    client.picker(options).open();
+
+}
+
+    /*]]>*/
+</script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>
 

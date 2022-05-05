@@ -20,6 +20,7 @@ public class ListingController {
     private final UserRepository userDAO;
     private final EmailService emailService;
 
+
     public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService) {
         this.listingDao = listingDao;
         this.emailService = emailService;
