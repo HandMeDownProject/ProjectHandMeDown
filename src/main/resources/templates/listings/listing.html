@@ -12,6 +12,8 @@
 <img th:src="${listing.imageUrl}" th:alt="${listing.title}" alt=" ">
 <p th:text="${listing.price}"></p>
 <p th:text="${listing.user.getUsername()}"></p>
+<button><a th:href="@{/report}">report post</a></button>
+<button><a th:href="@{/messaging/{id}(id = ${listing.user.getId()})}">Send Message</a></button>
 
 </body>
 </html>

@@ -20,6 +20,7 @@
 
 <a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a><br><br>
 <a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a>
+<button><a th:href="@{/report}">report post</a></button>
 
 <div th:insert="partials/footer.html :: footer"></div>
 

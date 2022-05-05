@@ -19,10 +19,9 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 function upload() {
-    console.log([[${filestackKey}]]);
     const apiKey = [[${filestackKey}]];
-    console.log(apiKey);
-    const client = filestack.init(apiKey);
+    let apiKey1 = [[${fileStackKey}]];
+    const client = filestack.init(apiKey1);
     const options = {
         onUploadDone: file => {
             let imgURL = file.filesUploaded[0].url;
