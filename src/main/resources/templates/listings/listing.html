@@ -8,8 +8,8 @@
 <h4>individual Activity</h4>
 <h1 th:text="${listing.title}"></h1>
 <p th:text="${listing.body}"></p>
-<!--<img th:src="${listing.imageUrl}" th:alt="${listing.title}" alt=" ">-->
-<!--<p th:text="${listing.webUrl}"></p>-->
+<img th:src="${listing.imageUrl}" th:alt="${listing.title}" alt=" ">
+<p th:text="${listing.price}"></p>
 <p th:text="${listing.user.getUsername()}"></p>
 
 </body>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit activity form</title>
+</head>
+<body>
+
+<form th:action="@{/listing/edit}" th:object="${listing}" method="post" >
+
+    <label for="title">title:
+        <input th:field="*{title}" id="title" type="text">
+    </label><br>
+
+    <label for="body">New Activity
+        <input th:field="*{body}" id="body" type="text">
+    </label><br>
+
+    <label for="imageUrl">picture
+        <input th:field="*{imageUrl}" id="imageUrl" type="text">
+    </label><br>
+
+    <label for="webUrl">Activity info URL here
+        <input th:field="*{price}" id="webUrl" type="text">
+    </label><br>
+    <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
+    <input th:field="*{id}" th:value="${listing.getId()}" hidden>
+
+
+
+    <button type="submit">Save my post!</button>
+</form>
+
+
+</body>
+</html>

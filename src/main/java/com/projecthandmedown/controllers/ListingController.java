@@ -70,6 +70,31 @@ public class ListingController {
         return "redirect:/listings";
     }
 
+    @GetMapping("/listing/edit/{id}")
+    public String editListing(@PathVariable Long id, Model model){
+        Listing listing = listingDao.getById(id);
+
+        model.addAttribute("listing",listing);
+        return "listings/listingEdit";
+
+    }
+
+    @PostMapping("listing/edit")
+    public String editAndSubmitListing(@ModelAttribute Listing listing) {
+
+
+        listingDao.save(listing);
+        return "redirect:/listings";
+    }
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        activity.setUser(user); // <-- this will be setting     user for post.
+//
+//        if(activity.getUser().equals(user) ) {
+//            return "redirect:/activities";
+//        }
+//
+
 //
 //    @GetMapping("/posts/{id}")
 ////    @ResponseBody
