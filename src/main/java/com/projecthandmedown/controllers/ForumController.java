@@ -1,8 +1,10 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.ForumPost;
+import com.projecthandmedown.models.ForumReply;
 import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ForumPostRepository;
+import com.projecthandmedown.repositories.ForumReplyRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,20 +12,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
 @Controller
 public class ForumController {
 
     private final ForumPostRepository forumPostDao;
+    private final ForumReplyRepository forumReplyDao;
     private final UserRepository userDAO;
     private final EmailService emailService;
 
-    public ForumController(ForumPostRepository forumPostDao, UserRepository userDAO, EmailService emailService) {
+    public ForumController(ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, UserRepository userDAO, EmailService emailService) {
         this.forumPostDao = forumPostDao;
+        this.forumReplyDao = forumReplyDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
     }
+
+//    public ForumController(ForumPostRepository forumPostDao, UserRepository userDAO, ForumReplyRepository forumReplyDao, EmailService emailService) {
+//        this.forumPostDao = forumPostDao;
+//        this.forumReplyDao = forumReplyDao;
+//        this.emailService = emailService;
+//        this.userDAO = userDAO;
+//    }
 
 //    public PostController(PostRepository postDao, UserRepository userDAO) {
 //        this.postDao = postDao;
@@ -41,6 +50,8 @@ public class ForumController {
 //    @ResponseBody
     public String postID(@PathVariable long id, Model model) {
         model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
+        ForumReply replies = forumReplyDao.getById(id);
+        model.addAttribute("replies", forumReplyDao.findAll());
         return "forums/forumPostView";
     }
 
@@ -83,6 +94,12 @@ public class ForumController {
         forumPostDao.delete(post);
         return "redirect:/";
     }
+//
+//    @PostMapping("/edit/post")
+//    public String edit(@ModelAttribute ForumReply reply) {
+//        forumReplyDao.save(reply);
+//        return "/forum/forumPostView";
+//    }
 
 //    @GetMapping("/create/post")
 ////    @ResponseBody
