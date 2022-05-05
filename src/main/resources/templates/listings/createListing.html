@@ -5,6 +5,7 @@
 
 </head>
 <body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
 <form th:action="@{/create/listing}" th:method="post" th:object="${listing}">
     <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
 
