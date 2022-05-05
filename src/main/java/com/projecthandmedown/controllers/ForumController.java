@@ -77,7 +77,7 @@ public class ForumController {
         return "redirect:/forum";
     }
 
-    @GetMapping("posts/{id}/delete")
+    @GetMapping("post/{id}/delete")
     public String delete(@PathVariable long id, Model model) {
         ForumPost post = forumPostDao.getById(id);
         forumPostDao.delete(post);
