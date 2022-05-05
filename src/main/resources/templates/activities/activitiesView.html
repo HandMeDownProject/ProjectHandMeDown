@@ -6,20 +6,67 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Activities view</title>
+<!--    bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
-<h2><a href="/activities/create">add post ?!</a></h2>
-<br><br>
 
-<div th:each="activity : ${activities}">
-    <h2 th:text="${activity.title}" ></h2>
-    <p th:text="${activity.body}"></p>
-    <img th:src="${activity.imageUrl}" th:alt="${activity.title}">
-    <p th:text="${activity.webUrl}"></p>
-    <p th:text="${activity.user.getUsername()}"></p>
-    <a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a><br>
-    <a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">Edit</a><br>
+<!--alert msg-->
 
+
+<div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
+    <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
+
+<div class="alert alert-primary alert-dismissable" th:text="${createMsg}" th:if="${createMsg}" >
+    <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">image Url</th>
+        <th scope="col">web Url</th>
+        <th scope="col">UserName</th>
+        <th scope="col">view</th>
+        <th scope="col">Edit</th>
+
+    </tr>
+    </thead>
+    <tbody  th:each="activity : ${activities}">
+    <tr>
+<!--        <th>{{id}}</th>-->
+        <td th:text="${activity.title}"></td>
+        <td th:text="${activity.body}"></td>
+        <td th:text="${activity.imageUrl}"></td>
+        <td th:text="${activity.webUrl}"></td>
+        <td th:text="${activity.user.getUsername()}"></td>
+        <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>
+        <td><a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">Edit</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<!----------------------------------------->
+
+<a href="/activities/create" class="btn btn-success">add post ?!</a>
+<!--<br><br>-->
+
+<!--<div th:each="activity : ${activities}">-->
+<!--    <h2 th:text="${activity.title}" ></h2>-->
+<!--    <p th:text="${activity.body}"></p>-->
+<!--    <img th:src="${activity.imageUrl}" th:alt="${activity.title}">-->
+<!--    <p th:text="${activity.webUrl}"></p>-->
+<!--    <p th:text="${activity.user.getUsername()}"></p>-->
+<!--    <a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a><br>-->
+<!--    <a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">Edit</a><br>-->
+<!--</div>-->
+
+
+
+<!--footer-->
+<div th:insert="partials/footer.html :: footer"></div>
 </body>
 </html>
