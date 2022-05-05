@@ -4,6 +4,7 @@ import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,9 +45,13 @@ public class ActivityController {
     }
 
 
+    @Value("${filestack.api.key}")
+    private String filestackKey;
+
     @GetMapping("/activities/create")
     public String createActivity(Model model){
         model.addAttribute("activity", new Activity());
+        model.addAttribute("filestackKey", filestackKey);
         //model.addAttribute("user", new User());
 
         return "activities/activityCreate";
