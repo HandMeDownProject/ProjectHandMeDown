@@ -10,6 +10,7 @@
 
     <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>
     <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"/>
+    <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
 <!--    <input th:field="*{image_url}" type="text" name="ListingImg" id="ListingImg" class="" placeholder="img file here"/>-->
     <button type="submit">Create Listing</button>
 </form>
@@ -23,6 +24,8 @@ function upload() {
         onUploadDone: file => {
             let imgURL = file.filesUploaded[0].url;
             console.log(imgURL);
+            document.getElementById("ListingImage").value = imgURL;
+
         }
 
     };
