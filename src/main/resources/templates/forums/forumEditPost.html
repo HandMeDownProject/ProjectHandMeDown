@@ -21,6 +21,7 @@
     <textarea th:field="*{body}"></textarea><br>
     <input type="submit">
   </form>
+  <span><a th:href="@{/post/{id}/delete(id=${post.id},action='show_all')}"><sup>Delete Post</sup></a></span>&nbsp;
 </div>
 
 

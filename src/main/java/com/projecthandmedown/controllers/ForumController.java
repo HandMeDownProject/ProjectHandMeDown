@@ -77,6 +77,13 @@ public class ForumController {
         return "redirect:/forum";
     }
 
+    @GetMapping("post/{id}/delete")
+    public String delete(@PathVariable long id, Model model) {
+        ForumPost post = forumPostDao.getById(id);
+        forumPostDao.delete(post);
+        return "redirect:/";
+    }
+
 //    @GetMapping("/create/post")
 ////    @ResponseBody
 //    public String create(Model model) {
@@ -114,12 +121,7 @@ public class ForumController {
 //        model.addAttribute("users", userDAO.findAll());
 //        return "users";
 //    }
-//    @GetMapping("posts/{id}/delete")
-//    public String delete(@PathVariable long id, Model model) {
-//        Post post = postDao.getById(id);
-//        postDao.delete(post);
-//        return "redirect:/";
-//    }
+
 //
 //    @GetMapping("/error")
 //    public String error(){
