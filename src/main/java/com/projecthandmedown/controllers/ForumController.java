@@ -63,6 +63,20 @@ public class ForumController {
         return "redirect:/forum";
     }
 
+    @GetMapping("edit/{id}/post")
+//    @ResponseBody
+    public String edit(@PathVariable long id, Model model) {
+        model.addAttribute("post", forumPostDao.getById(id));
+//        model.addAttribute("user", new User());
+        return "forums/forumEditPost";
+    }
+
+    @PostMapping("/edit/post")
+    public String edit(@ModelAttribute ForumPost post) {
+        forumPostDao.save(post);
+        return "redirect:/forum";
+    }
+
 //    @GetMapping("/create/post")
 ////    @ResponseBody
 //    public String create(Model model) {
@@ -100,21 +114,6 @@ public class ForumController {
 //        model.addAttribute("users", userDAO.findAll());
 //        return "users";
 //    }
-//
-//    @GetMapping("posts/{id}/edit")
-////    @ResponseBody
-//    public String edit(@PathVariable long id, Model model) {
-//        model.addAttribute("post", postDao.getById(id));
-////        model.addAttribute("user", new User());
-//        return "edit";
-//    }
-//
-//    @PostMapping("/edit")
-//    public String edit(@ModelAttribute Post post) {
-//        postDao.save(post);
-//        return "redirect:/";
-//    }
-//
 //    @GetMapping("posts/{id}/delete")
 //    public String delete(@PathVariable long id, Model model) {
 //        Post post = postDao.getById(id);
