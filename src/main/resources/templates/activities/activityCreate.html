@@ -29,8 +29,29 @@
 
     <button type="submit">Save my post!</button>
 </form>
+<br>
+<button type="button" onclick="upload()">upload image</button>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function upload() {
+        console.log([[${filestackKey}]]);
+        const apiKey = [[${filestackKey}]];
+        console.log(apiKey);
+        const client = filestack.init(apiKey);
+        const options = {
+            onUploadDone: file => {
+                let imgURL = file.filesUploaded[0].url;
+                console.log(imgURL);
+                document.getElementById("imageUrl").value = imgURL;
+            }
+        };
+        client.picker(options).open();
+    }
+    /*]]>*/
+</script>
 
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>
 
