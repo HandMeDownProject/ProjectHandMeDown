@@ -5,6 +5,7 @@ import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +49,13 @@ public class ListingController {
         return "listings/listing";
     }
 
+    @Value ("${filestack.api.key}")
+    private String filestackKey;
+
     @GetMapping("/create/listing")
     public String createListingView(Model model){
         model.addAttribute("listing", new Listing());
+        model.addAttribute("filestackKey", filestackKey);
 //        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //        if(listing.getTitle().equals("") || listing.getBody().equals("")){
 //            return "listings/listingsView";
