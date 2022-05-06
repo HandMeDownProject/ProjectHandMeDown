@@ -16,7 +16,7 @@
         <p th:text="${reply.body}"></p>
         <h4 th:text="${reply.forumPost.getId()}" ></h4>
         <p th:text="${reply.user.getUsername()}"></p>
-        <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/{id}/post(id=${reply.id})}"><sup>edit</sup></a></span>&nbsp;
+        <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;
     </div>
 <!--    reply form-->
     <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
