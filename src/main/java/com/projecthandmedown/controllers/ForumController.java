@@ -45,8 +45,6 @@ public class ForumController {
     @GetMapping("/forum")
 //    @ResponseBody
     public String posts(Model model) {
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", loggedInUser);
         model.addAttribute("posts", forumPostDao.findAll());
         return "forums/forum";
     }
@@ -54,6 +52,8 @@ public class ForumController {
     @GetMapping("/forum_post/{id}")
 //    @ResponseBody
     public String postID(@PathVariable long id, Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
         model.addAttribute("reply", new ForumReply());
         List<ForumReply> replies = forumReplyDao.getByForumPostId(id);
