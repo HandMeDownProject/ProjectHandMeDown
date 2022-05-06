@@ -7,6 +7,7 @@ import java.util.List;
 public interface ForumReplyRepository extends JpaRepository<ForumReply, Long> {
 
     ForumReply getById(long id);
-    List<ForumReply> getByUser(User user);
+//    List<ForumReply> getByUser(User user);
+    List<ForumReply> getByForumPostId(long id);
 
 }

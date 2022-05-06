@@ -20,11 +20,16 @@ public class ForumReply implements Serializable {
     @JoinColumn(name = "forum_post_id")
     private ForumPost forumPost;
 
-    public ForumReply() {
-    }
+    public ForumReply() {}
 
     public ForumReply(String body) {
         this.body = body;
+    }
+
+    public ForumReply(String body, User user, ForumPost forumPost) {
+        this.body = body;
+        this.user = user;
+        this.forumPost = forumPost;
     }
 
     public ForumReply(long id, String body, User user, ForumPost forumPost) {

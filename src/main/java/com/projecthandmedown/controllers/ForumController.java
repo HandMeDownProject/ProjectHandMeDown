@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ForumController {
 
@@ -51,8 +54,8 @@ public class ForumController {
     public String postID(@PathVariable long id, Model model) {
         model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
         model.addAttribute("reply", new ForumReply());
-        ForumReply replies = forumReplyDao.getById(id);
-        model.addAttribute("replies", forumReplyDao.findAll());
+        List<ForumReply> replies = forumReplyDao.getByForumPostId(id);
+        model.addAttribute("replies", replies);
         return "forums/forumPostView";
     }
 
@@ -98,9 +101,26 @@ public class ForumController {
 
     @PostMapping("/create/reply/{id}")
     public String addReply(@PathVariable Long id, @ModelAttribute ForumReply reply) {
-        reply.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        reply.setForumPost(forumPostDao.getById(id));
-        forumReplyDao.save(reply);
+        ForumReply comment = new ForumReply();
+
+        comment.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        comment.setForumPost(forumPostDao.getById(id));
+        comment.setBody(reply.getBody());
+        forumReplyDao.save(comment);
+        // above: replyDao attempt, below: forumPostDAo attempt
+//        System.out.println("reply.getId() = " + reply.getId());
+//        ForumPost currentPost = forumPostDao.getById(id);
+//
+//        List<ForumReply> replyList = new ArrayList<>();
+//        reply.setForumPost(currentPost);
+//        replyList.add(reply);
+//        System.out.println("reply.getId() = " + reply.getId());
+//        forumReplyDao.save(reply);
+//
+//        currentPost.setForumReplies(replyList);
+
+//        forumPostDao.save(comment);
+
         return "redirect:/forum_post/{id}";
     }
 //

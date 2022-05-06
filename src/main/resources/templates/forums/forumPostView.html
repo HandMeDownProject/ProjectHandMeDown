@@ -11,7 +11,16 @@
     </div>
     <div  th:each="reply : ${replies}">
         <p th:text="${reply.body}"></p>
+        <h4 th:text="${reply.forumPost.getId()}" ></h4>
+        <p th:text="${reply.user.getUsername()}"></p>
     </div>
+<!--    <div th:each="reply : ${replies}">-->
+<!--        <div th:if="${posts.id == reply.forumPost.getId()}">-->
+<!--            <h4 th:text="${reply.body}" ></h4>-->
+<!--            <h4 th:text="${reply.forumPost.getId()}" ></h4>-->
+<!--            <p th:text="${reply.user.getUsername()}"></p>-->
+<!--        </div>-->
+<!--    </div>-->
     <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
         <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>
         <button type="submit">Submit Reply</button>
