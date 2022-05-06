@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Comment Form</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1>Edit Comment</h1>
+
+    <form th:action="@{/edit/reply}" th:method="post" th:object="${reply}">
+        <input th:field="*{id}" hidden>
+        <input th:field="*{user}" hidden>
+        <input th:field="*{forumPost}" hidden>
+        <label >editing comment</label><br>
+        <textarea th:field="*{body}"></textarea><br>
+        <input type="submit">
+    </form>
+<!--    <span><a th:href="@{/reply/{id}/delete(id=${post.id},action='show_all')}"><sup>Delete Comment</sup></a></span>&nbsp;-->
+</div>
+
+
+</body>
+</html>
