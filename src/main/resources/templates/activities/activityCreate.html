@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -8,7 +9,7 @@
     <title>Create activity form</title>
 </head>
 <body>
-
+<nav th:include="/partials/navBar.html :: navBar"></nav>
 <form th:action="@{/activities/create}" th:object="${activity}" method="post" >
 
     <label for="title">title:
@@ -31,7 +32,7 @@
 </form>
 <br>
 <button type="button" onclick="upload()">upload image</button>
-
+<div th:insert="partials/footer.html :: footer"></div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     function upload() {
