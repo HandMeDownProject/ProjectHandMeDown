@@ -27,7 +27,8 @@
     <tr>
         <td th:text="${activity.title}"></td>
         <td th:text="${activity.body}"></td>
-        <td th:text="${activity.imageUrl}" th:alt="${activity.title}"></td>
+        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">
+        </td>
         <td th:text="${activity.webUrl}"></td>
         <td th:text="${activity.user.getUsername()}"></td>
     </tr>
