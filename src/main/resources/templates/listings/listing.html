@@ -18,6 +18,7 @@
 <form th:action="@{/listing/delete/{id}(id=${listing.getId()})}" method="get">
     <button type="submit">Delete Listing</button>
 </form>
+<button><a th:href="@{'/listings'}">Go back to listings</a></button>
 <button><a th:href="@{/report}">report post</a></button>
 <button><a th:href="@{/messaging/{listingId}/{userId}(userId = ${listing.user.getId()}, listingId = ${listing.getId()})}">Send Message</a></button>
 
