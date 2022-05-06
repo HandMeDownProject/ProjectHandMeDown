@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head th:include="/partials/head.html :: head">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>viewProfile</title>
+</head>
+<body>
+
+<!--<h1>Post made by <span th:text="${}"></span> .</h1>-->
+
+<h2>Showing Listings by:
+    <span th:text="${user.getUsername()}"></span>
+</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Body</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">User</th>
+        <th scope="col">View</th>
+    </tr>
+    </thead>
+    <tbody  th:each="listing : ${listings}">
+    <tr>
+        <td th:text="${listing.title}"></td>
+        <td th:text="${listing.body}"></td>
+        <td><img th:src="${listing.getImageUrl}" height="100px"></td>
+        <td th:text="${listing.price}"></td>
+        <td th:text="${listing.user.getUsername()}"></td>
+        <td><a th:href="@{'/listing/{id}'(id= ${listing.id})}">View</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+
+
+<div th:insert="partials/footer.html :: footer"></div>
+
+</body>
+</html>

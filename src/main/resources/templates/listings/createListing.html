@@ -21,7 +21,7 @@
 function upload() {
     const apiKey = [[${filestackKey}]];
     let apiKey1 = [[${fileStackKey}]];
-    const client = filestack.init(apiKey1);
+    const client = filestack.init(apiKey);
     const options = {
         onUploadDone: file => {
             let imgURL = file.filesUploaded[0].url;
