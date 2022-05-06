@@ -7,7 +7,7 @@
 <body>
   <nav th:include="/partials/navBar.html :: navBar"></nav>
   <h1>Sending User Message</h1>
-  <form th:action="@{/messaging/{id}(id=${messageReceiver.getId()})}" th:object="${message}" method="post">
+  <form th:action="@{/messaging/{listingId}/{userId}(userId=${messageReceiver.getId()}, listingId = ${listingId})}" th:object="${message}" method="post">
       <h1>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h1>
       <label for="title">title:
           <input th:field="*{subject}" id="title" type="text">
