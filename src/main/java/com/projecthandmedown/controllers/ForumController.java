@@ -104,26 +104,26 @@ public class ForumController {
     @PostMapping("/create/reply/{id}")
     public String addReply(@PathVariable Long id, @ModelAttribute ForumReply reply) {
         ForumReply comment = new ForumReply();
-
         comment.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         comment.setForumPost(forumPostDao.getById(id));
         comment.setBody(reply.getBody());
         forumReplyDao.save(comment);
-        // above: replyDao attempt, below: forumPostDAo attempt
-//        System.out.println("reply.getId() = " + reply.getId());
-//        ForumPost currentPost = forumPostDao.getById(id);
-//
-//        List<ForumReply> replyList = new ArrayList<>();
-//        reply.setForumPost(currentPost);
-//        replyList.add(reply);
-//        System.out.println("reply.getId() = " + reply.getId());
-//        forumReplyDao.save(reply);
-//
-//        currentPost.setForumReplies(replyList);
-
-//        forumPostDao.save(comment);
-
         return "redirect:/forum_post/{id}";
+    }
+
+    @GetMapping("edit/reply/{id}")
+//    @ResponseBody
+    public String editReply(@PathVariable long id, Model model) {
+        model.addAttribute("reply", forumReplyDao.getById(id));
+        return "forums/forumEditReplyView";
+    }
+
+    @PostMapping("edit/reply")
+//    @ResponseBody
+    public String addEditedReply(@ModelAttribute ForumReply reply) {
+        forumReplyDao.save(reply);
+        String redirect = "redirect:/forum_post/" + reply.getForumPost().getId();
+        return redirect;
     }
 //
 //    @PostMapping("/edit/post")
