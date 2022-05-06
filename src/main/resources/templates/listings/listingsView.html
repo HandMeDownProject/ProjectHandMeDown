@@ -11,7 +11,7 @@
 <div th:each="listing : ${listings}">
     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"></h4></a>
     <p th:text="${listing.body}"></p>
-    <img th:src="${listing.imageUrl}" th:alt="${listing.title}">
+    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>
     <p th:text="${listing.price}"></p>
 <!--    <p th:text="${listing.user.getUsername()}"></p>-->
     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}" th:text="${listing.getUser().getUsername()}"></a>
