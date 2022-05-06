@@ -106,6 +106,28 @@ public class ActivityController {
         return "redirect:/activities";
     }
 
+    @GetMapping("activities/user/{user_id}")
+    public String seeAllUserPosts(@PathVariable Long user_id,Model model){
+        User targetUser = userDAO.getUserById(user_id);
+        List<Activity> activities = activityDao.getByUser(targetUser);
+        model.addAttribute("activities",activities);
+
+        return"activities/activityUserPosts";
+    }
+
+//
+//    @GetMapping("/users/{id}")
+////    @ResponseBody
+//    public String userID(@PathVariable long id, Model model) {
+//        User currentUser = userDAO.getUserById(id);
+//        List<Post> posts = postDao.getByUser(currentUser);
+//        model.addAttribute("user", currentUser);
+//        model.addAttribute("posts", posts);
+////        System.out.println("currentUser = " + currentUser.getUsername() + " " + currentUser.getEmail());
+////        System.out.println("posts = " + posts);
+//        return "show_user";
+//    }
+//
 
 
 
