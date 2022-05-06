@@ -50,24 +50,26 @@ public class UserController {
         return "users/profile";
     }
 
-    @GetMapping("/messaging/{id}")
-    public String sendUserMessage(Model model, @PathVariable long id){
-        User userToSend = userDao.getUserById(id);
+    @GetMapping("/messaging/{listingId}/{userId}")
+    public String sendUserMessage(Model model, @PathVariable long listingId, @PathVariable long userId){
+        User userToSend = userDao.getUserById(userId);
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
         model.addAttribute("messageReceiver", userToSend);
         model.addAttribute("message", new Message());
+        model.addAttribute("listingId", listingId);
         return "users/messaging";
     }
 
-    @PostMapping ("/messaging/{id}")
-    public String sendMessage(@ModelAttribute Message message, @PathVariable long id) {
+    @PostMapping ("/messaging/{listingId}/{userId}")
+    public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser.getEmail());
-        User receiver = userDao.getById(id);
+        User receiver = userDao.getById(userId);
         message.setReceiver(receiver.getEmail());
         emailService.prepareAndSend(message, "New Message", message.getBody());
-        return "redirect:/";
+        String redirect = "redirect:/listing/" + listingId;
+        return redirect;
     }
 
     @GetMapping("/report")
