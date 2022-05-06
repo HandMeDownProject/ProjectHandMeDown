@@ -45,6 +45,8 @@ public class ForumController {
     @GetMapping("/forum")
 //    @ResponseBody
     public String posts(Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         model.addAttribute("posts", forumPostDao.findAll());
         return "forums/forum";
     }
