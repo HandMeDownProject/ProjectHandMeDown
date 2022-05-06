@@ -6,12 +6,18 @@
 </head>
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
-<h4>individual Activity</h4>
+<h4>individual listing</h4>
 <h1 th:text="${listing.title}"></h1>
 <p th:text="${listing.body}"></p>
 <img th:src="${listing.imageUrl}" th:alt="${listing.title}" alt=" ">
 <p th:text="${listing.price}"></p>
 <p th:text="${listing.user.getUsername()}"></p>
+<form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
+    <button type="submit">Edit Listing</button>
+</form>
+<form th:action="@{/listing/delete/{id}(id=${listing.getId()})}" method="get">
+    <button type="submit">Delete Listing</button>
+</form>
 <button><a th:href="@{/report}">report post</a></button>
 <button><a th:href="@{/messaging/{id}(id = ${listing.user.getId()})}">Send Message</a></button>
 
