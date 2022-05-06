@@ -16,12 +16,7 @@
     <p th:text="${listing.user.getUsername()}"></p>
 
 
-    <form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
-        <button type="submit">Edit Listing</button>
-    </form>
-    <form th:action="@{/listing/delete/{id}(id=${listing.getId()})}" method="get">
-        <button type="submit">Delete Listing</button>
-    </form>
+
 </div>
 <form action="/create/listing" method="get" >
     <button type="submit">Create Listing</button>
