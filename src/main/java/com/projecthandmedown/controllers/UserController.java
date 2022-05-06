@@ -3,6 +3,7 @@ import com.projecthandmedown.models.Message;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import com.projecthandmedown.services.SendGridEmailService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,16 +13,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 public class UserController {
     private UserRepository userDao;
     private PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final SendGridEmailService sendGridEmailService;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.sendGridEmailService = sendGridEmailService;
     }
 
     @GetMapping("/sign-up")
@@ -62,12 +67,13 @@ public class UserController {
     }
 
     @PostMapping ("/messaging/{listingId}/{userId}")
-    public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId) {
+    public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser.getEmail());
         User receiver = userDao.getById(userId);
         message.setReceiver(receiver.getEmail());
         emailService.prepareAndSend(message, "New Message", message.getBody());
+        sendGridEmailService.sendTextEmail();
         String redirect = "redirect:/listing/" + listingId;
         return redirect;
     }
