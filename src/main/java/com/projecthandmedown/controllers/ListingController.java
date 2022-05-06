@@ -99,6 +99,16 @@ public class ListingController {
         listingDao.delete(listing);
         return "redirect:/listings";
     }
+
+    @GetMapping("listings/user/{user_id}")
+    public String seeAllUserListings(@PathVariable Long user_id,Model model){
+        User targetUser = userDAO.getUserById(user_id);
+        List<Listing> listings = listingDao.getByUser(targetUser);
+        model.addAttribute("listings",listings);
+        model.addAttribute("user", targetUser );
+
+        return"listings/listingUserPosts";
+    }
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
 //        activity.setUser(user); // <-- this will be setting     user for post.

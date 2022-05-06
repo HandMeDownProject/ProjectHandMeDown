@@ -11,7 +11,8 @@
 <p th:text="${listing.body}"></p>
 <img th:src="${listing.imageUrl}" th:alt="${listing.title}" alt=" ">
 <p th:text="${listing.price}"></p>
-<p th:text="${listing.user.getUsername()}"></p>
+<!--<p th:text="${listing.user.getUsername()}"></p>-->
+<a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}" th:text="${listing.getUser().getUsername()}"></a>
 <form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
     <button type="submit">Edit Listing</button>
 </form>
