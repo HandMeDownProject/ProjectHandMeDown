@@ -9,7 +9,7 @@
     <p th:text="${post.body}"></p>
     <p th:text="${post.user.getUsername()}"></p>
     <span><a th:href="@{/forum_post/{id}(id=${post.id})}"><sup>view</sup></a></span>&nbsp;
-    <span><a th:href="@{/edit/{id}/post(id=${post.id})}"><sup>edit</sup></a></span>&nbsp;
+    <span th:if="${post.user.getId() == user.getId()}"><a th:href="@{/edit/{id}/post(id=${post.id})}"><sup>edit</sup></a></span>&nbsp;
 </div>
 <div class="page-transfer-button">
     <form action="/create/post" method="get">
