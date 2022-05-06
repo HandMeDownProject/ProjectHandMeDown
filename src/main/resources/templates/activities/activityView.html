@@ -11,18 +11,40 @@
 
 </head>
 <body>
-<h4>individual Activity</h4>
 <h1 th:text="${activity.title}"></h1>
-<p th:text="${activity.body}"></p>
-<img th:src="${activity.imageUrl}" th:alt="${activity.title}">
-<p th:text="${activity.webUrl}"></p>
-<p th:text="${activity.user.getUsername()}"></p>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">image Url</th>
+        <th scope="col">web Url</th>
+        <th scope="col">UserName</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${activity.title}"></td>
+        <td th:text="${activity.body}"></td>
+        <td th:text="${activity.imageUrl}" th:alt="${activity.title}"></td>
+        <td th:text="${activity.webUrl}"></td>
+        <td th:text="${activity.user.getUsername()}"></td>
+    </tr>
+    </tbody>
+</table>
 
-<a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a><br><br>
-<a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a>
+
+<!---->
+
+
+
+<button><a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a></button>
+<button><a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a></button>
+<button><a th:href="@{'/activities'}">Go back to activities</a></button>
 <button><a th:href="@{/report}">report post</a></button>
 
 <div th:insert="partials/footer.html :: footer"></div>
+
 
 
 </body>
