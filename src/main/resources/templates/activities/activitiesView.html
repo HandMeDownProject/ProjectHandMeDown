@@ -21,7 +21,7 @@
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
 
-<!--Listing tables-->
+
 <table class="table">
     <thead>
     <tr>
@@ -31,20 +31,17 @@
         <th scope="col">web Url</th>
         <th scope="col">UserName</th>
         <th scope="col">view</th>
-
-
     </tr>
     </thead>
     <tbody  th:each="activity : ${activities}">
     <tr>
-<!--        <th>{{id}}</th>-->
         <td th:text="${activity.title}"></td>
         <td th:text="${activity.body}"></td>
         <td th:text="${activity.imageUrl}"></td>
         <td th:text="${activity.webUrl}"></td>
         <td th:text="${activity.user.getUsername()}"></td>
         <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>
-        <
+
     </tr>
     </tbody>
 </table>
