@@ -1,8 +1,5 @@
 package com.projecthandmedown.controllers;
-import com.projecthandmedown.models.ForumPost;
-import com.projecthandmedown.models.ForumReply;
-import com.projecthandmedown.models.Listing;
-import com.projecthandmedown.models.User;
+import com.projecthandmedown.models.*;
 import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.ForumReplyRepository;
 import com.projecthandmedown.repositories.UserRepository;
@@ -46,6 +43,7 @@ public class ForumController {
 //    @ResponseBody
     public String posts(Model model) {
         model.addAttribute("posts", forumPostDao.findAll());
+//        model.addAttribute("categories", categoriesDao.findAll());
         return "forums/forum";
     }
 
@@ -60,6 +58,13 @@ public class ForumController {
         model.addAttribute("replies", replies);
         return "forums/forumPostView";
     }
+
+//    @GetMapping("/filter")
+//    public String filterCategory(long id, Model model) {
+//        model.addAttribute("category", new ForumPostCategory());
+//        List<Listing> listings = listingDao.getByUser(targetUser);
+//
+//    }
 
     @GetMapping("/create/post")
     public String createPostingView(Model model){
@@ -125,6 +130,16 @@ public class ForumController {
         String redirect = "redirect:/forum_post/" + reply.getForumPost().getId();
         return redirect;
     }
+
+    @GetMapping("reply/{id}/delete")
+    public String deleteComment(@PathVariable long id, Model model) {
+        ForumReply reply = forumReplyDao.getById(id);
+        forumReplyDao.delete(reply);
+        return "redirect:/forum";
+    }
+
+    // right now I am trying to enable deleting a comment and redirecting to the post source after deletion.
+
 //
 //    @PostMapping("/edit/post")
 //    public String edit(@ModelAttribute ForumReply reply) {
