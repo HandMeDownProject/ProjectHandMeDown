@@ -1,4 +1,4 @@
-<nav class=" " th:fragment="navBar">
+<nav class=" " th:fragment="navBar" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
 
@@ -7,17 +7,30 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
            <li><a class="navbar-brand" href="/">ProjectHMD logo</a></li>
         </ul>
-        <ul class="d-flex align-items-center">
-            <li class="navbar-nav"><a class="nav-link" th:href="@{/sign-up}">Register</a></li>
-            <li class="navbar-nav"><a class="nav-link" th:href="@{/login}">Login</a></li>
-            <li class="navbar-nav"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
-            <li class="navbar-nav"><a class="nav-link" th:href="@{/about}">About Us</a></li>
-            <li class="navbar-nav">
-                <form th:action="@{/logout}" th:method="post">
-                <button class="nav-link text-dark" type="submit" >Logout</button>
-                </form>
-            </li>
-        </ul>
+            <div sec:authorize="isAnonymous()">
+                <ul class="d-flex align-items-center">
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/sign-up}">Register</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <li class="navbar-nav">
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="nav-link text-dark" type="submit" >Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <ul class="d-flex align-items-center">
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <li class="navbar-nav">
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="nav-link text-dark" type="submit" >Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
 
 <!--        <form class="">-->
 <!--            <input id="input" class="" type="search" placeholder="Search" aria-label="Search">-->
