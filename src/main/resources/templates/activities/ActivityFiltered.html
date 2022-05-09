@@ -7,7 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Activities view</title>
-<!--    bootstrap-->
+    <!--    bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
@@ -48,7 +48,7 @@
     <tr>
         <td th:text="${activity.title}"></td>
         <td th:text="${activity.body}"></td>
-<!--        <td><img th:src="@{${activity.imageUrl}}" height="100px" >-->
+        <!--        <td><img th:src="@{${activity.imageUrl}}" height="100px" >-->
         <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" height="100px">
         </td>
         <td th:text="${activity.webUrl}"></td>

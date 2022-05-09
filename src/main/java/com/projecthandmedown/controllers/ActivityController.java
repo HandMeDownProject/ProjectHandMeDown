@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -74,7 +75,7 @@ public class ActivityController {
         attr.addFlashAttribute("createMsg","Successfully added a new post");
 
 
-        emailService.prepareAndSendActivity(activity,activity.getTitle(),activity.getBody());
+      emailService.prepareAndSendActivity(activity,activity.getTitle(),activity.getBody());
 
 
         return "redirect:/activities";
@@ -115,137 +116,36 @@ public class ActivityController {
         return"activities/activityUserPosts";
     }
 
-//
-//    @GetMapping("/users/{id}")
-////    @ResponseBody
-//    public String userID(@PathVariable long id, Model model) {
-//        User currentUser = userDAO.getUserById(id);
-//        List<Post> posts = postDao.getByUser(currentUser);
-//        model.addAttribute("user", currentUser);
-//        model.addAttribute("posts", posts);
-////        System.out.println("currentUser = " + currentUser.getUsername() + " " + currentUser.getEmail());
-////        System.out.println("posts = " + posts);
-//        return "show_user";
-//    }
-//
+
+    @GetMapping("activities/search")
+    public String filteredActivities (Model model, @RequestParam String keyword) {
 
 
+        model.addAttribute("keyword", keyword);
+        List<Activity> activities = activityDao.findAll();
+        List<Activity> filteredActivities = new ArrayList<>();
 
+        for (int i = 0; i < activities.size(); i++) {
 
+            // get titles with key word
+            // find object with the keyword
+            Activity activity = activities.get(i);
+            String title = activity.getTitle();
+            if (title.contains(keyword)) {
+                System.out.println(title);
+                filteredActivities.add(activity);
+            }
 
-//    @GetMapping("/posts/create")
-////    @ResponseBody
-//    public String create(Model model) {
-//        model.addAttribute("post", new Post());
-//        model.addAttribute("user", new User());
-//        return "posts/create";
-//    }
-//
-//    @PostMapping("/posts/create")
-//    public String post(@ModelAttribute Post post) {
-//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        if(post.getTitle().equals("") || post.getBody().equals("")){
-//            return "posts/create";
-//        }
-//        postDao.save(post);
-//        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
-//        return "redirect:/";
-//    }
-
-
-
-
-//    @GetMapping("/activities/{id}/edit")
-//    public String editActivity(@PathVariable Long id, Model model) {
-//        Activity activity = activityDao.getById(id);
-//
-//        model.addAttribute("activity", activity);
-//        return "";
-//    }
-
-//    public PostController(PostRepository postDao, UserRepository userDAO) {
-//        this.postDao = postDao;
-//        this.userDAO = userDAO;
-//    }
-
-//    @GetMapping("/")
-////    @ResponseBody
-//    public String posts(Model model) {
-//        model.addAttribute("posts", postDao.findAll());
-//        return "posts/index";
-//    }
-//
-//    @GetMapping("/posts/{id}")
-////    @ResponseBody
-//    public String postID(@PathVariable long id, Model model) {
-//        model.addAttribute("posts", postDao.findAllById(Collections.singleton(id)));
-//        return "posts/show";
-//    }
-//
-//    @GetMapping("/users/{id}")
-////    @ResponseBody
-//    public String userID(@PathVariable long id, Model model) {
-//        User currentUser = userDAO.getUserById(id);
-//        List<Post> posts = postDao.getByUser(currentUser);
-//        model.addAttribute("user", currentUser);
-//        model.addAttribute("posts", posts);
-////        System.out.println("currentUser = " + currentUser.getUsername() + " " + currentUser.getEmail());
-////        System.out.println("posts = " + posts);
-//        return "show_user";
-//    }
-//
-//    @GetMapping("/users")
-////    @ResponseBody
-//    public String users(Model model) {
-//        model.addAttribute("users", userDAO.findAll());
-//        return "users";
-//    }
-//
-//    @GetMapping("/posts/create")
-////    @ResponseBody
-//    public String create(Model model) {
-//        model.addAttribute("post", new Post());
-//        model.addAttribute("user", new User());
-//        return "posts/create";
-//    }
-//
-//    @PostMapping("/posts/create")
-//    public String post(@ModelAttribute Post post) {
-//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        if(post.getTitle().equals("") || post.getBody().equals("")){
-//            return "posts/create";
-//        }
-//        postDao.save(post);
-//        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("posts/{id}/edit")
-////    @ResponseBody
-//    public String edit(@PathVariable long id, Model model) {
-//        model.addAttribute("post", postDao.getById(id));
-////        model.addAttribute("user", new User());
-//        return "edit";
-//    }
-//
-//    @PostMapping("/edit")
-//    public String edit(@ModelAttribute Post post) {
-//        postDao.save(post);
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("posts/{id}/delete")
-//    public String delete(@PathVariable long id, Model model) {
-//        Post post = postDao.getById(id);
-//        postDao.delete(post);
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("/error")
-//    public String error(){
-//        return "/error/500.html";
-//    }
-
+        }
+        model.addAttribute("activities",filteredActivities);
+        return "activities/ActivityFiltered";
+    }
 
 }
+
+
+
+
+
+
 
