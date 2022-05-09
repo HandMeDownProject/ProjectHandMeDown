@@ -3,7 +3,7 @@ package com.projecthandmedown.models;
 public class Message {
     private String subject;
     private String body;
-    private String sender;
+    private User sender;
     private String receiver;
 
     public Message() {
@@ -14,7 +14,7 @@ public class Message {
         this.body = body;
     }
 
-    public Message(String subject, String body, String sender) {
+    public Message(String subject, String body, User sender) {
         this.subject = subject;
         this.body = body;
         this.sender = sender;
@@ -36,11 +36,11 @@ public class Message {
         this.body = body;
     }
 
-    public String getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 

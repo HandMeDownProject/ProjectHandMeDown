@@ -69,11 +69,11 @@ public class UserController {
     @PostMapping ("/messaging/{listingId}/{userId}")
     public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        message.setSender(loggedInUser.getEmail());
+        message.setSender(loggedInUser);
         User receiver = userDao.getById(userId);
         message.setReceiver(receiver.getEmail());
         emailService.prepareAndSend(message, "New Message", message.getBody());
-        sendGridEmailService.sendTextEmail();
+        sendGridEmailService.sendTextEmail(message);
         String redirect = "redirect:/listing/" + listingId;
         return redirect;
     }
@@ -89,7 +89,7 @@ public class UserController {
     @PostMapping ("/report")
     public String sendReport(@ModelAttribute Message message){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        message.setSender(loggedInUser.getEmail());
+        message.setSender(loggedInUser);
         message.setReceiver("admin@mail.com");
         emailService.prepareAndSend(message, "New Report", message.getBody());
         return "redirect:/";
