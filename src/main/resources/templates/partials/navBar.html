@@ -12,10 +12,13 @@
                 <ul class="d-flex align-items-center">
                     <li class="navbar-nav"><a class="nav-link" th:href="@{/sign-up}">Register</a></li>
                     <li class="navbar-nav"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
                     <li class="navbar-nav"><a class="nav-link" th:href="@{/about}">About Us</a></li>
                     <li class="navbar-nav">
                         <form th:action="@{/logout}" th:method="post">
-                            <button class="nav-link text-dark" type="submit" >Logout</button>
+                            <button class="nav-link text-dark" type="submit" id="navLogOut" >Logout</button>
                         </form>
                     </li>
                 </ul>
@@ -23,10 +26,13 @@
             <div sec:authorize="isAuthenticated()">
                 <ul class="d-flex align-items-center">
                     <li class="navbar-nav"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="navbar-nav"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
                     <li class="navbar-nav"><a class="nav-link" th:href="@{/about}">About Us</a></li>
                     <li class="navbar-nav">
                         <form th:action="@{/logout}" th:method="post">
-                            <button class="nav-link text-dark" type="submit" >Logout</button>
+                            <button class="nav-link text-dark" type="submit" id="navLogOut" >Logout</button>
                         </form>
                     </li>
                 </ul>
