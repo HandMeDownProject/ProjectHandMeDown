@@ -121,14 +121,12 @@ public class ActivityController {
     public String filteredActivities (Model model, @RequestParam String keyword) {
 
 
+
         model.addAttribute("keyword", keyword);
         List<Activity> activities = activityDao.findAll();
         List<Activity> filteredActivities = new ArrayList<>();
 
         for (int i = 0; i < activities.size(); i++) {
-
-            // get titles with key word
-            // find object with the keyword
             Activity activity = activities.get(i);
             String title = activity.getTitle();
             if (title.contains(keyword)) {
@@ -140,7 +138,6 @@ public class ActivityController {
         model.addAttribute("activities",filteredActivities);
         return "activities/ActivityFiltered";
     }
-
 }
 
 
