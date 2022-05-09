@@ -19,6 +19,9 @@ public class EmailService {
     @Value("${spring.mail.from}")
     private String from;
 
+    @Value("${sendgrid.api.email}")
+    private String senderEmail;
+
     public void prepareAndSend(Listing listing, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
@@ -53,7 +56,7 @@ public class EmailService {
 
     public void prepareAndSend(Message message, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom(message.getSender());
+        msg.setFrom(senderEmail);
         msg.setTo(message.getReceiver());
         msg.setSubject(subject);
         msg.setText(body);
