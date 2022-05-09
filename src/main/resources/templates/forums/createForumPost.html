@@ -3,6 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="/partials/head.html :: head">
 <body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
 <h1>Creating posts here!</h1>
 
 <form th:action="@{/create/post}" th:method="post" th:object="${post}">
