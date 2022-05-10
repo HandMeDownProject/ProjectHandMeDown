@@ -10,5 +10,6 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
     Listing getById(long id);
     List<Listing> getByUser(User user);
 
+
 }
 

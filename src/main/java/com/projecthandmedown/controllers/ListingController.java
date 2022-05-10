@@ -1,10 +1,12 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.Listing;
+import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,7 +45,9 @@ public class ListingController {
     @GetMapping("/listing/{id}")
     public String listingView(Model model, @PathVariable Long id){
         Listing listing = listingDao.getById(id);
+        List<ListingCategory> cats = listing.getListingsCategories();
         model.addAttribute("listing",listing);
+        model.addAttribute("cats", cats);
 
 
         return "listings/listing";
