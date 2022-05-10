@@ -12,7 +12,6 @@
     <div class="hiddendiv">
         <form th:action="@{/profile}" method="POST" th:object="${user}">
             <input th:field="*{id}" th:value="*{id}" hidden />
-<!--            <input th:field="*{user.getUserIsAdmin()}" th:value="*{user.getUserIsAdmin()}" hidden />-->
             <label for="username">Username</label>
             <input id="username" th:field="*{username}" required />
             <br>

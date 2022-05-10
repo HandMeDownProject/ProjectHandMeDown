@@ -64,19 +64,22 @@ public class UserController {
     }
 
     @PostMapping("/profile")
-    public String editUser(@ModelAttribute User user, Model model){
+    public String editUser(@ModelAttribute User user, Model model, UserRole userRole){
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setUserIsAdmin(false);
+
         userDao.save(user);
         model.addAttribute("user", user);
 
 //        UserRole newUser = new UserRole(user.getId(), "USER");
 //
 //        roles.save(newUser);
-//        if(userDao.getUserById(user.getId()).getUserIsAdmin()){
-//            return "redirect:users/admin";
+//        TODO get userRoles var for conditional rendering of pages
+//        System.out.println("user role:" + " " + userRole.);
+//        if(userRole.getRole() == "ADMIN"){
+//            return "redirect:/admin";
 //        }else {
 
             return "redirect:/profile";
