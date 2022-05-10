@@ -11,6 +11,10 @@
         <h5><span th:text="${posts.getUser().getUsername()}">username</span></h5>
         <span th:if="${posts.user.getId() == user.getId()}"><a th:href="@{/edit/{id}/post(id=${posts.id})}"><sup>edit</sup></a></span>&nbsp;
     </div>
+    tags:&nbsp;
+    <ul th:each="category : ${categories}">
+        <li th:text="${category.getName()}"></li>
+    </ul>
 <!--    replies-->
     <div  th:each="reply : ${replies}">
         <p th:text="${reply.body}"></p>
