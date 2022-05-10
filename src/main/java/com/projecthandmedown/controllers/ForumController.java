@@ -1,5 +1,6 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.*;
+import com.projecthandmedown.repositories.ForumCategoryRepository;
 import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.ForumReplyRepository;
 import com.projecthandmedown.repositories.UserRepository;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,12 +17,14 @@ public class ForumController {
 
     private final ForumPostRepository forumPostDao;
     private final ForumReplyRepository forumReplyDao;
+    private final ForumCategoryRepository forumPostCategoryDao;
     private final UserRepository userDAO;
     private final EmailService emailService;
 
-    public ForumController(ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, UserRepository userDAO, EmailService emailService) {
+    public ForumController(ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, ForumCategoryRepository forumPostCategoryDao, UserRepository userDAO, EmailService emailService) {
         this.forumPostDao = forumPostDao;
         this.forumReplyDao = forumReplyDao;
+        this.forumPostCategoryDao = forumPostCategoryDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
     }
@@ -73,13 +75,11 @@ public class ForumController {
 
     @GetMapping("/create/post")
     public String createPostingView(Model model){
+        List<ForumPostCategory> categories = forumPostCategoryDao.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("post", new ForumPost());
-//        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        if(listing.getTitle().equals("") || listing.getBody().equals("")){
-//            return "listings/listingsView";
-//        }
-//        listingDao.save(listing);
-//        emailService.prepareAndSend(listing, "listing created", "Confirmation: your listing has been created");
+//        model.addAttribute("filestackKey", filestackKey);
+//        model.addAttribute("post", new ForumPost());
         return "forums/createForumPost";
     }
 

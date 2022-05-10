@@ -9,6 +9,15 @@
 <form th:action="@{/create/post}" th:method="post" th:object="${post}">
     <input th:field="*{title}" type="text" name="postTitle" id="postTitle" class="" placeholder="Title" required/><br>
     <input th:field="*{body}" type="text" name="postBody" id="PostBody" class="" placeholder="Body" required/>
+    <p>
+        <label>Select Categories:
+            <input type="checkbox" name="forumPostCategories"
+                   th:each="category : ${categories}"
+                   th:text="${category.getName()}"
+                   th:value="${category.id}"
+                   th:field="*{forumPostCategories}"/>
+        </label>
+    </p>
     <button type="submit">Post</button>
 </form>
 
