@@ -1,5 +1,6 @@
 package com.projecthandmedown.controllers;
 
+import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ListingController {
@@ -127,6 +131,35 @@ public class ListingController {
 //        List<Listing> listings = listingDao.getByUser(targetUser);
         model.addAttribute("listings", listings);
 
+        return "listings/listingsView";
+    }
+
+    @GetMapping("listings/search")
+    public String filteredActivities (Model model, @RequestParam String keyword) {
+        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
+        List<Listing> listings = listingDao.findAll();
+        List<Listing> filteredListings = new ArrayList<>();
+
+        for (int i = 0; i < listings.size(); i++) {
+            Listing listing = listings.get(i);
+            String title = listing.getTitle();
+            String body = listing.getBody();
+            if (title.toLowerCase().contains(keyword.toLowerCase())) {
+                filteredListings.add(listing);
+            }
+            if (body.toLowerCase().contains(keyword.toLowerCase())) {
+                filteredListings.add(listing);
+            }
+
+            for (int k = 0; k < filteredListings.size(); k++) {
+                for (int j = 1; j < filteredListings.size(); j++) {
+                    if (filteredListings.get(k) == filteredListings.get(j)) {
+                        filteredListings.remove(j);
+                    }
+                }
+            }
+        }
+        model.addAttribute("listings",filteredListings);
         return "listings/listingsView";
     }
 

@@ -6,6 +6,13 @@
 </head>
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
+<form th:action="@{/listings/search}" method="get">
+    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Listings by keyword" size="50" >
+    <button type="submit" class="btn btn-info" >search</button>
+    <a class="btn btn-primary" th:href="@{'/listings'}" role="button">reset</a>
+</form>
+<br>
+<br>
 <h1>This is the marketplace!</h1>
 
 <div th:each="listing : ${listings}">

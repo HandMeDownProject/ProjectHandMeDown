@@ -19,7 +19,7 @@
 <form th:action="@{/activities/search}" method="get">
     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
     <button type="submit" class="btn btn-info" >Search</button>
-    <a class="btn btn-primary" th:href="@{'/activities'}" roll="button">reset</a>
+    <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
 </form>
 
 <!--alert msg-->
