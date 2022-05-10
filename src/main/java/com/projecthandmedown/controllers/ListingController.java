@@ -104,8 +104,8 @@ public class ListingController {
         return "redirect:/listings";
     }
 
-    @GetMapping("listing/delete/{id}")
-    public String deleteListing(@PathVariable Long id, Model model) {
+    @PostMapping("listing/delete/{id}")
+    public String deleteListing(@PathVariable Long id) {
         Listing listing = listingDao.getById(id);
         listingDao.delete(listing);
         return "redirect:/listings";
@@ -120,6 +120,19 @@ public class ListingController {
 
         return "listings/listingUserPosts";
     }
+
+    @GetMapping("listingsByCat/{cat_id}")
+    public String listingsByCat(@PathVariable Long cat_id, Model model) {
+        List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
+//        List<Listing> listings = listingDao.getByUser(targetUser);
+        model.addAttribute("listings", listings);
+
+        return "listings/listingsView";
+    }
+
+//    /listingsByCat/{cat_id}
+
+
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
 //        activity.setUser(user); // <-- this will be setting     user for post.
