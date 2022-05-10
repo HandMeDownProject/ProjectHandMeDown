@@ -49,18 +49,23 @@
     <tr>
         <td th:text="${activity.title}"></td>
         <td th:text="${activity.body}"></td>
-<!--        <td><img th:src="@{${activity.imageUrl}}" height="100px" >-->
         <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" height="100px">
         </td>
         <td th:text="${activity.webUrl}"></td>
-<!--        <td th:text="${activity.getActivityCategories()}"></td>-->
+
+        <td >
+            <span><a th:each="category : ${activity.getActivityCategories()}" th:text="${category.getName()}"></a>
+        </span>
+        </td>
+
+
         <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>
         <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>
     </tr>
     </tbody>
 </table>
 
-<!----------------------------------------->
+<!------------------ADD POST----------------------->
 
 <a href="/activities/create" class="btn btn-success">add post ?!</a>
 

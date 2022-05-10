@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,7 +26,7 @@ public class ActivityController {
     private final EmailService emailService;
     private final ActivityCategoryRepository activityCatDao;
 
-    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService, ActivityCategoryRepository activityCatDao) {
+    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService, ActivityCategoryRepository activityCatDao){
         this.activityDao = activityDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
@@ -39,15 +40,12 @@ public class ActivityController {
        model.addAttribute("activities",activities);
 
         return "activities/activitiesView";
-
-
     }
+
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id){
         Activity activity = activityDao.getById(id);
         model.addAttribute("activity",activity);
-
-
         return "activities/activityView";
     }
 
@@ -63,13 +61,11 @@ public class ActivityController {
         model.addAttribute("categories",categories);
 
 
-
         return "activities/activityCreate";
-
     }
 
     @PostMapping("/activities/create")
-    public String addActivity(@ModelAttribute Activity activity,RedirectAttributes attr
+    public String addActivity(@ModelAttribute Activity activity,RedirectAttributes attr,Model model
     ){
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -9,6 +9,7 @@ import java.util.List;
 public interface ActivityCategoryRepository extends JpaRepository<ActivityCategory,Long> {
 
     ActivityCategory getById(Long id);
+
     List<ActivityCategory> getByActivities (Activity activity);
 
 }
