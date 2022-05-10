@@ -64,6 +64,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/messaging/{listingId}/{userId}"
                 )
                 .authenticated()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin")
+                .hasAuthority("ADMIN")
+        // .hasAnyAuthority("ADMIN", "SELLER") // You can specify several roles too
         ;
     }
 }
