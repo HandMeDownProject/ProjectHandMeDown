@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head th:include="/partials/head.html :: head">
 
 </head>
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
 <form th:action="@{/create/listing}" th:method="post" th:object="${listing}">
-    <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
+    <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title" required/>
     <br>
     <br>
-    <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>
+    <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body" required/>
     <br>
     <br>
-    <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"/>
+    <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price" required/>
     <br>
     <br>
     <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
+    <button type="button" onclick="upload()">upload image</button>
     <br>
     <br>
     <p>
         <label>Select Categories:
+            <br>
             <input type="checkbox" name="listingsCategories"
                    th:each="cat : ${cats}"
                    th:text="${cat.getName()}"
@@ -34,13 +36,7 @@
     <br>
     <br>
 </form>
-<button type="button" onclick="upload()">upload image</button>
-<p>
-    <div th:each="cat : ${cats}">
-              <p th:text="${cat.getName()}"></p>
-</div>
-    </label>
-</p>
+
 
 
 <script th:inline="javascript">

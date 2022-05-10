@@ -25,7 +25,18 @@
 
     <label for="webUrl">Price
         <input th:field="*{price}" id="webUrl" type="text">
-    </label><br>
+    </label>
+    <br>
+    <br>
+    <p>
+        <label>Select Categories:
+            <input type="checkbox" name="listingsCategories"
+                   th:each="cat : ${allCats}"
+                   th:text="${cat.getName()}"
+                   th:value="${cat.id}"
+                   th:field="*{listingsCategories}"/>
+        </label>
+    </p>
     <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
     <input th:field="*{id}" th:value="${listing.getId()}" hidden>
 

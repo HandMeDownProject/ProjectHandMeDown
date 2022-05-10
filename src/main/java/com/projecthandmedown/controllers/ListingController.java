@@ -1,4 +1,5 @@
 package com.projecthandmedown.controllers;
+
 import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
@@ -43,21 +44,21 @@ public class ListingController {
     }
 
     @GetMapping("/listing/{id}")
-    public String listingView(Model model, @PathVariable Long id){
+    public String listingView(Model model, @PathVariable Long id) {
         Listing listing = listingDao.getById(id);
         List<ListingCategory> cats = listing.getListingsCategories();
-        model.addAttribute("listing",listing);
+        model.addAttribute("listing", listing);
         model.addAttribute("cats", cats);
 
 
         return "listings/listing";
     }
 
-    @Value ("${filestack.api.key}")
+    @Value("${filestack.api.key}")
     private String filestackKey;
 
     @GetMapping("/create/listing")
-    public String createListingView(Model model){
+    public String createListingView(Model model) {
         List<ListingCategory> cats = (List<ListingCategory>) listingCategoryDao.findAll();
         model.addAttribute("cats", cats);
         model.addAttribute("listing", new Listing());
@@ -84,10 +85,13 @@ public class ListingController {
     }
 
     @GetMapping("/listing/edit/{id}")
-    public String editListing(@PathVariable Long id, Model model){
+    public String editListing(@PathVariable Long id, Model model) {
         Listing listing = listingDao.getById(id);
-
-        model.addAttribute("listing",listing);
+        List<ListingCategory> cats = listing.getListingsCategories();
+        List<ListingCategory> allCats = listingCategoryDao.findAll();
+        model.addAttribute("allCats", allCats);
+        model.addAttribute("cats", cats);
+        model.addAttribute("listing", listing);
         return "listings/listingEdit";
 
     }
@@ -100,22 +104,35 @@ public class ListingController {
         return "redirect:/listings";
     }
 
-    @GetMapping ("listing/delete/{id}")
-    public String deleteListing(@PathVariable Long id,Model model){
+    @PostMapping("listing/delete/{id}")
+    public String deleteListing(@PathVariable Long id) {
         Listing listing = listingDao.getById(id);
         listingDao.delete(listing);
         return "redirect:/listings";
     }
 
     @GetMapping("listings/user/{user_id}")
-    public String seeAllUserListings(@PathVariable Long user_id,Model model){
+    public String seeAllUserListings(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Listing> listings = listingDao.getByUser(targetUser);
-        model.addAttribute("listings",listings);
-        model.addAttribute("user", targetUser );
+        model.addAttribute("listings", listings);
+        model.addAttribute("user", targetUser);
 
-        return"listings/listingUserPosts";
+        return "listings/listingUserPosts";
     }
+
+    @GetMapping("listingsByCat/{cat_id}")
+    public String listingsByCat(@PathVariable Long cat_id, Model model) {
+        List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
+//        List<Listing> listings = listingDao.getByUser(targetUser);
+        model.addAttribute("listings", listings);
+
+        return "listings/listingsView";
+    }
+
+//    /listingsByCat/{cat_id}
+
+
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
 //        activity.setUser(user); // <-- this will be setting     user for post.
