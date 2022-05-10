@@ -1,6 +1,8 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Message;
 import com.projecthandmedown.models.User;
+import com.projecthandmedown.models.UserRole;
+import com.projecthandmedown.repositories.RoleRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import com.projecthandmedown.services.SendGridEmailService;
@@ -21,12 +23,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final SendGridEmailService sendGridEmailService;
+    private final RoleRepository roles;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
         this.sendGridEmailService = sendGridEmailService;
+        this.roles = roles;
     }
 
     @GetMapping("/sign-up")
@@ -41,6 +45,9 @@ public class UserController {
         user.setPassword(hash);
         user.setUserIsAdmin(false);
         userDao.save(user);
+        User justCreatedUser = userDao.findByUsername(user.getUsername());
+        UserRole newUser = new UserRole(justCreatedUser.getId(), "USER");
+        roles.save(newUser);
         return "redirect:/login";
     }
 
@@ -53,6 +60,14 @@ public class UserController {
             return "users/admin";
         }
         return "users/profile";
+    }
+
+    @GetMapping("/admin")
+    public String showAdminPage(Model model){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User fromDao = userDao.getUserById(loggedInUser.getId());
+        model.addAttribute("user", fromDao);
+        return "users/admin";
     }
 
     @GetMapping("/messaging/{listingId}/{userId}")
