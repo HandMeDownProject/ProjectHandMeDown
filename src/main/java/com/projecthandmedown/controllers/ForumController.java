@@ -52,18 +52,23 @@ public class ForumController {
     public String postID(@PathVariable long id, Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
-        model.addAttribute("posts", forumPostDao.getById(id)); //findAllById(Collections.singleton(id)));
+        ForumPost topic = forumPostDao.getById(id); //split for categories
+        List<ForumPostCategory> categories = topic.getForumPostCategories(); //split for categories
+        model.addAttribute("posts", topic);
+        model.addAttribute("categories", categories); //categories for individual post(topics)
         model.addAttribute("reply", new ForumReply());
         List<ForumReply> replies = forumReplyDao.getByForumPostId(id);
         model.addAttribute("replies", replies);
         return "forums/forumPostView";
     }
 
+    //List<ForumPostCategory> categories = forumposts.
+
 //    @GetMapping("/filter")
 //    public String filterCategory(long id, Model model) {
-//        model.addAttribute("category", new ForumPostCategory());
-//        List<Listing> listings = listingDao.getByUser(targetUser);
-//
+//        ForumPost topic = forumPostDao.getById(id); //split for categories
+//        List<ForumPostCategory> categories = topic.getForumPostCategories(); //split for categories
+//        model.addAttribute("posts", categories);
 //    }
 
     @GetMapping("/create/post")
