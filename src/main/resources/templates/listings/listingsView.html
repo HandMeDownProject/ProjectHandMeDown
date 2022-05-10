@@ -17,7 +17,7 @@
     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}" th:text="${listing.getUser().getUsername()}"></a>
     <br>
     <h6>Categories: </h6>
-    <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}" href="#"></a> </span>
+    <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a> </span>
     <br>
     <br>
 
