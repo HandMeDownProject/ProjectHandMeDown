@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head th:include="/partials/head.html :: head">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +7,8 @@
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
 <form th:action="@{/listings/search}" method="get">
-    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Listings by keyword" size="50" >
-    <button type="submit" class="btn btn-info" >search</button>
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search Listings by keyword" size="50">
+    <button type="submit" class="btn btn-info">search</button>
     <a class="btn btn-primary" th:href="@{'/listings'}" role="button">reset</a>
 </form>
 <br>
@@ -20,24 +20,23 @@
     <p th:text="${listing.body}"></p>
     <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>
     <p th:text="${listing.price}"></p>
-<!--    <p th:text="${listing.user.getUsername()}"></p>-->
-    <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}" th:text="${listing.getUser().getUsername()}"></a>
+    <!--    <p th:text="${listing.user.getUsername()}"></p>-->
+    <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
+       th:text="${listing.getUser().getUsername()}"></a>
     <br>
     <h6>Categories: </h6>
-    <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a> </span>
+    <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}"
+                                                                th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a> </span>
     <br>
     <br>
-
-
-
-
 </div>
-<form action="/create/listing" method="get" >
+<div>
+    <h3>Browse by category:</h3>
+    <p th:each="cat : ${cats}"><a th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a></p>
+</div>
+<form action="/create/listing" method="get">
     <button type="submit">Create Listing</button>
 </form>
-
-
-
 
 
 </body>

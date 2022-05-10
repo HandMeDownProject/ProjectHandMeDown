@@ -44,6 +44,7 @@ public class ListingController {
 //    @ResponseBody
     public String listings(Model model) {
         model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("cats", listingCategoryDao.findAll());
         return "listings/listingsView";
     }
 
@@ -128,14 +129,15 @@ public class ListingController {
     @GetMapping("listingsByCat/{cat_id}")
     public String listingsByCat(@PathVariable Long cat_id, Model model) {
         List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
-//        List<Listing> listings = listingDao.getByUser(targetUser);
+        List<ListingCategory> cats = listingCategoryDao.findAll();
         model.addAttribute("listings", listings);
+        model.addAttribute("cats", cats);
 
         return "listings/listingsView";
     }
 
     @GetMapping("listings/search")
-    public String filteredActivities (Model model, @RequestParam String keyword) {
+    public String filteredActivities(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
         List<Listing> listings = listingDao.findAll();
         List<Listing> filteredListings = new ArrayList<>();
@@ -159,7 +161,7 @@ public class ListingController {
                 }
             }
         }
-        model.addAttribute("listings",filteredListings);
+        model.addAttribute("listings", filteredListings);
         return "listings/listingsView";
     }
 
