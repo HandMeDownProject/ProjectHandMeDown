@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="/partials/head.html :: head">
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
@@ -10,6 +10,11 @@
         <p th:text="${posts.getBody()}"></p>
         <h5><span th:text="${posts.getUser().getUsername()}">username</span></h5>
         <span th:if="${posts.user.getId() == user.getId()}"><a th:href="@{/edit/{id}/post(id=${posts.id})}"><sup>edit</sup></a></span>&nbsp;
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/post/{id}/delete(id=${posts.id})}">Admin Delete Post</a>
+            <br>
+            <a th:href="@{/edit/{id}/post(id=${posts.id})}">Admin Edit Post</a>
+        </div>
     </div>
     tags:&nbsp;
     <ul th:each="category : ${categories}">

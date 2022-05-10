@@ -1,6 +1,5 @@
 <!doctype  >
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="/partials/head.html :: head">
 
 </head>
@@ -23,6 +22,11 @@
 <form th:action="@{/listing/delete/{id}(id=${listing.getId()})}" method="post">
     <button type="submit">Delete Listing</button>
 </form>
+<div sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="@{/post/{id}/delete(id=${listing.getId()})}">Admin Delete Post</a>
+    <br>
+    <a th:href="@{/edit/{id}/post(id=${listing.getId()})}">Admin Edit Post</a>
+</div>
 <button><a th:href="@{'/listings'}">Go back to listings</a></button>
 <button><a th:href="@{/report}">report post</a></button>
 <button><a th:href="@{/messaging/{listingId}/{userId}(userId = ${listing.user.getId()}, listingId = ${listing.getId()})}">Send Message</a></button>
