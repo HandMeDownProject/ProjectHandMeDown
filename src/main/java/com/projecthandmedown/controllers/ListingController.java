@@ -1,19 +1,17 @@
 package com.projecthandmedown.controllers;
-import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
+import com.projecthandmedown.repositories.ListingCategoryRepository;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
-import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -22,12 +20,14 @@ public class ListingController {
     private final ListingRepository listingDao;
     private final UserRepository userDAO;
     private final EmailService emailService;
+    private final ListingCategoryRepository listingCategoryDao;
 
 
-    public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService) {
+    public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService, ListingCategoryRepository listingCategoryDao) {
         this.listingDao = listingDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
+        this.listingCategoryDao = listingCategoryDao;
     }
 
 //    public ListingController(ListingRepository listingDao, UserRepository userDAO) {
@@ -58,6 +58,8 @@ public class ListingController {
 
     @GetMapping("/create/listing")
     public String createListingView(Model model){
+        List<ListingCategory> cats = (List<ListingCategory>) listingCategoryDao.findAll();
+        model.addAttribute("cats", cats);
         model.addAttribute("listing", new Listing());
         model.addAttribute("filestackKey", filestackKey);
 //        listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -76,6 +78,7 @@ public class ListingController {
         listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         listingDao.save(listing);
+
 
         return "redirect:/listings";
     }

@@ -8,30 +8,58 @@
 <nav th:include="/partials/navBar.html :: navBar"></nav>
 <form th:action="@{/create/listing}" th:method="post" th:object="${listing}">
     <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class="" placeholder="Title"/>
-
+    <br>
+    <br>
     <input th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="Body"/>
+    <br>
+    <br>
     <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"/>
+    <br>
+    <br>
     <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
+    <br>
+    <br>
+    <p>
+        <label>Select Categories:
+            <input type="checkbox" name="listingsCategories"
+                   th:each="cat : ${cats}"
+                   th:text="${cat.getName()}"
+                   th:value="${cat.id}"
+                   th:field="*{listingsCategories}"/>
+        </label>
+    </p>
+    <br>
+    <br>
     <button type="submit">Create Listing</button>
+    <br>
+    <br>
 </form>
 <button type="button" onclick="upload()">upload image</button>
+<p>
+    <div th:each="cat : ${cats}">
+              <p th:text="${cat.getName()}"></p>
+</div>
+    </label>
+</p>
+
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-function upload() {
-    const apiKey = [[${filestackKey}]];
-    let apiKey1 = [[${fileStackKey}]];
-    const client = filestack.init(apiKey);
-    const options = {
-        onUploadDone: file => {
-            let imgURL = file.filesUploaded[0].url;
-            console.log(imgURL);
-            document.getElementById("ListingImage").value = imgURL;
-        }
-    };
-    client.picker(options).open();
-}
-/*]]>*/
+    function upload() {
+        const apiKey = [[${filestackKey}]];
+        let apiKey1 = [[${fileStackKey}]];
+        const client = filestack.init(apiKey);
+        const options = {
+            onUploadDone: file => {
+                let imgURL = file.filesUploaded[0].url;
+                console.log(imgURL);
+                document.getElementById("ListingImage").value = imgURL;
+            }
+        };
+        client.picker(options).open();
+    }
+
+    /*]]>*/
 </script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
