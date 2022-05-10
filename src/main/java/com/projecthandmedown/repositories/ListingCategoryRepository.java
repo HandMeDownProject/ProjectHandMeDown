@@ -1,14 +1,15 @@
 package com.projecthandmedown.repositories;
 import com.projecthandmedown.models.Listing;
+import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ListingRepository extends JpaRepository<Listing, Long> {
+public interface ListingCategoryRepository extends JpaRepository<ListingCategory, Long> {
 
-    Listing getById(long id);
-    List<Listing> getByUser(User user);
+    ListingCategory getById(long id);
+//    List<Listing> getByUser(User user);
 
 
 }
