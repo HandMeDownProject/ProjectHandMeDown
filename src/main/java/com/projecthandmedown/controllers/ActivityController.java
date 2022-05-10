@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ActivityController {
@@ -122,14 +123,14 @@ public class ActivityController {
 
 
 
-        model.addAttribute("keyword", keyword);
+        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
         List<Activity> activities = activityDao.findAll();
         List<Activity> filteredActivities = new ArrayList<>();
 
         for (int i = 0; i < activities.size(); i++) {
             Activity activity = activities.get(i);
             String title = activity.getTitle();
-            if (title.contains(keyword)) {
+            if (title.toLowerCase().contains(keyword.toLowerCase())) {
                 System.out.println(title);
                 filteredActivities.add(activity);
             }
