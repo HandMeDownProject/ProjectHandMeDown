@@ -53,18 +53,21 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showUserProfile(Model model){
+    public String showUserProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User fromDao = userDao.getUserById(loggedInUser.getId());
         model.addAttribute("user", fromDao);
-        if(fromDao.getUserIsAdmin()){
-            return "users/admin";
+        UserRole userRole = roles.getUserRoleByUserId(loggedInUser.getId());
+        if (userRole.getRole().equals("ADMIN")) {
+            return "redirect:/admin";
+        } else {
+
+            return "redirect:/profile";
         }
-        return "users/profile";
     }
 
     @PostMapping("/profile")
-    public String editUser(@ModelAttribute User user, Model model, UserRole userRole){
+    public String editUser(@ModelAttribute User user, Model model){
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
@@ -77,13 +80,14 @@ public class UserController {
 //
 //        roles.save(newUser);
 //        TODO get userRoles var for conditional rendering of pages
-//        System.out.println("user role:" + " " + userRole.);
-//        if(userRole.getRole() == "ADMIN"){
-//            return "redirect:/admin";
-//        }else {
+        System.out.println("user role:" + " " + roles.getUserRoleByUserId(user.getId()));
+        UserRole userRole = roles.getUserRoleByUserId(user.getId());
+        if( userRole.getRole().equals("ADMIN")){
+            return "redirect:/admin";
+        }else {
 
             return "redirect:/profile";
-//        }
+        }
     }
 
     @GetMapping("/admin")
