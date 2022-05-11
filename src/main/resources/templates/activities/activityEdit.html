@@ -26,6 +26,15 @@
     <label for="webUrl">Activity info URL here
         <input th:field="*{webUrl}" id="webUrl" type="url">
     </label><br>
+    <label for="activityCategories">Select Categories:
+        <input type="checkbox" name="activityCategories" id="activityCategories"
+               th:each=" category : ${categories}"
+               th:text="${category.getName()}"
+               th:value="${category.id}"
+               th:field="*{activityCategories}"/>
+    </label>
+
+
     <input th:field="*{user}" th:value="${activity.getUser()}" hidden>
     <input th:field="*{id}" th:value="${activity.getId()}" hidden>
 

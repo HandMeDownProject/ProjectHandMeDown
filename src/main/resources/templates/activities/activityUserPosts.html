@@ -19,6 +19,7 @@
         <th scope="col">Description</th>
         <th scope="col">image Url</th>
         <th scope="col">web Url</th>
+        <th scope="col">Category</th>
         <th scope="col">UserName</th>
         <th scope="col">view</th>
     </tr>
@@ -29,6 +30,11 @@
         <td th:text="${activity.body}"></td>
         <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">
         <td th:text="${activity.webUrl}"></td>
+        <td >
+            <span><a th:each="category : ${activity.getActivityCategories()}" th:text="${category.getName() }"></a>
+        </span>
+        </td>
+
         <td th:text="${activity.user.getUsername()}"></td>
         <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>
 

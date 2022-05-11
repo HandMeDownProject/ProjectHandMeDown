@@ -54,7 +54,7 @@
         <td th:text="${activity.webUrl}"></td>
 
         <td >
-            <span><a th:each="category : ${activity.getActivityCategories()}" th:text="${category.getName()}"></a>
+            <span><a th:each="category : ${activity.getActivityCategories()}" th:text="${category.getName() }"></a>
         </span>
         </td>
 

@@ -93,7 +93,12 @@ public class ActivityController {
     public String editPost(@PathVariable Long id, Model model){
         Activity activity = activityDao.getById(id);
 
+        List<ActivityCategory> categories = activityCatDao.findAll();
+
+
         model.addAttribute("activity",activity);
+        model.addAttribute("categories",categories);
+
         return "activities/activityEdit";
 
     }
