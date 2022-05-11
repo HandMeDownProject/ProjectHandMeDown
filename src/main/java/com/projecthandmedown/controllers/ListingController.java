@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class ListingController {
@@ -112,6 +109,8 @@ public class ListingController {
     @PostMapping("listing/delete/{id}")
     public String deleteListing(@PathVariable Long id) {
         Listing listing = listingDao.getById(id);
+        listing.getListingsCategories().clear();
+
         listingDao.delete(listing);
         return "redirect:/listings";
     }
