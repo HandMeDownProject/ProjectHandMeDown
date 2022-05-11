@@ -27,11 +27,12 @@
         <p th:text="${reply.body}"></p>
         <h4 th:text="${reply.forumPost.getId()}" ></h4>
         <p th:text="${reply.user.getUsername()}"></p>
-        <div sec:authorize="hasAuthority('ADMIN')">
+        <span sec:authorize="hasAuthority('ADMIN')">
             <a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
-        </div>
+        </span>
         <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;
     </div>
+    <br>
 <!--    reply form-->
     <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
         <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>
