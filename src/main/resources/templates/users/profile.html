@@ -7,6 +7,7 @@
 <body>
     <nav th:include="/partials/navBar.html :: navBar"></nav>
     <h1>This is the profile page</h1>
+    <img th:src="*{user.getUserIMG()}" height="200px">
     <h1>Hello, <span th:text="${user.getUsername()}"></span>!</h1>
     <button class="clicker" >Edit Profile</button>
     <div class="hiddendiv">
@@ -32,10 +33,32 @@
             <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
             <br>
             <br>
+            <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
+            <button type="button" onclick="upload()">upload image</button>
+            <br>
+            <br>
             <input value="Sign me up!" type="submit" />
         </form>
 
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function upload() {
+            const apiKey = [[${filestackKey}]];
+            let apiKey1 = [[${fileStackKey}]];
+            const client = filestack.init(apiKey);
+            const options = {
+                onUploadDone: file => {
+                    let imgURL = file.filesUploaded[0].url;
+                    console.log(imgURL);
+                    document.getElementById("ListingImage").value = imgURL;
+                }
+            };
+            client.picker(options).open();
+        }
 
+        /*]]>*/
+    </script>
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>

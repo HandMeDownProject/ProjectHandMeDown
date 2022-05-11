@@ -4,6 +4,13 @@
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
 <h1>Forum header</h1>
+<div>
+    <form th:action="@{/posts/search}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search topics by keyword" size="50">
+        <button type="submit" class="btn btn-info">search</button>
+        <a class="btn btn-primary" th:href="@{'/forum'}" role="button">reset</a>
+    </form>
+</div>
 <div th:each="post : ${posts}">
     <h4 th:text="${post.title}" ></h4>
     <p th:text="${post.body}"></p>
