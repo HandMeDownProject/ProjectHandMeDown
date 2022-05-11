@@ -59,10 +59,10 @@ public class UserController {
         model.addAttribute("user", fromDao);
         UserRole userRole = roles.getUserRoleByUserId(loggedInUser.getId());
         if (userRole.getRole().equals("ADMIN")) {
-            return "redirect:/admin";
+            return "/users/admin";
         } else {
 
-            return "redirect:/profile";
+            return "/users/profile";
         }
     }
 
