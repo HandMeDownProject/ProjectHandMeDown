@@ -27,6 +27,9 @@
         <p th:text="${reply.body}"></p>
         <h4 th:text="${reply.forumPost.getId()}" ></h4>
         <p th:text="${reply.user.getUsername()}"></p>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
+        </div>
         <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;
     </div>
 <!--    reply form-->
