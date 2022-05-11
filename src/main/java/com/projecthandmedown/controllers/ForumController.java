@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ForumController {
@@ -73,6 +75,35 @@ public class ForumController {
         return "forums/forum";
     }
 
+    @GetMapping("posts/search")
+    public String findPosts(Model model, @RequestParam String keyword) {
+        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
+        List<ForumPost> posts = forumPostDao.findAll();
+        List<ForumPost> findKeywordPosts = new ArrayList<>();
+
+        for (int i = 0; i < posts.size(); i++) {
+            ForumPost post = posts.get(i);
+            String title = post.getTitle();
+            String body = post.getBody();
+            if (title.toLowerCase().contains(keyword.toLowerCase())) {
+                findKeywordPosts.add(post);
+            }
+            if (body.toLowerCase().contains(keyword.toLowerCase())) {
+                findKeywordPosts.add(post);
+            }
+
+            for (int k = 0; k < findKeywordPosts.size(); k++) {
+                for (int j = 1; j < findKeywordPosts.size(); j++) {
+                    if (findKeywordPosts.get(k) == findKeywordPosts.get(j)) {
+                        findKeywordPosts.remove(j);
+                    }
+                }
+            }
+        }
+        model.addAttribute("posts", findKeywordPosts);
+        return "forums/forum";
+    }
+
     @GetMapping("/create/post")
     public String createPostingView(Model model){
         List<ForumPostCategory> categories = forumPostCategoryDao.findAll();
@@ -107,6 +138,7 @@ public class ForumController {
     @GetMapping("post/{id}/delete")
     public String delete(@PathVariable long id, Model model) {
         ForumPost post = forumPostDao.getById(id);
+        post.getForumPostCategories().clear();
         forumPostDao.delete(post);
         return "redirect:/forum";
     }
