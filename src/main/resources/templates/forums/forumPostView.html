@@ -18,7 +18,9 @@
     </div>
     tags:&nbsp;
     <ul th:each="category : ${categories}">
-        <li th:text="${category.getName()}"></li>
+        <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${category.getId()})}">
+            <li th:text="${category.getName()}"></li>
+        </a>
     </ul>
 <!--    replies-->
     <div  th:each="reply : ${replies}">
