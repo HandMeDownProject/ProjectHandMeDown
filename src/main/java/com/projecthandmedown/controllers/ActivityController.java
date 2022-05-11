@@ -82,14 +82,10 @@ public class ActivityController {
 
     @PostMapping("/activities/create")
     public String addActivity(@ModelAttribute Activity activity,RedirectAttributes attr,Model model
-    ){
+    ) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         activity.setUser(user); // <-- this will be setting     user for post.
-
-        if(activity.getTitle().equals("") || activity.getBody().equals("")){
-            return "activities/activityCreate";
-        }
 
 
         activityDao.save(activity);
