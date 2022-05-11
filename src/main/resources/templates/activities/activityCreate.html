@@ -28,6 +28,17 @@
         <input th:field="*{webUrl}" id="webUrl" type="url">
     </label><br>
 
+    <p>
+    <label>Select Categories:
+        <input type="checkbox" name="activityCategories"
+               th:each="category : ${categories}"
+               th:text="${category.getName()}"
+               th:value="${category.id}"
+               th:field="*{activityCategories}"/>
+    </label>
+    </p>
+
+
     <button type="submit">Save my post!</button>
 </form>
 <br>

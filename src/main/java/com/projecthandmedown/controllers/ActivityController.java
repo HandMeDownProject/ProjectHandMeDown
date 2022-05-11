@@ -1,6 +1,8 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
+import com.projecthandmedown.models.ActivityCategory;
 import com.projecthandmedown.models.User;
+import com.projecthandmedown.repositories.ActivityCategoryRepository;
 import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,11 +24,13 @@ public class ActivityController {
     private final ActivityRepository activityDao;
     private final UserRepository userDAO;
     private final EmailService emailService;
+    private final ActivityCategoryRepository activityCatDao;
 
-    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService) {
+    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService, ActivityCategoryRepository activityCatDao){
         this.activityDao = activityDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
+        this.activityCatDao = activityCatDao;
     }
 
     @GetMapping("/activities")
@@ -35,16 +40,29 @@ public class ActivityController {
        model.addAttribute("activities",activities);
 
         return "activities/activitiesView";
-
-
     }
+
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id){
         Activity activity = activityDao.getById(id);
         model.addAttribute("activity",activity);
-
-
         return "activities/activityView";
+    }
+
+    @GetMapping("/activities/categories/{id}")
+    public String viewByCategory(Model model, @PathVariable Long id){
+        List <ActivityCategory> categories = activityCatDao.findAll();
+       List <Activity> activities = activityCatDao.getById(id).getActivities();
+
+       model.addAttribute("categories",categories);
+       model.addAttribute("activities",activities);
+
+
+
+
+
+
+        return "activities/activitiesView";
     }
 
 
@@ -55,24 +73,28 @@ public class ActivityController {
     public String createActivity(Model model){
         model.addAttribute("activity", new Activity());
         model.addAttribute("filestackKey", filestackKey);
-        //model.addAttribute("user", new User());
+        List<ActivityCategory> categories = activityCatDao.findAll();
+        model.addAttribute("categories",categories);
+
 
         return "activities/activityCreate";
-
     }
 
     @PostMapping("/activities/create")
-    public String addActivity(@ModelAttribute Activity activity,        RedirectAttributes attr
+    public String addActivity(@ModelAttribute Activity activity,RedirectAttributes attr,Model model
     ){
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         activity.setUser(user); // <-- this will be setting     user for post.
 
         if(activity.getTitle().equals("") || activity.getBody().equals("")){
             return "activities/activityCreate";
         }
+
+
         activityDao.save(activity);
+
+
         attr.addFlashAttribute("createMsg","Successfully added a new post");
 
 
@@ -87,7 +109,12 @@ public class ActivityController {
     public String editPost(@PathVariable Long id, Model model){
         Activity activity = activityDao.getById(id);
 
+        List<ActivityCategory> categories = activityCatDao.findAll();
+
+
         model.addAttribute("activity",activity);
+        model.addAttribute("categories",categories);
+
         return "activities/activityEdit";
 
     }
