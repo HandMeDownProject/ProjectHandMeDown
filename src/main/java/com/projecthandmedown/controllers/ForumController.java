@@ -64,14 +64,14 @@ public class ForumController {
         return "forums/forumPostView";
     }
 
-    //List<ForumPostCategory> categories = forumposts.
-
-//    @GetMapping("/filter")
-//    public String filterCategory(long id, Model model) {
-//        ForumPost topic = forumPostDao.getById(id); //split for categories
-//        List<ForumPostCategory> categories = topic.getForumPostCategories(); //split for categories
-//        model.addAttribute("posts", categories);
-//    }
+    @GetMapping("/FilterByCategory/{cat_id}")
+    public String forumPostsByCategory(@PathVariable Long cat_id, Model model) {
+        List<ForumPost> posts = forumPostCategoryDao.getById(cat_id).getForumPosts();
+        List<ForumPostCategory> cats = forumPostCategoryDao.findAll();
+        model.addAttribute("posts", posts);
+        model.addAttribute("cats", cats);
+        return "forums/forum";
+    }
 
     @GetMapping("/create/post")
     public String createPostingView(Model model){
