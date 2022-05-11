@@ -49,6 +49,22 @@ public class ActivityController {
         return "activities/activityView";
     }
 
+    @GetMapping("/activities/categories/{id}")
+    public String viewByCategory(Model model, @PathVariable Long id){
+        List <ActivityCategory> categories = activityCatDao.findAll();
+       List <Activity> activities = activityCatDao.getById(id).getActivities();
+
+       model.addAttribute("categories",categories);
+       model.addAttribute("activities",activities);
+
+
+
+
+
+
+        return "activities/activitiesView";
+    }
+
 
     @Value("${filestack.api.key}")
     private String filestackKey;
