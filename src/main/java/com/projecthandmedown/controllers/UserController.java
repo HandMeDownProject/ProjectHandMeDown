@@ -6,6 +6,7 @@ import com.projecthandmedown.repositories.RoleRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import com.projecthandmedown.services.SendGridEmailService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,13 @@ public class UserController {
         this.roles = roles;
     }
 
+    @Value("${filestack.api.key}")
+    private String filestackKey;
+
     @GetMapping("/sign-up")
     public String showSignupForm(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("filestackKey", filestackKey);
         return "users/sign-up";
     }
 
@@ -57,6 +62,7 @@ public class UserController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User fromDao = userDao.getUserById(loggedInUser.getId());
         model.addAttribute("user", fromDao);
+        model.addAttribute("filestackKey", filestackKey);
         UserRole userRole = roles.getUserRoleByUserId(loggedInUser.getId());
         if (userRole.getRole().equals("ADMIN")) {
             return "/users/admin";
@@ -95,6 +101,7 @@ public class UserController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User fromDao = userDao.getUserById(loggedInUser.getId());
         model.addAttribute("user", fromDao);
+        model.addAttribute("filestackKey", filestackKey);
         return "users/admin";
     }
 

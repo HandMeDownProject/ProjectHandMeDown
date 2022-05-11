@@ -20,6 +20,8 @@ public class User {
     private Boolean userIsAdmin;
     @Column(nullable = false, length = 20)
     private String userPhone;
+    @Column(nullable = false, length = 100)
+    private String userIMG;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ForumPost> forumPosts;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -40,15 +42,17 @@ public class User {
 
     }
 
-    public User(String username, String email, String password, String userLocation, String userPhone) {
+    public User(String username, String email, String password, String userLocation, String userPhone, String userIMG) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.userLocation = userLocation;
         this.userPhone = userPhone;
+        this.userIMG = userIMG;
     }
 
-    public User(Long id, String username, String email, String password, String userLocation, Boolean userIsAdmin, String userPhone, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
+
+    public User(Long id, String username, String email, String password, String userLocation, Boolean userIsAdmin, String userPhone, String userIMG, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -56,6 +60,7 @@ public class User {
         this.userLocation = userLocation;
         this.userIsAdmin = userIsAdmin;
         this.userPhone = userPhone;
+        this.userIMG = userIMG;
         this.forumPosts = forumPosts;
         this.listings = listings;
         this.forumReplies = forumReplies;
@@ -148,6 +153,14 @@ public class User {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
+    }
+
+    public String getUserIMG() {
+        return userIMG;
+    }
+
+    public void setUserIMG(String userIMG) {
+        this.userIMG = userIMG;
     }
 
 
