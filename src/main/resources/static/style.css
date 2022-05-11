@@ -33,3 +33,21 @@
     box-shadow: 0 0 5px #ffee10;
     text-shadow: 0 0 5px #ffee10!important;
 }
+
+/*.clicker {*/
+/*    width:100px;*/
+/*    height:100px;*/
+/*    background-color:blue;*/
+/*    outline:none;*/
+/*    cursor:pointer;*/
+/*}*/
+
+/*.hiddendiv{*/
+/*    display:none;*/
+/*    !*height:200px;*!*/
+/*    !*background-color:green;*!*/
+/*}*/
+
+/*.clicker:focus + .hiddendiv{*/
+/*    display:block;*/
+/*}*/
