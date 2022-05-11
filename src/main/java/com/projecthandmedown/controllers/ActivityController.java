@@ -7,6 +7,7 @@ import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class ActivityController {
     @GetMapping("/activities")
     public String activitiesView(Model model) {
 
-        List<Activity> activities = activityDao.findAll();
+        List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("activities", activities);
 
         return "activities/activitiesView";

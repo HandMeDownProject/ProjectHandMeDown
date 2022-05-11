@@ -5,6 +5,7 @@ import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.ForumReplyRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,7 @@ public class ForumController {
     @GetMapping("/forum")
 //    @ResponseBody
     public String posts(Model model) {
-        model.addAttribute("posts", forumPostDao.findAll());
+        model.addAttribute("posts", forumPostDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
 //        model.addAttribute("categories", categoriesDao.findAll());
         return "forums/forum";
     }

@@ -9,6 +9,7 @@ import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class ListingController {
     @GetMapping("/listings")
 //    @ResponseBody
     public String listings(Model model) {
-        model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("listings", listingDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
         model.addAttribute("cats", listingCategoryDao.findAll());
         return "listings/listingsView";
     }
