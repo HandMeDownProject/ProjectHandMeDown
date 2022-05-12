@@ -5,12 +5,15 @@ import com.projecthandmedown.repositories.ForumPostRepository;
 import com.projecthandmedown.repositories.ForumReplyRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ForumController {
@@ -44,7 +47,7 @@ public class ForumController {
     @GetMapping("/forum")
 //    @ResponseBody
     public String posts(Model model) {
-        model.addAttribute("posts", forumPostDao.findAll());
+        model.addAttribute("posts", forumPostDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
 //        model.addAttribute("categories", categoriesDao.findAll());
         return "forums/forum";
     }
@@ -70,6 +73,35 @@ public class ForumController {
         List<ForumPostCategory> cats = forumPostCategoryDao.findAll();
         model.addAttribute("posts", posts);
         model.addAttribute("cats", cats);
+        return "forums/forum";
+    }
+
+    @GetMapping("posts/search")
+    public String findPosts(Model model, @RequestParam String keyword) {
+        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
+        List<ForumPost> posts = forumPostDao.findAll();
+        List<ForumPost> findKeywordPosts = new ArrayList<>();
+
+        for (int i = 0; i < posts.size(); i++) {
+            ForumPost post = posts.get(i);
+            String title = post.getTitle();
+            String body = post.getBody();
+            if (title.toLowerCase().contains(keyword.toLowerCase())) {
+                findKeywordPosts.add(post);
+            }
+            if (body.toLowerCase().contains(keyword.toLowerCase())) {
+                findKeywordPosts.add(post);
+            }
+
+            for (int k = 0; k < findKeywordPosts.size(); k++) {
+                for (int j = 1; j < findKeywordPosts.size(); j++) {
+                    if (findKeywordPosts.get(k) == findKeywordPosts.get(j)) {
+                        findKeywordPosts.remove(j);
+                    }
+                }
+            }
+        }
+        model.addAttribute("posts", findKeywordPosts);
         return "forums/forum";
     }
 
@@ -107,6 +139,7 @@ public class ForumController {
     @GetMapping("post/{id}/delete")
     public String delete(@PathVariable long id, Model model) {
         ForumPost post = forumPostDao.getById(id);
+        post.getForumPostCategories().clear();
         forumPostDao.delete(post);
         return "redirect:/forum";
     }

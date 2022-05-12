@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<!--<head th:include="partials::head">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head th:include="/partials/head.html :: head">
+
+</head>
 <body>
 <!--<header th:include="partials::my-header"></header>-->
 <!--<nav th:include="partials::my-navbar"></nav>-->
@@ -29,10 +30,33 @@
     <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
     <br>
     <br>
+    <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
+    <button type="button" onclick="upload()">upload image</button>
+    <br>
+    <br>
     <input value="Sign me up!" type="submit" />
 </form>
 <br>
 <br>
 <!--<footer th:include="partials::my-footer"></footer>-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function upload() {
+        const apiKey = [[${filestackKey}]];
+        let apiKey1 = [[${fileStackKey}]];
+        const client = filestack.init(apiKey);
+        const options = {
+            onUploadDone: file => {
+                let imgURL = file.filesUploaded[0].url;
+                console.log(imgURL);
+                document.getElementById("ListingImage").value = imgURL;
+            }
+        };
+        client.picker(options).open();
+    }
+
+    /*]]>*/
+</script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>

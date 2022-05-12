@@ -13,11 +13,11 @@
 <form th:action="@{/activities/create}" th:object="${activity}" method="post" >
 
     <label for="title">title:
-        <input th:field="*{title}" id="title" type="text">
+        <input th:field="*{title}" id="title" type="text" required>
     </label><br>
 
     <label for="body">New Activity
-        <input th:field="*{body}" id="body" type="text">
+        <input th:field="*{body}" id="body" type="text" required>
     </label><br>
 
     <label for="imageUrl">picture
@@ -27,6 +27,17 @@
     <label for="webUrl">Activity info URL here
         <input th:field="*{webUrl}" id="webUrl" type="url">
     </label><br>
+
+    <p>
+    <label>Select Categories:
+        <input type="checkbox" name="activityCategories"
+               th:each="category : ${categories}"
+               th:text="${category.getName()}"
+               th:value="${category.id}"
+               th:field="*{activityCategories}"/>
+    </label>
+    </p>
+
 
     <button type="submit">Save my post!</button>
 </form>

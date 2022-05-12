@@ -20,6 +20,7 @@
         <th scope="col">Description</th>
         <th scope="col">image Url</th>
         <th scope="col">web Url</th>
+        <th scope="col">Category</th>
         <th scope="col">UserName</th>
     </tr>
     </thead>
@@ -30,7 +31,12 @@
         <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">
         </td>
         <td th:text="${activity.webUrl}"></td>
-        <td th:text="${activity.user.getUsername()}"></td>
+        <td >
+            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
+            </p>
+        </td>
+<!--        <td th:text="${activity.user.getUsername()}"></td>-->
+        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>
     </tr>
     </tbody>
 </table>
