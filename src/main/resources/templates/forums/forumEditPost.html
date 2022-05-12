@@ -15,6 +15,7 @@
   <form th:action="@{/edit/post}" th:method="post" th:object="${post}">
     <input th:field="*{id}" hidden>
     <input th:field="*{user}" hidden>
+    <input th:field="*{timestamp}" hidden>
     <label >Title</label><br>
     <input th:field="*{title}"><br>
     <label >Body</label><br>
