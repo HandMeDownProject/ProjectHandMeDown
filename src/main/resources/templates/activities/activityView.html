@@ -30,7 +30,7 @@
         <td th:text="${activity.body}"></td>
         <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">
         </td>
-        <td th:text="${activity.webUrl}"></td>
+        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>
         <td >
             <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
             </p>
