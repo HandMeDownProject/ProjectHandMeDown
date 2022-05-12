@@ -33,6 +33,7 @@
         <span sec:authorize="hasAuthority('ADMIN')">
             <a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
         </span>
+        <button><a th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">Report Reply</a></button>
         <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;
     </div>
     <br>
@@ -42,7 +43,7 @@
         <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>
         <button type="submit">Submit Reply</button>
     </form>
-    <button><a th:href="@{/report}">report post</a></button>
+    <button><a th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a></button>
     <button><a th:href="@{'/forum'}">Go back to forum</a></button>
 </div>
 

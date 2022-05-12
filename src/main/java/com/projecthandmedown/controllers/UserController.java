@@ -1,8 +1,6 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.*;
-import com.projecthandmedown.repositories.PasswordResetTokenRepository;
-import com.projecthandmedown.repositories.RoleRepository;
-import com.projecthandmedown.repositories.UserRepository;
+import com.projecthandmedown.repositories.*;
 import com.projecthandmedown.services.EmailService;
 import com.projecthandmedown.services.SendGridEmailService;
 
@@ -30,8 +28,12 @@ public class UserController {
     private final RoleRepository roles;
     private final UserService userService;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
+    private final ListingRepository listingDao;
+    private final ForumPostRepository forumPostDao;
+    private final ForumReplyRepository forumReplyDao;
+    private final ActivityRepository activityDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles, UserService userService, PasswordResetTokenRepository passwordResetTokenRepository) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles, UserService userService, PasswordResetTokenRepository passwordResetTokenRepository, ListingRepository listingDao, ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, ActivityRepository activityDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
@@ -39,6 +41,10 @@ public class UserController {
         this.roles = roles;
         this.userService = userService;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
+        this.listingDao = listingDao;
+        this.forumPostDao = forumPostDao;
+        this.forumReplyDao = forumReplyDao;
+        this.activityDao = activityDao;
     }
 
     @Value("${filestack.api.key}")
@@ -134,17 +140,60 @@ public class UserController {
         return redirect;
     }
 
-    @GetMapping("/report")
-    public String sendReport(Model model) {
+    @GetMapping("/report/{type}/{id}")
+    public String sendReport(Model model, @PathVariable String type, @PathVariable long id) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
+        model.addAttribute("type", type);
+        model.addAttribute("id", id);
         model.addAttribute("message", new Message());
+        if(type.equals("listing")){
+            Listing listing = listingDao.getById(id);
+            model.addAttribute("object", listing);
+            model.addAttribute("objectType", "post");
+            model.addAttribute("postType", "listing");
+        }else if(type.equals("forum_post")){
+            ForumPost forumPost = forumPostDao.getById(id);
+            model.addAttribute("object", forumPost);
+            model.addAttribute("objectType", "post");
+            model.addAttribute("postType", "forum post");
+        }else if(type.equals("forum_reply")){
+            ForumReply forumReply = forumReplyDao.getById(id);
+            model.addAttribute("object", forumReply);
+            model.addAttribute("objectType", "reply");
+        }else if(type.equals("activity")){
+            Activity activity = activityDao.getById(id);
+            model.addAttribute("object", activity);
+            model.addAttribute("objectType", "post");
+            model.addAttribute("postType", "activity");
+        }else {
+            User user = userDao.getUserById(id);
+            model.addAttribute("object", user);
+            model.addAttribute("objectType", "user");
+        }
         return "users/report";
     }
 
-    @PostMapping("/report")
-    public String sendReport(@ModelAttribute Message message) {
+    @PostMapping("/report/{type}/{id}")
+    public String sendReport(@ModelAttribute Message message, @PathVariable String type, @PathVariable long id) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        message.setSender(loggedInUser);
+        if(type.equals("listing")){
+            Listing listing = listingDao.getById(id);
+            sendGridEmailService.sendReportEmail(message, listing);
+        }else if(type.equals("forum_post")){
+            ForumPost forumPost = forumPostDao.getById(id);
+            sendGridEmailService.sendReportEmail(message, forumPost);
+        }else if(type.equals("forum_reply")){
+            ForumReply forumReply = forumReplyDao.getById(id);
+            sendGridEmailService.sendReportEmail(message, forumReply);
+        }else if(type.equals("activity")){
+            Activity activity = activityDao.getById(id);
+            sendGridEmailService.sendReportEmail(message, activity);
+        }else {
+            User user = userDao.getUserById(id);
+            sendGridEmailService.sendReportEmail(message, user);
+        }
         message.setSender(loggedInUser);
         message.setReceiver("admin@mail.com");
         emailService.prepareAndSend(message, "New Report", message.getBody());
