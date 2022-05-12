@@ -4,6 +4,7 @@
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
 <div class="container-fluid">
+
 <!--    topic-->
     <div>
         <h3 th:text="${posts.getTitle()}"></h3>
@@ -16,15 +17,17 @@
             <a th:href="@{/edit/{id}/post(id=${posts.id})}">Admin Edit Post</a>
         </div>
     </div>
-    tags:&nbsp;
+    <p>Tags: &nbsp;</p>
     <ul th:each="category : ${categories}">
         <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${category.getId()})}">
             <li th:text="${category.getName()}"></li>
         </a>
     </ul>
+
 <!--    replies-->
     <div  th:each="reply : ${replies}">
         <p th:text="${reply.body}"></p>
+        <p th:text="${reply.timestamp}"></p>
         <h4 th:text="${reply.forumPost.getId()}" ></h4>
         <p th:text="${reply.user.getUsername()}"></p>
         <span sec:authorize="hasAuthority('ADMIN')">
@@ -33,6 +36,7 @@
         <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;
     </div>
     <br>
+
 <!--    reply form-->
     <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
         <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>
