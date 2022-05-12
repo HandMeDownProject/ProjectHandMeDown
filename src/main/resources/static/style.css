@@ -2,6 +2,27 @@
 
 }
 
+
+/*     Font styles          */
+h1{
+    font-family: 'Caveat', cursive;
+    font-size: 4rem;
+}
+h3{
+    font-family: 'Rokkitt', serif;
+}
+p, button, a, input, label,div{
+    font-family: 'Noto Sans', sans-serif;
+}
+/*font-family: 'Noto Sans', sans-serif;*/
+/*font-family: 'Rokkitt', serif;*/
+/*font-family: 'Caveat', cursive;*/
+/*font-family: 'Love Ya Like A Sister', cursive;*/
+/*font-family: 'Montserrat', sans-serif;*/
+/*font-family: 'Sniglet', cursive;*/
+
+
+
 #navLogOut{
     color: #999D9F!important;
     border: none;
@@ -33,6 +54,9 @@
     box-shadow: 0 0 5px #ffee10;
     text-shadow: 0 0 5px #ffee10!important;
 }
+
+
+
 
 /*.clicker {*/
 /*    width:100px;*/
