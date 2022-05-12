@@ -7,8 +7,12 @@
 </head>
 <body>
 <nav th:include="/partials/navBar.html :: navBar"></nav>
-<h1><strong>WELCOME TO PROJECT HAND ME DOWN!!</strong></h1>
+
+<!--<h1><span class="txt anim-text-flow">WELCOME TO PROJECT HAND ME DOWN!!</span></h1>-->
 <div class="hero">
+    <h1><span>P</span><span>R</span><span>O</span><span>J</span><span>E</span><span>C</span><span>T</span><span> </span><span>H</span><span>A</span><span>N</span><span>D</span><span> </span><span>M</span><span>E</span><span> </span><span>D</span><span>O</span><span>W</span><span>N</span><span>!</span></h1>
+    <br>
+    <br>
     <h3>this will be our landing content</h3>
 </div>
 <div class="marketplace">
@@ -26,5 +30,13 @@
         <button type="submit">go to forum</button>
     </form>
 </div>
+<script>
+    $('.txt').html(function(i, html) {
+        var chars = $.trim(html).split("");
+
+        return '<span>' + chars.join('</span><span>') + '</span>';
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body>
+
 </html>
