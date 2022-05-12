@@ -152,7 +152,9 @@ public class UserController {
     }
 
     @GetMapping("/forgot_password")
-    public String forgotPassword() {
+    public String forgotPassword(Model model) {
+        model.addAttribute("message", "a link to reset your password");
+        model.addAttribute("url", "forgot_password");
         return "users/forgot-password";
     }
 
@@ -189,6 +191,19 @@ public class UserController {
             passwordResetTokenRepository.delete(pass);
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/forgot_username")
+    public String forgotUsername(Model model) {
+        model.addAttribute("message", "your username with a link to login");
+        model.addAttribute("url", "forgot_username");        return "users/forgot-password";
+    }
+
+    @PostMapping("/forgot_username")
+    public String forgotUsername(@RequestParam(name = "email") String email, HttpServletRequest request, Model model) throws IOException {
+        User user = userDao.getUserByEmail(email);
+        sendGridEmailService.sendTextEmail(user);
+        return "redirect:/";
     }
 
 }
