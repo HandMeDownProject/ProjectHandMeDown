@@ -101,10 +101,18 @@ h1:hover span { animation:bounce .6s; }
     50%{ transform:translateY(-20px) rotate(3deg) scale(1.1);  }
 }
 
-span:nth-child(4n) { color: hsl(223, 94%, 49%); text-shadow:1px 1px hsl(230, 75%, 45%), 2px 2px hsl(251, 45%, 45%), 3px 3px hsl(235, 45%, 45%), 4px 4px hsl(50, 75%, 45%); }
-span:nth-child(4n-1) { color: hsl(89, 98%, 49%); text-shadow:1px 1px hsl(77, 55%, 49%), 2px 2px hsl(84, 73%, 66%), 3px 3px hsl(81, 77%, 72%), 4px 4px hsl(135, 35%, 45%); }
-span:nth-child(4n-2) { color: hsl(351, 87%, 52%); text-shadow:1px 1px hsl(349, 82%, 62%), 2px 2px hsl(0, 67%, 59%), 3px 3px hsl(0, 83%, 64%), 4px 4px hsl(140, 25%, 50%); }
-span:nth-child(4n-3) { color: hsl(31, 100%, 50%); text-shadow:1px 1px hsl(21, 87%, 52%), 2px 2px hsl(30, 45%, 50%), 3px 3px hsl(30, 45%, 50%), 4px 4px hsl(30, 45%, 50%); }
+span:nth-child(4n) { color: hsl(223, 94%, 49%);  text-shadow: 0 15px 9px #498be7,0 -2px 1px #535be8; }
+/*span:nth-child(4n) { color: hsl(223, 94%, 49%); text-shadow:1px 1px hsl(240, 69%, 71%), 2px 2px hsl(251, 52%, 71%), 3px 3px hsl(235, 63%, 71%), 4px 4px hsl(50, 75%, 45%); }*/
+
+span:nth-child(4n-1) { color: hsl(89, 98%, 49%); text-shadow: 0 15px 9px #30ef26,0 -2px 1px #c8f6bb;}
+/*span:nth-child(4n-1) { color: hsl(89, 98%, 49%); text-shadow:1px 1px hsl(77, 67%, 66%), 2px 2px hsl(82, 52%, 85%), 3px 3px hsl(82, 43%, 82%), 4px 4px hsl(135, 35%, 45%); }*/
+
+span:nth-child(4n-2) { color: hsl(351, 87%, 52%); text-shadow: 0 15px 9px #fa0101,0 -2px 1px #ef8989; }
+/*span:nth-child(4n-2) { color: hsl(351, 87%, 52%); text-shadow:1px 1px hsl(349, 64%, 68%), 2px 2px hsl(0, 66%, 72%), 3px 3px hsl(0, 59%, 72%), 4px 4px hsl(140, 25%, 50%); }*/
+
+span:nth-child(4n-3) { color: hsl(31, 100%, 50%); text-shadow: 0 15px 9px #e5610d,0 -2px 1px #efb87a; }
+/*span:nth-child(4n-3) { color: hsl(31, 100%, 50%); text-shadow:1px 1px hsl(20, 66%, 75%), 2px 2px hsl(31, 31%, 42%), 3px 3px hsl(31, 27%, 48%), 4px 4px hsl(30, 45%, 50%); }*/
+
 
 /*wave animation for all spaces in span div*/
 h1 span:nth-child(2){ animation-delay:.05s; }
