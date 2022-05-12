@@ -14,7 +14,13 @@
 <br>
 <br>
 <h1>This is the marketplace!</h1>
-
+<br>
+<div>
+    <a th:href="@{/listings}" th:text="'newest first &#8595;'"></a>
+    <a th:href="@{/listings/reverse}" th:text="'oldest first &#8593;'"></a>
+    <br>
+    <br>
+</div>
 <div th:each="listing : ${listings}">
     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"></h4></a>
     <p th:text="${listing.body}"></p>

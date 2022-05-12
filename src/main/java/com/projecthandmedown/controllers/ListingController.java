@@ -46,6 +46,15 @@ public class ListingController {
         return "listings/listingsView";
     }
 
+    @GetMapping("/listings/reverse")
+//    @ResponseBody
+    public String listingsReverse(Model model) {
+        model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("cats", listingCategoryDao.findAll());
+        return "listings/listingsView";
+    }
+
+
     @GetMapping("/listing/{id}")
     public String listingView(Model model, @PathVariable Long id) {
         Listing listing = listingDao.getById(id);
