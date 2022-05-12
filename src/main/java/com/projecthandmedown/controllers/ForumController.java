@@ -153,6 +153,9 @@ public class ForumController {
         comment.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         comment.setForumPost(forumPostDao.getById(id));
         comment.setBody(reply.getBody());
+        String date = new String(String.valueOf(new Date(System.currentTimeMillis())));
+        comment.setTimestamp(date);
+        System.out.println("timestamp = " + date);
         forumReplyDao.save(comment);
         return "redirect:/forum_post/{id}";
     }
