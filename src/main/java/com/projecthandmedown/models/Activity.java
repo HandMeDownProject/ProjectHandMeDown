@@ -20,7 +20,7 @@ public class Activity implements Serializable {
     private String imageUrl;
     @Column(nullable = true)
     private String webUrl;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String timestamp;
 
     @ManyToOne
