@@ -91,9 +91,9 @@ public class ListingController {
     @PostMapping("/create/listing")
     public String listingsAdd(@ModelAttribute Listing listing) {
         listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        String date = new String(String.valueOf(new Date(System.currentTimeMillis())));
+        String date = String.valueOf(new Date(System.currentTimeMillis()));
         listing.setTimestamp(date);
-        System.out.println("timestamp = " + date);
+//        System.out.println("timestamp = " + date);
 
         listingDao.save(listing);
 
