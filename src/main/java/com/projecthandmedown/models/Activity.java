@@ -20,6 +20,8 @@ public class Activity implements Serializable {
     private String imageUrl;
     @Column(nullable = true)
     private String webUrl;
+    @Column(nullable = false)
+    private String timestamp;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -35,21 +37,23 @@ public class Activity implements Serializable {
     public Activity() {
     }
 
-    public Activity(long id, String title, String body, User user, List<ActivityCategory> activityCategories) {
+    public Activity(long id, String title, String body, User user, List<ActivityCategory> activityCategories, String timestamp) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
         this.activityCategories = activityCategories;
+        this.timestamp = timestamp;
     }
 
-    public Activity(long id, String title, String body, String webUrl, User user, List<ActivityCategory> activityCategories) {
+    public Activity(long id, String title, String body, String webUrl, User user, List<ActivityCategory> activityCategories, String timestamp) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.webUrl = webUrl;
         this.user = user;
         this.activityCategories = activityCategories;
+        this.timestamp = timestamp;
     }
 
     public Activity(long id, String title, String body, String imageUrl, String webUrl, User user, List<ActivityCategory> activityCategories) {
@@ -100,6 +104,14 @@ public class Activity implements Serializable {
 
     public void setWebUrl(String webUrl) {
         this.webUrl = webUrl;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public User getUser() {
