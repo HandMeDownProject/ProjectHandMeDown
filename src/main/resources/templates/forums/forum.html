@@ -11,10 +11,12 @@
         <a class="btn btn-primary" th:href="@{'/forum'}" role="button">reset</a>
     </form>
 </div>
+
 <div th:each="post : ${posts}">
     <h4 th:text="${post.title}" ></h4>
     <p th:text="${post.body}"></p>
     <p th:text="${post.user.getUsername()}"></p>
+    <p th:text="${post.timestamp}"></p>
     <span th:each="cat : ${post.getForumPostCategories()}">
         <a th:text="${cat.getName()}" th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}"></a>
     </span><br>

@@ -16,6 +16,8 @@ public class ForumPost implements Serializable {
     private String title;
     @Column(nullable = false)
     private String body;
+    @Column(nullable = false)
+    private String timestamp;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -32,18 +34,20 @@ public class ForumPost implements Serializable {
     public ForumPost() {
     }
 
-    public ForumPost(long id, String title, String body, User user, List<ForumReply> forumReplies) {
+    public ForumPost(long id, String title, String body, String timestamp, User user, List<ForumReply> forumReplies) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.timestamp = timestamp;
         this.user = user;
         this.forumReplies = forumReplies;
     }
 
-    public ForumPost(long id, String title, String body, User user, List<ForumReply> forumReplies, List<ForumPostCategory> forumPostCategories) {
+    public ForumPost(long id, String title, String body, String timestamp, User user, List<ForumReply> forumReplies, List<ForumPostCategory> forumPostCategories) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.timestamp = timestamp;
         this.user = user;
         this.forumReplies = forumReplies;
         this.forumPostCategories = forumPostCategories;
@@ -72,6 +76,10 @@ public class ForumPost implements Serializable {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public String getTimestamp() { return timestamp; }
+
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 
     public User getUser() {
         return user;
