@@ -10,11 +10,13 @@ import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Timestamp;
 import java.util.*;
 
 @Controller
@@ -45,6 +47,15 @@ public class ListingController {
         model.addAttribute("cats", listingCategoryDao.findAll());
         return "listings/listingsView";
     }
+
+    @GetMapping("/listings/reverse")
+//    @ResponseBody
+    public String listingsReverse(Model model) {
+        model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("cats", listingCategoryDao.findAll());
+        return "listings/listingsView";
+    }
+
 
     @GetMapping("/listing/{id}")
     public String listingView(Model model, @PathVariable Long id) {
@@ -80,6 +91,9 @@ public class ListingController {
     @PostMapping("/create/listing")
     public String listingsAdd(@ModelAttribute Listing listing) {
         listing.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String date = new String(String.valueOf(new Date(System.currentTimeMillis())));
+        listing.setTimestamp(date);
+        System.out.println("timestamp = " + date);
 
         listingDao.save(listing);
 

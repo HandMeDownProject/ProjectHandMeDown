@@ -14,12 +14,19 @@
 <br>
 <br>
 <h1>This is the marketplace!</h1>
-
+<br>
+<div>
+    <a th:href="@{/listings}" th:text="'newest first &#8595;'"></a>
+    <a th:href="@{/listings/reverse}" th:text="'oldest first &#8593;'"></a>
+    <br>
+    <br>
+</div>
 <div th:each="listing : ${listings}">
     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"></h4></a>
     <p th:text="${listing.body}"></p>
     <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>
     <p th:text="${listing.price}"></p>
+    <p th:text="${listing.timestamp}"></p>
     <!--    <p th:text="${listing.user.getUsername()}"></p>-->
     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
        th:text="${listing.getUser().getUsername()}"></a>

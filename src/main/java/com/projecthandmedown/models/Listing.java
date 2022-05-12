@@ -18,6 +18,8 @@ public class Listing implements Serializable {
     private String body;
     @Column(nullable = false)
     private String price;
+    @Column(nullable = false)
+    private String timestamp;
     @Column(nullable = true)
     private String imageUrl;
     @ManyToOne
@@ -34,30 +36,41 @@ public class Listing implements Serializable {
     public Listing() {
     }
 
-    public Listing(long id, String title, String body, String price, User user) {
+    public Listing(long id, String title, String body, String price, User user, String timestamp) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.price = price;
         this.user = user;
+        this.timestamp = timestamp;
     }
 
-    public Listing(long id, String title, String body, String price, String imageUrl, User user) {
+    public Listing(long id, String title, String body, String price, String imageUrl, User user, String timestamp) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.price = price;
         this.imageUrl = imageUrl;
         this.user = user;
+        this.timestamp = timestamp;
     }
 
-    public Listing(long id, String title, String body, String price, String imageUrl, User user, List<ListingCategory> listingsCategories) {
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Listing(long id, String title, String body, String price, String imageUrl, User user, String timestamp, List<ListingCategory> listingsCategories) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.price = price;
         this.imageUrl = imageUrl;
         this.user = user;
+        this.timestamp = timestamp;
         this.listingsCategories = listingsCategories;
     }
 
