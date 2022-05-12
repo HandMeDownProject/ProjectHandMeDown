@@ -26,6 +26,7 @@
     <p th:text="${listing.body}"></p>
     <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>
     <p th:text="${listing.price}"></p>
+    <p th:text="${listing.timestamp}"></p>
     <!--    <p th:text="${listing.user.getUsername()}"></p>-->
     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
        th:text="${listing.getUser().getUsername()}"></a>
