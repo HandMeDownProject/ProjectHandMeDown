@@ -24,8 +24,8 @@ import java.util.Locale;
 
 @Controller
 public class UserController {
-    private UserRepository userDao;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final SendGridEmailService sendGridEmailService;
     private final RoleRepository roles;

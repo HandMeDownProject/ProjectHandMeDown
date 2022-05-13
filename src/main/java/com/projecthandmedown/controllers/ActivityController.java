@@ -94,8 +94,7 @@ public class ActivityController {
 
         String date = new String(String.valueOf(new Date(System.currentTimeMillis())));
         activity.setTimestamp(date);
-
-
+        activity.setViewCount(0L);
 
         activityDao.save(activity);
 
