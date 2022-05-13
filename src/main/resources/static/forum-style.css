@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.post_body {
+    padding-right: 15em;
+}
+
+.topic_main_body {
+    padding: 1em 2em 0 1em;
+    border: 1px solid lightgrey;
+}
+
+/*.topic_main_body:nth-child(1) {*/
+/*    padding: 1em 2em 0 1em;*/
+/*}*/
+
+.inner_main_bloc {
+    display: flex;
+}
+
+.topic_inside_title {
+    flex-grow: 1;
+}
+
+.replies_count_section {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5em;
+}
+
+.replies_count_section > * {
+    text-align: center;
+}
+
+.topic_cat_name {
+    position: relative;
+    bottom: 0.5em;
+    margin-right: 0.5em;
+}
+
+.topic_cats_list {
+    display: flex;
+}
