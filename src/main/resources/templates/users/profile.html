@@ -35,6 +35,8 @@
             <br>
             <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
             <button type="button" onclick="upload()">upload image</button>
+            <p>preview: </p>
+            <img id="profile-preview" src="" height="75px">
             <br>
             <br>
             <input value="Sign me up!" type="submit" />
@@ -52,6 +54,7 @@
                     let imgURL = file.filesUploaded[0].url;
                     console.log(imgURL);
                     document.getElementById("ListingImage").value = imgURL;
+                    document.getElementById("profile-preview").src = imgURL;
                 }
             };
             client.picker(options).open();
