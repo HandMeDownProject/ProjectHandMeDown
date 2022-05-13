@@ -1,13 +1,16 @@
 <!doctype html >
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:include="/partials/head.html :: head">
+    <title>HandeMeDown Forum</title>
+</head>
+
 <body>
 <navbar th:include="/partials/navBar.html :: navBar"></navbar>
 
 <main class="container">
     <h1>Forum header</h1>
     <div>
-<!--        searchbar-->
+        <!--        searchbar-->
         <form th:action="@{/posts/search}" method="get">
             <input type="text" name="keyword" th:value="${keyword}" placeholder="Search topics by keyword" size="50">
             <button type="submit" class="btn btn-info">search</button>
@@ -15,20 +18,60 @@
         </form>
     </div>
 
-<!--    forum topics-->
-    <div th:each="post : ${posts}">
-        <h4 th:text="${post.title}" ></h4>
-        <p th:text="${post.body}"></p>
-        <p th:text="${post.timestamp}"></p>
-        <p th:text="${post.user.getUsername()}"></p>
-        <span th:text="${post.getForumReplies().size()}"></span>&nbsp<span>replies</span><br>
-        <span th:each="cat : ${post.getForumPostCategories()}">
-        <a th:text="${cat.getName()}" th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}"></a>
-    </span><br>
-        <span><a th:href="@{/forum_post/{id}(id=${post.id})}"><sup>view</sup></a></span>&nbsp;
-    </div>
+    <!--    forum topics-->
+    <section>
+        <div class="post_body">
+            <ol class="topic_main_body" th:each="post : ${posts}">
+                <div class="inner_main_bloc">
+                    <div class="topic_inside_title">
+                            <span>
+                               <a th:href="@{/forum_post/{id}(id=${post.id})}">
+                                    <span th:text="${post.title}"></span>
+                               </a>
+                            </span>
+                        <span>
+                               <p>Asked by
+                                    <a href=""> <!-- needs anchor to username profile view-->
+                                        <span th:text="${post.user.getUsername()}"></span>
+                                    </a>,&nbsp; <time th:text="${post.timestamp}"></time>
+                               </p>
+                            </span>
+                        <div class="topic_cats">
+                            <ul class="topic_cats_list" role="list">
+                                <li th:each="cat : ${post.getForumPostCategories()}">
+                                    <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+                                        <span class="topic_cat_name" th:text="${cat.getName()}"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!-- end of topic_inside_title-->
+                    <div class="replies_count_section">
+                        <span th:text="${post.getForumReplies().size()}"></span>
+                        <span>replies</span>
+                    </div>
+                </div> <!-- end of inner_main_bloc-->
+            </ol>
+        </div> <!-- end of post_body-->
+    </section>
 
-<!--    create post button-->
+<!--    original code snippet start-->
+
+    <!--    <div th:each="post : ${posts}">-->
+    <!--        <h4 th:text="${post.title}" ></h4>-->
+    <!--        <p th:text="${post.body}"></p>-->
+    <!--        <p th:text="${post.timestamp}"></p>-->
+    <!--        <p th:text="${post.user.getUsername()}"></p>-->
+    <!--        <span th:text="${post.getForumReplies().size()}"></span>&nbsp<span>replies</span><br>-->
+    <!--        <span th:each="cat : ${post.getForumPostCategories()}">-->
+    <!--        <a th:text="${cat.getName()}" th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}"></a>-->
+    <!--    </span><br>-->
+    <!--        <span><a th:href="@{/forum_post/{id}(id=${post.id})}"><sup>view</sup></a></span>&nbsp;-->
+    <!--    </div>-->
+
+<!--    original code snippet end-->
+
+    <!--    create post button-->
     <div class="page-transfer-button">
         <form action="/create/post" method="get">
             <button type="submit">Create Post</button>
@@ -36,6 +79,9 @@
     </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
 </body>
 </html>
