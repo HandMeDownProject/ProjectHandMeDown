@@ -22,6 +22,8 @@ public class Activity implements Serializable {
     private String webUrl;
     @Column(nullable = true)
     private String timestamp;
+    @Column(nullable = false)
+    private Long viewCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,16 +39,17 @@ public class Activity implements Serializable {
     public Activity() {
     }
 
-    public Activity(long id, String title, String body, User user, List<ActivityCategory> activityCategories, String timestamp) {
+    public Activity(long id, String title, String body, User user, List<ActivityCategory> activityCategories, String timestamp, Long viewCount ) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
         this.activityCategories = activityCategories;
         this.timestamp = timestamp;
+        this.viewCount = viewCount;
     }
 
-    public Activity(long id, String title, String body, String webUrl, User user, List<ActivityCategory> activityCategories, String timestamp) {
+    public Activity(long id, String title, String body, String webUrl, User user, List<ActivityCategory> activityCategories, String timestamp, Long viewCount ) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -54,9 +57,11 @@ public class Activity implements Serializable {
         this.user = user;
         this.activityCategories = activityCategories;
         this.timestamp = timestamp;
+        this.viewCount = viewCount;
+
     }
 
-    public Activity(long id, String title, String body, String imageUrl, String webUrl, User user, List<ActivityCategory> activityCategories) {
+    public Activity(long id, String title, String body, String imageUrl, String webUrl, User user, List<ActivityCategory> activityCategories, Long viewCount ) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -64,6 +69,16 @@ public class Activity implements Serializable {
         this.webUrl = webUrl;
         this.user = user;
         this.activityCategories = activityCategories;
+        this.viewCount = viewCount;
+
+    }
+
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
     }
 
     public long getId() {
@@ -128,6 +143,9 @@ public class Activity implements Serializable {
 
     public void setActivityCategories(List<ActivityCategory> activityCategories) {
         this.activityCategories = activityCategories;
+    }
+    public void increaseViewCount(){
+       this.viewCount += 1;
     }
 }
 

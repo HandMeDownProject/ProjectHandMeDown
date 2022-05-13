@@ -43,7 +43,11 @@ public class ActivityController {
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id) {
         Activity activity = activityDao.getById(id);
+        activity.increaseViewCount();
+        activityDao.save(activity);
         model.addAttribute("activity", activity);
+
+
         return "activities/activityView";
     }
 
