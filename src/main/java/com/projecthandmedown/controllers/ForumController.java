@@ -32,18 +32,6 @@ public class ForumController {
         this.userDAO = userDAO;
     }
 
-//    public ForumController(ForumPostRepository forumPostDao, UserRepository userDAO, ForumReplyRepository forumReplyDao, EmailService emailService) {
-//        this.forumPostDao = forumPostDao;
-//        this.forumReplyDao = forumReplyDao;
-//        this.emailService = emailService;
-//        this.userDAO = userDAO;
-//    }
-
-//    public PostController(PostRepository postDao, UserRepository userDAO) {
-//        this.postDao = postDao;
-//        this.userDAO = userDAO;
-//    }
-
     @GetMapping("/forum")
 //    @ResponseBody
     public String posts(Model model) {
@@ -86,36 +74,6 @@ public class ForumController {
         return arr;
     }
 
-
-//    @GetMapping("activities/search")
-//    public String filteredActivities(Model model, @RequestParam String keyword) {
-//
-//
-//        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
-//        List<Activity> activities = activityDao.findAll();
-//        List<Activity> filteredActivities = new ArrayList<>();
-//
-//
-//
-//        for (int i = 0; i < activities.size(); i++) {
-//            Activity activity = activities.get(i);
-//            String title = activity.getTitle();
-//            String body = activity.getBody();
-//
-//
-//            if((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))){
-//                filteredActivities.add(activity); // wil have duplicates.
-//                checkDuplicate(filteredActivities);
-//            }
-//        }
-//
-//
-//
-//        model.addAttribute("activities", filteredActivities);
-//
-//        return "activities/ActivityFiltered";
-//    }
-
     @GetMapping("posts/search")
     public String findPosts(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
@@ -129,30 +87,11 @@ public class ForumController {
 
 
             if((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))){
-                findKeywordPosts.add(post); // wil have duplicates.
+                findKeywordPosts.add(post); // will hold duplicates.
                 checkDuplicate(findKeywordPosts);
             }
         }
 
-//        for (int i = 0; i < posts.size(); i++) {
-//            ForumPost post = posts.get(i);
-//            String title = post.getTitle();
-//            String body = post.getBody();
-//            if (title.toLowerCase().contains(keyword.toLowerCase())) {
-//                findKeywordPosts.add(post);
-//            }
-//            if (body.toLowerCase().contains(keyword.toLowerCase())) {
-//                findKeywordPosts.add(post);
-//            }
-//
-//            for (int k = 0; k < findKeywordPosts.size(); k++) {
-//                for (int j = 1; j < findKeywordPosts.size(); j++) {
-//                    if (findKeywordPosts.get(k) == findKeywordPosts.get(j)) {
-//                        findKeywordPosts.remove(j);
-//                    }
-//                }
-//            }
-//        }
         model.addAttribute("posts", findKeywordPosts);
         return "forums/forum";
     }
