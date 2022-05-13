@@ -62,14 +62,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/activities/{id}/edit",
                         "/profile",
                         "/messaging/{listingId}/{userId}",
-                        "/listing/{id}"
+                        "/listing/{id}",
+                        "/user/admin/message/{id}",
+                        "/report/{type}/{id}"
                 )
                 .authenticated()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/admin")
+                .antMatchers("/admin",
+                        "/admin/users/delete/{id}",
+                        "/admin/users",
+                        "/admin/users/message/{id}")
                 .hasAuthority("ADMIN")
-        // .hasAnyAuthority("ADMIN", "SELLER") // You can specify several roles too
         ;
     }
 }

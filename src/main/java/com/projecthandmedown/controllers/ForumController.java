@@ -76,6 +76,46 @@ public class ForumController {
         return "forums/forum";
     }
 
+    public static List<ForumPost> checkDuplicate( List<ForumPost> posts){
+        ArrayList<ForumPost> arr = new ArrayList<>();
+        for (ForumPost element : posts){
+            if(!posts.contains(element)){
+                arr.add(element);
+            }
+        }
+        return arr;
+    }
+
+
+//    @GetMapping("activities/search")
+//    public String filteredActivities(Model model, @RequestParam String keyword) {
+//
+//
+//        model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
+//        List<Activity> activities = activityDao.findAll();
+//        List<Activity> filteredActivities = new ArrayList<>();
+//
+//
+//
+//        for (int i = 0; i < activities.size(); i++) {
+//            Activity activity = activities.get(i);
+//            String title = activity.getTitle();
+//            String body = activity.getBody();
+//
+//
+//            if((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))){
+//                filteredActivities.add(activity); // wil have duplicates.
+//                checkDuplicate(filteredActivities);
+//            }
+//        }
+//
+//
+//
+//        model.addAttribute("activities", filteredActivities);
+//
+//        return "activities/ActivityFiltered";
+//    }
+
     @GetMapping("posts/search")
     public String findPosts(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
@@ -86,21 +126,33 @@ public class ForumController {
             ForumPost post = posts.get(i);
             String title = post.getTitle();
             String body = post.getBody();
-            if (title.toLowerCase().contains(keyword.toLowerCase())) {
-                findKeywordPosts.add(post);
-            }
-            if (body.toLowerCase().contains(keyword.toLowerCase())) {
-                findKeywordPosts.add(post);
-            }
 
-            for (int k = 0; k < findKeywordPosts.size(); k++) {
-                for (int j = 1; j < findKeywordPosts.size(); j++) {
-                    if (findKeywordPosts.get(k) == findKeywordPosts.get(j)) {
-                        findKeywordPosts.remove(j);
-                    }
-                }
+
+            if((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))){
+                findKeywordPosts.add(post); // wil have duplicates.
+                checkDuplicate(findKeywordPosts);
             }
         }
+
+//        for (int i = 0; i < posts.size(); i++) {
+//            ForumPost post = posts.get(i);
+//            String title = post.getTitle();
+//            String body = post.getBody();
+//            if (title.toLowerCase().contains(keyword.toLowerCase())) {
+//                findKeywordPosts.add(post);
+//            }
+//            if (body.toLowerCase().contains(keyword.toLowerCase())) {
+//                findKeywordPosts.add(post);
+//            }
+//
+//            for (int k = 0; k < findKeywordPosts.size(); k++) {
+//                for (int j = 1; j < findKeywordPosts.size(); j++) {
+//                    if (findKeywordPosts.get(k) == findKeywordPosts.get(j)) {
+//                        findKeywordPosts.remove(j);
+//                    }
+//                }
+//            }
+//        }
         model.addAttribute("posts", findKeywordPosts);
         return "forums/forum";
     }
@@ -110,8 +162,6 @@ public class ForumController {
         List<ForumPostCategory> categories = forumPostCategoryDao.findAll();
         model.addAttribute("categories", categories);
         model.addAttribute("post", new ForumPost());
-//        model.addAttribute("filestackKey", filestackKey);
-//        model.addAttribute("post", new ForumPost());
         return "forums/createForumPost";
     }
 
@@ -129,7 +179,6 @@ public class ForumController {
 //    @ResponseBody
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("post", forumPostDao.getById(id));
-//        model.addAttribute("user", new User());
         return "forums/forumEditPost";
     }
 
@@ -182,58 +231,5 @@ public class ForumController {
         return "redirect:/forum";
     }
 
-    // right now I am trying to enable deleting a comment and redirecting to the post source after deletion.
-
-//
-//    @PostMapping("/edit/post")
-//    public String edit(@ModelAttribute ForumReply reply) {
-//        forumReplyDao.save(reply);
-//        return "/forum/forumPostView";
-//    }
-
-//    @GetMapping("/create/post")
-////    @ResponseBody
-//    public String create(Model model) {
-//        model.addAttribute("post", new ForumPost());
-////        model.addAttribute("user", new User());
-//        return "forums/createForumPost";
-//    }
-//
-//    @PostMapping("/create/post")
-//    public String post(@ModelAttribute ForumPost post) {
-//        post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-////        if(post.getTitle().equals("") || post.getBody().equals("")){
-////            return "forum/createForumPost";
-////        }
-//        forumPostDao.save(post);
-////        emailService.prepareAndSend(post, "post created", "Confirmation: your post has been created");
-//        return "redirect:/forum";
-//    }
-
-//    @GetMapping("/users/{id}")
-////    @ResponseBody
-//    public String userID(@PathVariable long id, Model model) {
-//        User currentUser = userDAO.getUserById(id);
-//        List<Post> posts = postDao.getByUser(currentUser);
-//        model.addAttribute("user", currentUser);
-//        model.addAttribute("posts", posts);
-////        System.out.println("currentUser = " + currentUser.getUsername() + " " + currentUser.getEmail());
-////        System.out.println("posts = " + posts);
-//        return "show_user";
-//    }
-//
-//    @GetMapping("/users")
-////    @ResponseBody
-//    public String users(Model model) {
-//        model.addAttribute("users", userDAO.findAll());
-//        return "users";
-//    }
-
-//
-//    @GetMapping("/error")
-//    public String error(){
-//        return "/error/500.html";
-//    }
-
-
+    //TODO: enable deleting a comment and redirecting to the post source after deletion.
 }
