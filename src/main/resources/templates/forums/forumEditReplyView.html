@@ -14,9 +14,9 @@
 
     <form th:action="@{/edit/reply}" th:method="post" th:object="${reply}">
         <input th:field="*{id}" th:value="${reply.getId()}" hidden>
-        <input th:field="*{user}" th:value="${reply.getUser()} hidden>
-        <input th:field="*{timestamp}" th:value="${reply.getTimestamp()} hidden>
-        <input th:field="*{forumPost}" th:value="${reply.getForumPost()} hidden>
+        <input th:field="*{user}" th:value="${reply.getUser()}" hidden>
+        <input th:field="*{timestamp}" th:value="${reply.getTimestamp()}" hidden>
+        <input th:field="*{forumPost}" th:value="${reply.getForumPost()}" hidden>
         <label >editing comment</label><br>
         <textarea th:field="*{body}"></textarea><br>
         <input type="submit">
