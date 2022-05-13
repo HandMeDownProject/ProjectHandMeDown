@@ -61,7 +61,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/activities/create",
                         "/activities/{id}/edit",
                         "/profile",
-                        "/messaging/{listingId}/{userId}"
+                        "/messaging/{listingId}/{userId}",
+                        "/listing/{id}"
                 )
                 .authenticated()
                 .and()

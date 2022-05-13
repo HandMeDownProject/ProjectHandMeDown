@@ -16,12 +16,14 @@
 <div th:each="cat : ${cats}">
     <span><a th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a></span>
 </div>
+<div th:if="${listing.getUser().getId() == user.getId()}">
 <form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
     <button type="submit">Edit Listing</button>
 </form>
 <form th:action="@{/listing/delete/{id}(id=${listing.getId()})}" method="post">
     <button type="submit">Delete Listing</button>
 </form>
+</div>
 <div sec:authorize="hasAuthority('ADMIN')">
     <a th:href="@{/post/{id}/delete(id=${listing.getId()})}">Admin Delete Post</a>
     <br>
