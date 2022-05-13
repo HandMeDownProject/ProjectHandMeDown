@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="/partials/head.html :: head">
+    <meta charset="UTF-8">
+    <title>Users Page</title>
+</head>
+<body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
+    <div>
+        <div th:each="user : ${users}">
+            <div>
+                <span th:text="${user.getId()}"></span>
+                <img th:src="*{user.getUserIMG()}" height="100px">
+            </div>
+            <p th:text="${user.getUsername()}"></p>
+            <p th:text="${user.getEmail()}"></p>
+            <a th:href="@{/admin/users/delete/{id}(id = ${user.getId()})}">Delete User</a>
+            <a th:href="@{/admin/users/message/{id}(id = ${user.getId()})}">Message User</a>
+            <div th:each="role : ${userRoles}">
+                <div th:if="${role.userId == user.getId()}">
+                    <div th:if="${role.getRole() == 'USER'}">
+                        <a th:href="@{/admin/users/change/{type}/{id}(type = 'admin', id = ${user.getId()})}">Make User Admin</a>
+                    </div>
+                    <div th:if="${role.getRole() == 'ADMIN'}">
+                        <a th:href="@{/admin/users/change/{type}/{id}(type = 'user', id = ${user.getId()})}">Make Admin User</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
