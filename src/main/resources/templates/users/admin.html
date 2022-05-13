@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="/partials/head.html :: head">
     <meta charset="UTF-8">
     <title>Admin Profile Page</title>
@@ -41,6 +41,12 @@
         <br>
         <input value="Sign me up!" type="submit" />
     </form>
+</div>
+<div>
+    <a th:href="@{/listings}">Look at all the listings</a>
+    <a th:href="@{/forum}">Look at all the forum post</a>
+    <a th:href="@{/activities}">Look at all the activities</a>
+    <a th:href="@{/admin/users}">Look at all the users</a>
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/
