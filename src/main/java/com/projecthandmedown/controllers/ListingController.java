@@ -61,6 +61,8 @@ public class ListingController {
     public String listingView(Model model, @PathVariable Long id) {
         Listing listing = listingDao.getById(id);
         List<ListingCategory> cats = listing.getListingsCategories();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         model.addAttribute("listing", listing);
         model.addAttribute("cats", cats);
 
