@@ -326,4 +326,21 @@ public class UserController {
         roles.save(role);
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/admin/users/strike/{id}")
+    public String addStrike(@PathVariable long id){
+        User user = userDao.getUserById(id);
+        user.increaseStrikes();
+        userDao.save(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/users/remove/strike/{id}")
+    public String subtractStrike(@PathVariable long id){
+        User user = userDao.getUserById(id);
+        user.decreaseStrikes();
+        userDao.save(user);
+        return "redirect:/admin/users";
+    }
+
 }
