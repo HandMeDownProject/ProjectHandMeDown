@@ -11,7 +11,7 @@ h1{
 h3{
     font-family: 'Rokkitt', serif;
 }
-p, button, a, input, label,div{
+p, button, a, input, label, ul, ol, li, span, div {
     font-family: 'Noto Sans', sans-serif;
 }
 /*font-family: 'Noto Sans', sans-serif;*/

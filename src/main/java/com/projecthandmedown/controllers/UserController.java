@@ -11,6 +11,7 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class UserController {
-    private UserRepository userDao;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final SendGridEmailService sendGridEmailService;
     private final RoleRepository roles;
@@ -32,6 +35,7 @@ public class UserController {
     private final ForumPostRepository forumPostDao;
     private final ForumReplyRepository forumReplyDao;
     private final ActivityRepository activityDao;
+
 
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles, UserService userService, PasswordResetTokenRepository passwordResetTokenRepository, ListingRepository listingDao, ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, ActivityRepository activityDao) {
         this.userDao = userDao;
@@ -125,6 +129,8 @@ public class UserController {
         model.addAttribute("messageReceiver", userToSend);
         model.addAttribute("message", new Message());
         model.addAttribute("listingId", listingId);
+        model.addAttribute("who", "user");
+        model.addAttribute("url", "/messaging/" + listingId + "/" + userToSend.getId());
         return "users/messaging";
     }
 
@@ -134,8 +140,7 @@ public class UserController {
         message.setSender(loggedInUser);
         User receiver = userDao.getById(userId);
         message.setReceiver(receiver.getEmail());
-        emailService.prepareAndSend(message, "New Message", message.getBody());
-        sendGridEmailService.sendTextEmail(message);
+        sendGridEmailService.sendTextEmail(message, listingId);
         String redirect = "redirect:/listing/" + listingId;
         return redirect;
     }
@@ -255,4 +260,70 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/admin/users")
+    public String showAllUsers(Model model){
+        List<User> users = userDao.findAll();
+        List<UserRole> roleList = roles.findAll();
+        model.addAttribute("users", users);
+        model.addAttribute("userRoles", roleList);
+        return "users/users";
+    }
+
+    @GetMapping("/admin/users/delete/{id}")
+    public String deleteUser(@PathVariable long id){
+        User user = userDao.getUserById(id);
+        userDao.delete(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/users/message/{id}")
+    public String adminSendMessage(Model model, @PathVariable long id){
+        User userToSend = userDao.getUserById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
+        model.addAttribute("messageReceiver", userToSend);
+        model.addAttribute("message", new Message());
+        model.addAttribute("url", "/admin/users/message/" + userToSend.getId());
+        return "users/messaging";
+    }
+
+    @PostMapping ("/admin/users/message/{id}")
+    public String adminSendMessage(@ModelAttribute Message message, @PathVariable long id) throws IOException {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        message.setSender(loggedInUser);
+        User receiver = userDao.getById(id);
+        message.setReceiver(receiver.getEmail());
+        sendGridEmailService.sendAdminEmail(message);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/user/admin/message/{id}")
+    public String userSendAdminMessage(Model model, @PathVariable long id) {
+        User repliedToAdmin = userDao.getUserById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
+        model.addAttribute("messageReceiver", repliedToAdmin);
+        model.addAttribute("message", new Message());
+        model.addAttribute("url", "/user/admin/message/" + repliedToAdmin.getId());
+        return "users/messaging";
+    }
+
+    @PostMapping ("/user/admin/message/{id}")
+    public String userSendAdminMessage(@ModelAttribute Message message, @PathVariable long id) throws IOException {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        message.setSender(loggedInUser);
+        User receiver = userDao.getById(id);
+        message.setReceiver(receiver.getEmail());
+        sendGridEmailService.userSendAdminEmail(message, receiver);
+        return "redirect:/";
+    }
+
+    @GetMapping("/admin/users/change/{type}/{id}")
+    public String makeUserAdmin(@PathVariable String type,@PathVariable long id){
+        User userToAdmin = userDao.getUserById(id);
+        UserRole role = roles.getUserRoleByUserId(id);
+        role.setRole(type.toUpperCase(Locale.ROOT));
+        roles.save(role);
+        return "redirect:/admin/users";
+    }
 }
