@@ -20,3 +20,8 @@ p{
 h2, h3{
     font-family: 'Ubuntu Condensed', sans-serif;
 }
+
+.form-card{
+    width: 50%;
+}
+
