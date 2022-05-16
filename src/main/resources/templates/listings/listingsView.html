@@ -21,7 +21,14 @@
     <br>
     <br>
 </div>
-<div>Viewing lisitngs in <span th:text="${user.getUserLocation()}"></span>, <span th:text="${user.getUserLocationState()}"></span>.</div>
+<div th:if="${loggedIn}">
+    <div>Viewing lisitngs in <span th:text="${user.getUserLocation()}"></span>, <span th:text="${user.getUserLocationState()}"></span>.</div>
+</div>
+<div th:if="${notLoggedIn}">
+    <div>Viewing Listing from all locations.</div>
+    <br>
+    <div>Log In or Create an Account to get listings in your location.</div>
+</div>
 <div th:each="listing : ${listings}">
     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"></h4></a>
     <p th:text="${listing.body}"></p>
