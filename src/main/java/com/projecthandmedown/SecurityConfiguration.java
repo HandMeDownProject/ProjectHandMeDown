@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/profile",
                         "/messaging/{listingId}/{userId}",
                         "/listing/{id}",
+                        "/activities/{id}",
                         "/user/admin/message/{id}",
                         "/report/{type}/{id}"
                 )

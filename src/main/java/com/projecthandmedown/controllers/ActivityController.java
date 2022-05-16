@@ -43,6 +43,8 @@ public class ActivityController {
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id) {
         Activity activity = activityDao.getById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         activity.increaseViewCount();
         activityDao.save(activity);
         model.addAttribute("activity", activity);
