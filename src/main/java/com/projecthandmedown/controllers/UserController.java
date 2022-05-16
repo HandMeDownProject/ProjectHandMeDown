@@ -11,7 +11,6 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +34,12 @@ public class UserController {
     private final ForumPostRepository forumPostDao;
     private final ForumReplyRepository forumReplyDao;
     private final ActivityRepository activityDao;
+    private final AdminDeletedEmailRepository adminDeletedEmailDao;
+
+    boolean emailOnList = false;
 
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles, UserService userService, PasswordResetTokenRepository passwordResetTokenRepository, ListingRepository listingDao, ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, ActivityRepository activityDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, EmailService emailService, SendGridEmailService sendGridEmailService, RoleRepository roles, UserService userService, PasswordResetTokenRepository passwordResetTokenRepository, ListingRepository listingDao, ForumPostRepository forumPostDao, ForumReplyRepository forumReplyDao, ActivityRepository activityDao, AdminDeletedEmailRepository adminDeletedEmailDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
@@ -49,6 +51,7 @@ public class UserController {
         this.forumPostDao = forumPostDao;
         this.forumReplyDao = forumReplyDao;
         this.activityDao = activityDao;
+        this.adminDeletedEmailDao = adminDeletedEmailDao;
     }
 
     @Value("${filestack.api.key}")
@@ -58,6 +61,11 @@ public class UserController {
     public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("filestackKey", filestackKey);
+        if(emailOnList){
+            model.addAttribute("alert", true);
+            model.addAttribute("message", "Can't sign up with that email as a previous account with that email was deleted for misconduct.");
+            emailOnList = false;
+        }
         return "users/sign-up";
     }
 
@@ -66,6 +74,15 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setUserIsAdmin(false);
+        List<AdminDeletedEmail> emailList = adminDeletedEmailDao.findAll();
+        for(int i = 0; i < emailList.size(); i++){
+            if(user.getEmail().equals(emailList.get(i).getEmail())){
+                emailOnList = true;
+                return "redirect:/sign-up";
+            }
+        }
+
+
         userDao.save(user);
         User justCreatedUser = userDao.findByUsername(user.getUsername());
         UserRole newUser = new UserRole(justCreatedUser.getId(), "USER");
@@ -272,6 +289,8 @@ public class UserController {
     @GetMapping("/admin/users/delete/{id}")
     public String deleteUser(@PathVariable long id){
         User user = userDao.getUserById(id);
+        AdminDeletedEmail deletedEmail = new AdminDeletedEmail(user.getEmail());
+        adminDeletedEmailDao.save(deletedEmail);
         userDao.delete(user);
         return "redirect:/admin/users";
     }
@@ -326,4 +345,35 @@ public class UserController {
         roles.save(role);
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/admin/users/strike/{id}")
+    public String addStrike(@PathVariable long id){
+        User user = userDao.getUserById(id);
+        user.increaseStrikes();
+        userDao.save(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/users/remove/strike/{id}")
+    public String subtractStrike(@PathVariable long id){
+        User user = userDao.getUserById(id);
+        user.decreaseStrikes();
+        userDao.save(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/email_list")
+    public String showEmailList(Model model){
+        List<AdminDeletedEmail> emailList =adminDeletedEmailDao.findAll();
+        model.addAttribute("emailList", emailList);
+        return "users/admin-deleted-email-list";
+    }
+
+    @GetMapping("/admin/email_list/remove/{id}")
+    public String removeFromEmailList(@PathVariable long id){
+        AdminDeletedEmail email = adminDeletedEmailDao.getById(id);
+        adminDeletedEmailDao.delete(email);
+        return "redirect:/admin/email_list";
+    }
+
 }
