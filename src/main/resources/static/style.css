@@ -2,10 +2,16 @@
     height: 50px;
 }
 
-.card{
+.index-card{
     background-color: cornflowerblue;
 }
+.listings-card{
+    background-color: #A1E8AF;
+}
 
+.create-listing-form{
+    background-color: #FFD15C;
+}
 .path{
     background-color: #4D1D72;
     color: white;

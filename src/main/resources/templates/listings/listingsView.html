@@ -144,7 +144,7 @@
     </div>
     <div class="d-flex justify-content-center flex-column flex-md-row flex-wrap">
         <div th:each="listing : ${listings}">
-            <div class="card mx-2 mt-3 p-3">
+            <div class="card mx-2 mt-3 p-3 listings-card">
                 <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
                     <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded-pill" style="max-height:200px"></a></p>
                 </div>

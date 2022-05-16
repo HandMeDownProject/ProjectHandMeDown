@@ -125,48 +125,56 @@
     <!-- Background image -->
 </header>
 <div class="spacer"></div>
-<form th:action="@{/listing/edit}" th:object="${listing}" method="post" >
+    <section class="main-create d-flex flex-column align-items-center">
+        <div class="card text-center form-card index-card">
+            <div class="card-body">
+                <form th:action="@{/listing/edit}" th:method="post" th:object="${listing}">
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class=""
+                               placeholder="enter title" required/>
+                    </div>
 
-    <img th:src="${listing.getImageUrl()}" height="200px">
-    <label for="title">Listing Title:
-        <input th:field="*{title}" id="title" type="text">
-    </label><br>
+                    <!-- Message input -->
+                    <div class="form-outline mb-4">
+        <textarea th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="enter body"
+                  required rows="15" cols="50"></textarea>
+                    </div>
 
-    <label for="body">Listing Body
-        <input th:field="*{body}" id="body" type="text">
-    </label><br>
+                    <div class="form-outline mb-4">
+                        <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class=""
+                               placeholder="Image Url" hidden/>
+                        <button class="btn btn-link" type="button" onclick="upload()">upload image</button>
+                    </div>
+                    <p>preview: </p>
+                    <img id="profile-preview" src="" height="100px">
+                    <br>
+                    <br>
 
-    <label for="ListingImage">Picture
-        <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
-    </label>
-    <button type="button" onclick="upload()">upload image</button>
-    <br>
+                    <div class="form-outline mb-4">
+                        <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"
+                               required/>
+                        <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
+                        <input th:field="*{id}" th:value="${listing.getId()}" hidden>
+                        <input th:field="*{timestamp}" th:value="${listing.getTimestamp()}" hidden>
+                    </div>
+                    <h3>categories:</h3>
+                    <div class="form-check d-flex flex-wrap">
+                        <div th:each="cat : ${cats}" class="d-flex mx-3">
+                            <input type="checkbox" class="form-check-input" name="listingsCategories"
+                                   th:text="${cat.getName()}"
+                                   th:value="${cat.id}"
+                                   th:field="*{listingsCategories}"/>
+                        </div>
+                    </div>
 
-    <label for="webUrl">Price
-        <input th:field="*{price}" id="webUrl" type="text">
-    </label>
-    <br>
-    <br>
-    <p>
-        <label>Select Categories:
-            <input type="checkbox" name="listingsCategories"
-                   th:each="cat : ${allCats}"
-                   th:text="${cat.getName()}"
-                   th:value="${cat.id}"
-                   th:field="*{listingsCategories}"/>
-        </label>
-    </p>
-    <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
-    <input th:field="*{id}" th:value="${listing.getId()}" hidden>
-    <input th:field="*{timestamp}" th:value="${listing.getTimestamp()}" hidden>
-    <p>preview: </p>
-    <img id="profile-preview" src="" height="75px">
-    <br>
-    <br>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-link mb-4">Update listing</button>
+                </form>
+            </div>
+        </div>
 
-
-    <button type="submit">Save my Listing!</button>
-</form>
+    </section>
 <br>
 <br>
 <footer class="text-center text-white">
