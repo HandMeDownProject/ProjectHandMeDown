@@ -17,7 +17,29 @@
             <a class="btn btn-primary" th:href="@{'/forum'}" role="button">reset</a>
         </form>
     </div>
+    <div>
+        <label for="forum-categories">Catagories</label>
+        <select id="forum-categories" name="forum-categories" onChange="window.location.replace(this.value)">
+            <div th:if="${categoryChosen}">
+                <div th:each="category : ${categories}">
+                    <div th:if="${category.getId() == chosenCategory.getId()}">
+                        <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}" th:text="${chosenCategory.getName()}"></option>
+                    </div>
+                </div>
+                <div th:each="category : ${categories}">
+                    <div th:if="${category.getId() != chosenCategory.getId()}">
+                        <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:text="${category.getName()}"></option>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${noCategory}">
+                <div th:each="category : ${categories}">
+                    <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:text="${category.getName()}"></option>
+                </div>
+            </div>
 
+        </select>
+    </div>
     <!--    forum topics-->
     <section>
         <div class="post_body">
