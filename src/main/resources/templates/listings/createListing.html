@@ -173,9 +173,13 @@
 
     <div class="form-outline mb-4">
         <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class=""
-               placeholder="Image Url"/>
+               placeholder="Image Url" hidden/>
         <button class="btn btn-link" type="button" onclick="upload()">upload image</button>
     </div>
+    <p>preview: </p>
+    <img id="profile-preview" src="" height="100px">
+    <br>
+    <br>
 
     <div class="form-outline mb-4">
         <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"
@@ -225,6 +229,7 @@
                 let imgURL = file.filesUploaded[0].url;
                 console.log(imgURL);
                 document.getElementById("ListingImage").value = imgURL;
+                document.getElementById("profile-preview").src = imgURL;
             }
         };
         client.picker(options).open();
