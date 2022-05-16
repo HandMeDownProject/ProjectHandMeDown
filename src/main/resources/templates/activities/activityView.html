@@ -52,9 +52,9 @@
 <button><a th:href="@{'/activities'}">Go back to activities</a></button>
 <button><a th:href="@{/report/{type}/{id}(type = 'activity', id = ${activity.getId()})}">Report Post</a></button>
 <div sec:authorize="hasAuthority('ADMIN')">
-    <button><a th:href="@{/listing/delete/{id}(id=${activity.getId()})}">Admin Delete Post</a></button>
+    <button><a th:href="@{/activities/{id}/delete(id=${activity.getId()})}">Admin Delete Post</a></button>
     <br>
-    <button><a th:href="@{/listing/edit/{id}(id=${activity.getId()})}">Admin Edit Post</a></button>
+    <button><a th:href="@{/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
 </div>
 
 <div th:insert="partials/footer.html :: footer"></div>
