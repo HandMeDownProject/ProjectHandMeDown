@@ -138,8 +138,10 @@ public class ListingController {
     public String seeAllUserListings(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Listing> listings = listingDao.getByUser(targetUser);
+        List<ListingCategory> categories = listingCategoryDao.findAll();
         model.addAttribute("listings", listings);
         model.addAttribute("user", targetUser);
+        model.addAttribute("categories", categories);
 
         return "listings/listingUserPosts";
     }
