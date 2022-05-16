@@ -1,77 +1,22 @@
-*{
-
+.spacer{
+    height: 50px;
 }
 
-
-/*     Font styles          */
-h1{
-    font-family: 'Caveat', cursive;
-    font-size: 4rem;
-}
-h3{
-    font-family: 'Rokkitt', serif;
-}
-p, button, a, input, label, ul, ol, li, span, div {
-    font-family: 'Noto Sans', sans-serif;
-}
-/*font-family: 'Noto Sans', sans-serif;*/
-/*font-family: 'Rokkitt', serif;*/
-/*font-family: 'Caveat', cursive;*/
-/*font-family: 'Love Ya Like A Sister', cursive;*/
-/*font-family: 'Montserrat', sans-serif;*/
-/*font-family: 'Sniglet', cursive;*/
-
-
-
-#navLogOut{
-    color: #999D9F!important;
-    border: none;
-    background: none;
-    text-shadow: none;
+.card{
+    background-color: cornflowerblue;
 }
 
-.nav-link::before {
-    /*content: '';*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*border-radius: 50%;*/
-    background: #ffee10;
-    transition: .5s;
-    transform: scale(.9);
-    z-index: -1;
+.path{
+    background-color: #4D1D72;
+    color: white;
 }
 
-.nav-link:hover::before {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #ffee10;
+.navbar-brand, h1{
+    font-family: 'Peralta', cursive;
 }
-
-.nav-link:hover {
-    color: #ffee10;
-    box-shadow: 0 0 5px #ffee10;
-    text-shadow: 0 0 5px #ffee10!important;
+p{
+    font-family: 'Biryani', sans-serif;
 }
-
-
-
-
-/*.clicker {*/
-/*    width:100px;*/
-/*    height:100px;*/
-/*    background-color:blue;*/
-/*    outline:none;*/
-/*    cursor:pointer;*/
-/*}*/
-
-/*.hiddendiv{*/
-/*    display:none;*/
-/*    !*height:200px;*!*/
-/*    !*background-color:green;*!*/
-/*}*/
-
-/*.clicker:focus + .hiddendiv{*/
-/*    display:block;*/
-/*}*/
+h2, h3{
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
