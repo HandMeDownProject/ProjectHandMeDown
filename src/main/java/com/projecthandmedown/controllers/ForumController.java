@@ -35,9 +35,10 @@ public class ForumController {
     @GetMapping("/forum")
     public String posts(Model model) {
         model.addAttribute("posts", forumPostDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
+        model.addAttribute("categories", forumPostCategoryDao.findAll());
+        model.addAttribute("noCategory", true);
         return "forums/forum";
     }
-
 
     @GetMapping("/forum/reverse")
     public String postsReverse(Model model) {
@@ -64,7 +65,9 @@ public class ForumController {
         List<ForumPost> posts = forumPostCategoryDao.getById(cat_id).getForumPosts();
         List<ForumPostCategory> cats = forumPostCategoryDao.findAll();
         model.addAttribute("posts", posts);
-        model.addAttribute("cats", cats);
+        model.addAttribute("categories", cats);
+        model.addAttribute("categoryChosen", true);
+        model.addAttribute("chosenCategory", forumPostCategoryDao.getById(cat_id));
         return "forums/forum";
     }
 
