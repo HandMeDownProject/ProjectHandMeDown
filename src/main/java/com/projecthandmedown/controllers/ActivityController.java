@@ -1,6 +1,7 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.ActivityCategory;
+import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ActivityCategoryRepository;
 import com.projecthandmedown.repositories.ActivityRepository;
@@ -33,10 +34,19 @@ public class ActivityController {
 
     @GetMapping("/activities")
     public String activitiesView(Model model) {
-
         List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        model.addAttribute("activities", activities);
-
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.getUserById(loggedInUser.getId());
+        List<Activity> filteredList = new ArrayList<>();
+        for(int i = 0; i < activities.size(); i++){
+            if(activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())){
+                if(activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())){
+                    filteredList.add(activities.get(i));
+                }
+            }
+        }
+        model.addAttribute("activities", filteredList);
+        model.addAttribute("user", user);
         return "activities/activitiesView";
     }
 
@@ -55,11 +65,19 @@ public class ActivityController {
     public String viewByCategory(Model model, @PathVariable Long id) {
         List<ActivityCategory> categories = activityCatDao.findAll();
         List<Activity> activities = activityCatDao.getById(id).getActivities();
-
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.getUserById(loggedInUser.getId());
+        List<Activity> filteredList = new ArrayList<>();
+        for(int i = 0; i < activities.size(); i++){
+            if(activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())){
+                if(activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())){
+                    filteredList.add(activities.get(i));
+                }
+            }
+        }
+        model.addAttribute("activities", filteredList);
+        model.addAttribute("user", user);
         model.addAttribute("categories", categories);
-        model.addAttribute("activities", activities);
-
-
         return "activities/activitiesView";
     }
 

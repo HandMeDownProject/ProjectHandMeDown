@@ -43,8 +43,20 @@ public class ListingController {
     @GetMapping("/listings")
 //    @ResponseBody
     public String listings(Model model) {
-        model.addAttribute("listings", listingDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.getUserById(loggedInUser.getId());
+        List<Listing> list = listingDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Listing> filteredList = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())){
+                if(list.get(i).getUser().getUserLocation().equals(user.getUserLocation())){
+                    filteredList.add(list.get(i));
+                }
+            }
+        }
+        model.addAttribute("listings", filteredList);
         model.addAttribute("cats", listingCategoryDao.findAll());
+        model.addAttribute("user", user);
         return "listings/listingsView";
     }
 
@@ -145,6 +157,16 @@ public class ListingController {
     @GetMapping("listingsByCat/{cat_id}")
     public String listingsByCat(@PathVariable Long cat_id, Model model) {
         List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.getUserById(loggedInUser.getId());
+        List<Listing> filteredList = new ArrayList<>();
+        for(int i = 0; i < listings.size(); i++){
+            if(listings.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())){
+                if(listings.get(i).getUser().getUserLocation().equals(user.getUserLocation())){
+                    filteredList.add(listings.get(i));
+                }
+            }
+        }
         List<ListingCategory> cats = listingCategoryDao.findAll();
         model.addAttribute("listings", listings);
         model.addAttribute("cats", cats);
@@ -155,11 +177,21 @@ public class ListingController {
     @GetMapping("listings/search")
     public String filteredActivities(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
-        List<Listing> listings = listingDao.findAll();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDAO.getUserById(loggedInUser.getId());
+        List<Listing> list = listingDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Listing> filteredLocationList = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())){
+                if(list.get(i).getUser().getUserLocation().equals(user.getUserLocation())){
+                    filteredLocationList.add(list.get(i));
+                }
+            }
+        }
         List<Listing> filteredListings = new ArrayList<>();
 
-        for (int i = 0; i < listings.size(); i++) {
-            Listing listing = listings.get(i);
+        for (int i = 0; i < filteredLocationList.size(); i++) {
+            Listing listing = filteredLocationList.get(i);
             String title = listing.getTitle();
             String body = listing.getBody();
             if (title.toLowerCase().contains(keyword.toLowerCase())) {
