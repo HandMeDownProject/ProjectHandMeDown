@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="/partials/head.html :: head">
+    <meta charset="UTF-8">
+    <title>Admin Deleted Email List</title>
+</head>
+<body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
+<div>
+    <div th:each="email : ${emailList}">
+        <div th:text="${email.getEmail()}"></div>
+        <a th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}">Remove From List</a>
+    </div>
+</div>
+</body>
+</html>
