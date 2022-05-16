@@ -33,15 +33,19 @@ public class ForumController {
     }
 
     @GetMapping("/forum")
-//    @ResponseBody
     public String posts(Model model) {
         model.addAttribute("posts", forumPostDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
-//        model.addAttribute("categories", categoriesDao.findAll());
+        return "forums/forum";
+    }
+
+
+    @GetMapping("/forum/reverse")
+    public String postsReverse(Model model) {
+        model.addAttribute("posts", forumPostDao.findAll());
         return "forums/forum";
     }
 
     @GetMapping("/forum_post/{id}")
-//    @ResponseBody
     public String postID(@PathVariable long id, Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
@@ -115,7 +119,6 @@ public class ForumController {
     }
 
     @GetMapping("edit/{id}/post")
-//    @ResponseBody
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("post", forumPostDao.getById(id));
         return "forums/forumEditPost";
@@ -149,14 +152,12 @@ public class ForumController {
     }
 
     @GetMapping("edit/reply/{id}")
-//    @ResponseBody
     public String editReply(@PathVariable long id, Model model) {
         model.addAttribute("reply", forumReplyDao.getById(id));
         return "forums/forumEditReplyView";
     }
 
     @PostMapping("edit/reply")
-//    @ResponseBody
     public String addEditedReply(@ModelAttribute ForumReply reply) {
         forumReplyDao.save(reply);
         String redirect = "redirect:/forum_post/" + reply.getForumPost().getId();
@@ -166,8 +167,9 @@ public class ForumController {
     @GetMapping("reply/{id}/delete")
     public String deleteComment(@PathVariable long id, Model model) {
         ForumReply reply = forumReplyDao.getById(id);
+        ForumPost post = reply.getForumPost();
         forumReplyDao.delete(reply);
-        return "redirect:/forum";
+        return "redirect:/forum_post/" + post.getId();
     }
 
     //TODO: enable deleting a comment and redirecting to the post source after deletion.
