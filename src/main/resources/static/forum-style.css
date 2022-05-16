@@ -24,8 +24,8 @@ ol[role='list'] {
     /*height: 120px;*/
    box-shadow: 0 15px 9px #a5c0f1,0 -2px 1px #adc6f3;
 margin-top: 30px;
-    background: cornflowerblue;
-    background: linear-gradient(4deg, cornflowerblue 0%, rgba(76, 214, 245, 0.41) 50%, cornflowerblue 100%);
+    /*background: cornflowerblue;*/
+    background: linear-gradient(4deg, cornflowerblue 0%, #c9c9f8 50%, #85aaee 100%);
 }
 
 /*.topic_main_body:nth-child(1) {*/

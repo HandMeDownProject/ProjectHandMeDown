@@ -1,7 +1,9 @@
 *{
 
 }
-
+body{
+    /*background: linear-gradient(4deg, #0CF574 0%, #0CF574 50%, #0CF574 100%);*/
+}
 
 /*     Font styles          */
 h1{
