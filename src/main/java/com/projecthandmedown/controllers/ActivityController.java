@@ -53,6 +53,8 @@ public class ActivityController {
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id) {
         Activity activity = activityDao.getById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         activity.increaseViewCount();
         activityDao.save(activity);
         model.addAttribute("activity", activity);
@@ -133,7 +135,7 @@ public class ActivityController {
 
         List<ActivityCategory> categories = activityCatDao.findAll();
 
-
+        model.addAttribute("filestackKey", filestackKey);
         model.addAttribute("activity", activity);
         model.addAttribute("categories", categories);
 

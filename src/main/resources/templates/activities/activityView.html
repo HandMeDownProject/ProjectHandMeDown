@@ -45,9 +45,10 @@
 <!---->
 
 
-
+<div th:if="${activity.getUser().getId() == user.getId()}">
 <button><a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a></button>
 <button><a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a></button>
+</div>
 <button><a th:href="@{'/activities'}">Go back to activities</a></button>
 <button><a th:href="@{/report/{type}/{id}(type = 'activity', id = ${activity.getId()})}">Report Post</a></button>
 <div sec:authorize="hasAuthority('ADMIN')">
