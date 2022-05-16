@@ -5,7 +5,7 @@
 
 /*     Font styles          */
 h1{
-    font-family: 'Caveat', cursive;
+    font-family: 'Love Ya Like A Sister', cursive;
     font-size: 4rem;
 }
 h3{
@@ -136,3 +136,73 @@ h1 span:nth-child(19){ animation-delay:.90s; }
 h1 span:nth-child(20){ animation-delay:.95s; }
 h1 span:nth-child(21){ animation-delay:.100s; }
 h1 span:nth-child(22){ animation-delay:.105s; }
+
+
+/*---------------background animation for header----------------*/
+
+/*html {*/
+/*    height:100%;*/
+/*}*/
+main{
+    margin: 0 20px 0 20px;
+}
+
+body {
+    overflow: hidden;
+}
+/*header{*/
+/*    height: 600px;*/
+/*}*/
+.nav{
+    overflow: hidden;
+}
+.hero{
+    margin-top: 400px;
+}
+
+.bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+    bottom:50%;
+    left:-50%;
+    opacity:.5;
+    position:absolute;
+    right:-50%;
+    top:0;
+    z-index:-1;
+
+
+}
+
+.bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+}
+
+.bg3 {
+    animation-duration:5s;
+}
+
+.content {
+    background-color: rgb(169, 238, 175);
+    border-radius:.25em;
+    box-shadow:0 0 .25em rgba(0,0,0,.25);
+    box-sizing:border-box;
+    top: 20%;
+    left:50%;
+    /*padding:10vmin;*/
+    position:absolute;
+    text-align:center;
+    transform:translate(-50%, -50%);
+}
+
+
+
+@keyframes slide {
+    0% {
+        transform:translateX(-25%);
+    }
+    100% {
+        transform:translateX(25%);
+    }
+}
