@@ -14,8 +14,11 @@
             </div>
             <p th:text="${user.getUsername()}"></p>
             <p th:text="${user.getEmail()}"></p>
+            <p># of Strikes: <span th:text="${user.getStrikes()}"></span></p>
             <a th:href="@{/admin/users/delete/{id}(id = ${user.getId()})}">Delete User</a>
             <a th:href="@{/admin/users/message/{id}(id = ${user.getId()})}">Message User</a>
+            <a th:href="@{/admin/users/strike/{id}(id = ${user.getId()})}">Add Strike</a>
+            <a th:href="@{/admin/users/remove/strike/{id}(id = ${user.getId()})}">Subtract Strike</a>
             <div th:each="role : ${userRoles}">
                 <div th:if="${role.userId == user.getId()}">
                     <div th:if="${role.getRole() == 'USER'}">

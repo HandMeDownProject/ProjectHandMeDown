@@ -22,6 +22,8 @@ public class User {
     private String userPhone;
     @Column(nullable = false, length = 100)
     private String userIMG;
+    @Column(nullable = false)
+    private long strikes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ForumPost> forumPosts;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -49,6 +51,7 @@ public class User {
         this.userLocation = userLocation;
         this.userPhone = userPhone;
         this.userIMG = userIMG;
+        this.strikes = 0;
     }
 
 
@@ -65,6 +68,7 @@ public class User {
         this.listings = listings;
         this.forumReplies = forumReplies;
         this.activities = activities;
+        this.strikes = 0;
     }
 
     public Long getId() {
@@ -163,6 +167,20 @@ public class User {
         this.userIMG = userIMG;
     }
 
+    public long getStrikes() {
+        return strikes;
+    }
 
+    public void setStrikes(long strikes) {
+        this.strikes = strikes;
+    }
+
+    public void increaseStrikes(){
+        this.strikes += 1;
+    }
+
+    public void decreaseStrikes(){
+        this.strikes -= 1;
+    }
 }
 
