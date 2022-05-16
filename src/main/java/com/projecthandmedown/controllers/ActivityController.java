@@ -117,7 +117,7 @@ public class ActivityController {
 
         List<ActivityCategory> categories = activityCatDao.findAll();
 
-
+        model.addAttribute("filestackKey", filestackKey);
         model.addAttribute("activity", activity);
         model.addAttribute("categories", categories);
 
