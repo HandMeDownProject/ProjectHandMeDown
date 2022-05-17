@@ -240,11 +240,12 @@ public class UserController {
             redirectAttr.addFlashAttribute("message", "Email was sent to your inbox.");
             return "redirect:/";
         }catch(Exception e){
-            model.addAttribute("alert", true);
-            model.addAttribute("message", "No user with that email exist.");
+
+            redirectAttr.addFlashAttribute("alert", true);
+            redirectAttr.addFlashAttribute("errorMessage", "No user with that email exist.");
         }
 
-        return "users/forgot-password";
+        return "redirect:/forgot_password";
     }
 
     @GetMapping("/reset_password")
@@ -300,9 +301,9 @@ public class UserController {
             redirectAttr.addFlashAttribute("alert", true);
             return "redirect:/";
         }catch(Exception e){
-            model.addAttribute("message", "No user with that email exist.");
-            model.addAttribute("alert", true);
-            return "users/forgot-password";
+            redirectAttr.addFlashAttribute("errorMessage", "No user with that email exist.");
+            redirectAttr.addFlashAttribute("alert", true);
+            return "redirect:/forgot_username";
         }
     }
 
