@@ -2,9 +2,16 @@
     height: 50px;
 }
 
-.index-card{
-    background-color: cornflowerblue;
+.index-card-1{
+    background-color: #9EC1A3;
 }
+.index-card-2{
+    background-color: #FF9B85;
+}
+.index-card-3{
+    background-color: #6495ED;
+}
+
 .listings-card{
     background-color: #A1E8AF;
 }
@@ -12,6 +19,7 @@
 .create-listing-form{
     background-color: #FFD15C;
 }
+
 .path{
     background-color: #4D1D72;
     color: white;
@@ -20,9 +28,11 @@
 .navbar-brand, h1{
     font-family: 'Peralta', cursive;
 }
+
 p{
     font-family: 'Biryani', sans-serif;
 }
+
 h2, h3{
     font-family: 'Ubuntu Condensed', sans-serif;
 }
@@ -35,4 +45,5 @@ h2, h3{
 /*    background-image: url("https://images.pexels.com/photos/6775241/pexels-photo-6775241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");*/
 /*    background-size: cover;*/
 /*}*/
+
 
