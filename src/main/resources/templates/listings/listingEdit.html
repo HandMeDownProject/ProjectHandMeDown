@@ -1,51 +1,215 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="/partials/head.html :: head">
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit activity form</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
-<nav th:include="/partials/navBar.html :: navBar"></nav>
-<form th:action="@{/listing/edit}" th:object="${listing}" method="post" >
+<header>
+    <!-- Navbar -->
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light d-flex" th:fragment="navBar"
+         xmlns:sec="http://www.w3.org/1999/xhtml">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
 
-    <label for="title">Listing Title:
-        <input th:field="*{title}" id="title" type="text">
-    </label><br>
+            <!-- Toggle button -->
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample"
+                    aria-controls="navbarButtonsExample"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
 
-    <label for="body">Listing Body
-        <input th:field="*{body}" id="body" type="text">
-    </label><br>
+            <!-- Collapsible wrapper -->
+            <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <form th:action="@{/sign-up}" th:method="get">
+                        <button type="submit" class="btn btn-link me-3">
+                            Register
+                        </button>
+                    </form>
+                    <form th:action="@{/login}" th:method="get">
+                        <button type="submit" class="btn btn-link px-3 me-2">
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button type="submit" class="btn btn-link px-3 me-2">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <!-- Navbar -->
 
-    <label for="imageUrl">Picture
-        <input th:field="*{imageUrl}" id="imageUrl" type="text">
-    </label><br>
+    <!-- Background image -->
+    <div
+            class="p-5 text-center bg-image"
+            style="
+      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 400px;
+    "
+    >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Project HandMeDown</h1>
+                    <h4 class="mb-3">A Place for Parents to Connect</h4>
+                    <div sec:authorize="isAnonymous()">
+                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
+                        >Login</a
+                        >
+                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
+                        >Register</a
+                        >
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
+                        >Profile</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Background image -->
+</header>
+<div class="spacer"></div>
+    <section class="main-create d-flex flex-column align-items-center">
+        <div class="card text-center form-card index-card">
+            <div class="card-body">
+                <form th:action="@{/listing/edit}" th:method="post" th:object="${listing}">
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class=""
+                               placeholder="enter title" required/>
+                    </div>
 
-    <label for="webUrl">Price
-        <input th:field="*{price}" id="webUrl" type="text">
-    </label>
-    <br>
-    <br>
-    <p>
-        <label>Select Categories:
-            <input type="checkbox" name="listingsCategories"
-                   th:each="cat : ${allCats}"
-                   th:text="${cat.getName()}"
-                   th:value="${cat.id}"
-                   th:field="*{listingsCategories}"/>
-        </label>
-    </p>
-    <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
-    <input th:field="*{id}" th:value="${listing.getId()}" hidden>
-    <input th:field="*{timestamp}" th:value="${listing.getTimestamp()}" hidden>
+                    <!-- Message input -->
+                    <div class="form-outline mb-4">
+        <textarea th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="enter body"
+                  required rows="15" cols="50"></textarea>
+                    </div>
 
+                    <div class="form-outline mb-4">
+                        <input th:field="*{imageUrl}" type="text" name="ListingImage" id="ListingImage" class=""
+                               placeholder="Image Url" hidden/>
+                        <button class="btn btn-link" type="button" onclick="upload()">upload image</button>
+                    </div>
+                    <p>preview: </p>
+                    <img id="profile-preview" src="" height="100px">
+                    <br>
+                    <br>
 
+                    <div class="form-outline mb-4">
+                        <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"
+                               required/>
+                        <input th:field="*{user}" th:value="${listing.getUser()}" hidden>
+                        <input th:field="*{id}" th:value="${listing.getId()}" hidden>
+                        <input th:field="*{timestamp}" th:value="${listing.getTimestamp()}" hidden>
+                    </div>
+                    <h3>categories:</h3>
+                    <div class="form-check d-flex flex-wrap">
+                        <div th:each="cat : ${cats}" class="d-flex mx-3">
+                            <input type="checkbox" class="form-check-input" name="listingsCategories"
+                                   th:text="${cat.getName()}"
+                                   th:value="${cat.id}"
+                                   th:field="*{listingsCategories}"/>
+                        </div>
+                    </div>
 
-    <button type="submit">Save my Listing!</button>
-</form>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-link mb-4">Update listing</button>
+                </form>
+            </div>
+        </div>
 
+    </section>
+<br>
+<br>
+<footer class="text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4"></div>
+    <!-- Grid container -->
 
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function upload() {
+        const apiKey = [[${filestackKey}]];
+        let apiKey1 = [[${fileStackKey}]];
+        const client = filestack.init(apiKey);
+        const options = {
+            onUploadDone: file => {
+                let imgURL = file.filesUploaded[0].url;
+                console.log(imgURL);
+                document.getElementById("ListingImage").value = imgURL;
+                document.getElementById("profile-preview").src = imgURL;
+            }
+        };
+        client.picker(options).open();
+    }
+
+    /*]]>*/
+</script>
 </body>
 </html>

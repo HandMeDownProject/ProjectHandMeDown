@@ -1,52 +1,188 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:include="/partials/head.html :: head">
-
-
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
-<main>
-    <nav th:include="/partials/navBar.html :: navBar"></nav>
-    <header class="row">
-        <div class="bg"></div>
-        <div class="bg bg2"></div>
-        <div class="bg bg3"></div>
-        <div class="content">
-            <h1>
-                <span>P</span><span>R</span><span>O</span><span>J</span><span>E</span><span>C</span><span>T</span><span> </span><span>H</span><span>A</span><span>N</span><span>D</span><span> </span><span>M</span><span>E</span><span> </span><span>D</span><span>O</span><span>W</span><span>N</span><span>!</span>
-            </h1>
+<header>
+    <!-- Navbar -->
+    <nav id="nav" class="navbar navbar-expand-lg navbar-light d-flex" th:fragment="navBar"
+         xmlns:sec="http://www.w3.org/1999/xhtml">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
+
+            <!-- Toggle button -->
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample"
+                    aria-controls="navbarButtonsExample"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <form th:action="@{/sign-up}" th:method="get">
+                        <button type="submit" class="btn btn-link me-3">
+                            Register
+                        </button>
+                    </form>
+                    <form th:action="@{/login}" th:method="get">
+                        <button type="submit" class="btn btn-link px-3 me-2">
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button type="submit" class="btn btn-link px-3 me-2">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
         </div>
-    </header>
-    <div class="hero row">
-        <h3>this will be our landing content</h3>
-    </div>
-    <div class="marketplace row">
-        <form action="/listings" method="get">
-            <button type="submit">go to listings</button>
-        </form>
-    </div>
-    <div class="activities row">
-        <form action="/activities" method="get">
-            <button type="submit">go to activities</button>
-        </form>
-    </div>
-    <div class="forum row">
-        <form action="/forum" method="get">
-            <button type="submit">go to forum</button>
-        </form>
-    </div>
-</main>
-<script>
-    $('.txt').html(function (i, html) {
-        var chars = $.trim(html).split("");
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <!-- Navbar -->
 
-        return '<span>' + chars.join('</span><span>') + '</span>';
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+    <!-- Background image -->
+    <div
+            class="p-5 text-center bg-image"
+            style="
+      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 400px;
+    "
+    >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Project HandMeDown</h1>
+                    <h4 class="mb-3">A Place for Parents to Connect</h4>
+                    <div sec:authorize="isAnonymous()">
+                    <a class="btn btn-outline-light btn-lg" href="/login" role="button"
+                    >Login</a
+                    >
+                    <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
+                    >Register</a
+                    >
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
+                        >Profile</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Background image -->
+</header>
+<div class="spacer"></div>
+<div class="d-flex justify-content-evenly flex-column flex-md-row">
+    <div class="card mx-3 mt-3 mt-md-0 p-3 index-card">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img src="https://images.pexels.com/photos/1620675/pexels-photo-1620675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                 class="img-fluid rounded-pill"/>
+            <a href="/listings">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+        </div>
+        <div class="card-body text-center text-white">
+            <h5 class="card-title">Marketplace</h5>
+            <p class="card-text">Browse, buy, sell, give away, it's kids' stuff.</p>
+            <a href="/listings" class="btn path">Marketplace</a>
+        </div>
+    </div>
+    <div class="card mx-3 mt-3 mt-md-0 p-3 index-card">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img src="https://images.pexels.com/photos/4051134/pexels-photo-4051134.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                 class="img-fluid rounded-pill"/>
+            <a href="/forum">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+        </div>
+        <div class="card-body text-center text-white">
+            <h5 class="card-title">Parenting Forum</h5>
+            <p class="card-text">Ask questions, find answers. Answer other people.</p>
+            <a href="/forum" class="btn path">Forum</a>
+        </div>
+    </div>
+    <div class="card mx-3 mt-3 mt-md-0 p-3 index-card">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img src="https://images.pexels.com/photos/2442392/pexels-photo-2442392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                 class="img-fluid rounded-pill"/>
+            <a href="/activities">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+        </div>
+        <div class="card-body text-center text-white">
+            <h5 class="card-title">Things To Do</h5>
+            <p class="card-text">What to do and where to take the little ones.</p>
+            <a href="/activities" class="btn path">Activities</a>
+        </div>
+    </div>
+</div>
+<footer class="text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4"></div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
 </body>
-
 </html>
+<!--need to add styling!-->

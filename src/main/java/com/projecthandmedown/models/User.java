@@ -17,6 +17,8 @@ public class User {
     @Column(nullable = false)
     private String userLocation;
     @Column(nullable = false)
+    private String userLocationState;
+    @Column(nullable = false)
     private Boolean userIsAdmin;
     @Column(nullable = false, length = 20)
     private String userPhone;
@@ -44,23 +46,25 @@ public class User {
 
     }
 
-    public User(String username, String email, String password, String userLocation, String userPhone, String userIMG) {
+    public User(String username, String email, String password, String userLocation, String userLocationState, String userPhone, String userIMG) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.userLocation = userLocation;
+        this.userLocationState = userLocationState;
         this.userPhone = userPhone;
         this.userIMG = userIMG;
         this.strikes = 0;
     }
 
 
-    public User(Long id, String username, String email, String password, String userLocation, Boolean userIsAdmin, String userPhone, String userIMG, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
+    public User(Long id, String username, String email, String password, String userLocation, String userLocationState, Boolean userIsAdmin, String userPhone, String userIMG, List<ForumPost> forumPosts, List<Listing> listings, List<ForumReply> forumReplies, List<Activity> activities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.userLocation = userLocation;
+        this.userLocationState = userLocationState;
         this.userIsAdmin = userIsAdmin;
         this.userPhone = userPhone;
         this.userIMG = userIMG;
@@ -181,6 +185,14 @@ public class User {
 
     public void decreaseStrikes(){
         this.strikes -= 1;
+    }
+
+    public String getUserLocationState() {
+        return userLocationState;
+    }
+
+    public void setUserLocationState(String userLocationState) {
+        this.userLocationState = userLocationState;
     }
 }
 

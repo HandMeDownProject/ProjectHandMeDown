@@ -1,6 +1,7 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.ActivityCategory;
+import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ActivityCategoryRepository;
 import com.projecthandmedown.repositories.ActivityRepository;
@@ -8,6 +9,8 @@ import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +36,23 @@ public class ActivityController {
 
     @GetMapping("/activities")
     public String activitiesView(Model model) {
-
         List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDAO.getUserById(loggedInUser.getId());
+            List<Activity> filteredList = new ArrayList<>();
+            for (int i = 0; i < activities.size(); i++) {
+                if (activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
+                    if (activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
+                        filteredList.add(activities.get(i));
+                    }
+                }
+            }
+            model.addAttribute("activities", filteredList);
+            model.addAttribute("user", user);
+            return "activities/activitiesView";
+        }
         model.addAttribute("activities", activities);
 
         return "activities/activitiesView";
@@ -43,6 +61,8 @@ public class ActivityController {
     @GetMapping("/activities/{id}")
     public String activityView(Model model, @PathVariable Long id) {
         Activity activity = activityDao.getById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
         activity.increaseViewCount();
         activityDao.save(activity);
         model.addAttribute("activity", activity);
@@ -55,11 +75,25 @@ public class ActivityController {
     public String viewByCategory(Model model, @PathVariable Long id) {
         List<ActivityCategory> categories = activityCatDao.findAll();
         List<Activity> activities = activityCatDao.getById(id).getActivities();
-
-        model.addAttribute("categories", categories);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDAO.getUserById(loggedInUser.getId());
+            List<Activity> filteredList = new ArrayList<>();
+            for (int i = 0; i < activities.size(); i++) {
+                if (activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
+                    if (activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
+                        filteredList.add(activities.get(i));
+                    }
+                }
+            }
+            model.addAttribute("activities", filteredList);
+            model.addAttribute("user", user);
+            model.addAttribute("categories", categories);
+            return "activities/activitiesView";
+        }
         model.addAttribute("activities", activities);
-
-
+        model.addAttribute("categories", categories);
         return "activities/activitiesView";
     }
 
@@ -115,7 +149,7 @@ public class ActivityController {
 
         List<ActivityCategory> categories = activityCatDao.findAll();
 
-
+        model.addAttribute("filestackKey", filestackKey);
         model.addAttribute("activity", activity);
         model.addAttribute("categories", categories);
 
@@ -150,11 +184,11 @@ public class ActivityController {
     }
 
 
-//    checking for duplicate in List
-   public static List<Activity> checkDuplicate( List<Activity> lists){
+    //    checking for duplicate in List
+    public static List<Activity> checkDuplicate(List<Activity> lists) {
         ArrayList<Activity> arr = new ArrayList<>();
-        for (Activity element : lists){
-            if(!lists.contains(element)){
+        for (Activity element : lists) {
+            if (!lists.contains(element)) {
                 arr.add(element);
             }
         }
@@ -171,19 +205,17 @@ public class ActivityController {
         List<Activity> filteredActivities = new ArrayList<>();
 
 
-
         for (int i = 0; i < activities.size(); i++) {
             Activity activity = activities.get(i);
             String title = activity.getTitle();
             String body = activity.getBody();
 
 
-            if((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))){
+            if ((title.toLowerCase().contains(keyword.toLowerCase())) || (body.toLowerCase().contains(keyword.toLowerCase()))) {
                 filteredActivities.add(activity); // wil have duplicates.
                 checkDuplicate(filteredActivities);
             }
         }
-
 
 
         model.addAttribute("activities", filteredActivities);
@@ -191,9 +223,7 @@ public class ActivityController {
         return "activities/ActivityFiltered";
     }
 
-
 }
-
 
 
 
