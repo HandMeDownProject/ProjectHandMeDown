@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -218,7 +219,6 @@ public class UserController {
         }
         message.setSender(loggedInUser);
         message.setReceiver("admin@mail.com");
-        emailService.prepareAndSend(message, "New Report", message.getBody());
         return "redirect:/";
     }
 
@@ -230,29 +230,47 @@ public class UserController {
     }
 
     @PostMapping("/forgot_password")
-    public String forgotPassword(@RequestParam(name = "email") String email, HttpServletRequest request, Model model) throws IOException {
-        User user = userDao.getUserByEmail(email);
-        String token = RandomString.make(30);
-        userService.createPasswordResetTokenForUser(user, token);
-        sendGridEmailService.sendTextEmail(user, token);
-        return "redirect:/";
+    public String forgotPassword(@RequestParam(name = "email") String email, HttpServletRequest request, Model model, RedirectAttributes redirectAttr) throws IOException {
+        try{
+            User user = userDao.getUserByEmail(email);
+            String token = RandomString.make(30);
+            userService.createPasswordResetTokenForUser(user, token);
+            sendGridEmailService.sendTextEmail(user, token);
+            redirectAttr.addFlashAttribute("alert", true);
+            redirectAttr.addFlashAttribute("message", "Email was sent to your inbox.");
+            return "redirect:/";
+        }catch(Exception e){
+            model.addAttribute("alert", true);
+            model.addAttribute("message", "No user with that email exist.");
+        }
+
+        return "users/forgot-password";
     }
 
     @GetMapping("/reset_password")
-    public String resetPassword(@RequestParam(name = "token") String token, Model model) {
-        String result = userService.validatePasswordResetToken(token);
-        if (result != null) {
+    public String resetPassword(@RequestParam(name = "token") String token, Model model, RedirectAttributes redirectAttr) {
+        try{
+            String result = userService.validatePasswordResetToken(token);
+            if (result != null) {
+                redirectAttr.addFlashAttribute("alert", true);
+                redirectAttr.addFlashAttribute("message", "Link has expired please send another request to reset your password.");
+                return "redirect:/login";
+            } else {
+                ResetPassword resetPassword = new ResetPassword();
+                resetPassword.setToken(token);
+                model.addAttribute("resetPassword", resetPassword);
+                return "users/reset-password";
+            }
+        }catch(Exception e){
+            redirectAttr.addFlashAttribute("alert", true);
+            redirectAttr.addFlashAttribute("message", "Link has expired please send another request to reset your password.");
             return "redirect:/login";
-        } else {
-            ResetPassword resetPassword = new ResetPassword();
-            resetPassword.setToken(token);
-            model.addAttribute("resetPassword", resetPassword);
-            return "users/reset-password";
         }
+
     }
 
     @PostMapping("/reset_password")
-    public String resetPassword(@ModelAttribute ResetPassword resetPassword, Model model) {
+    public String resetPassword(@ModelAttribute ResetPassword resetPassword, Model model, RedirectAttributes redirectAttr) {
         if (resetPassword.getPassword().equals(resetPassword.getConfirmPassword())) {
             PasswordResetToken pass = passwordResetTokenRepository.findByToken(resetPassword.getToken());
             User user = pass.getUser();
@@ -261,20 +279,31 @@ public class UserController {
             userDao.save(user);
             passwordResetTokenRepository.delete(pass);
         }
+        redirectAttr.addFlashAttribute("message", "Password has been reset.");
+        redirectAttr.addFlashAttribute("alert", true);
         return "redirect:/login";
     }
 
     @GetMapping("/forgot_username")
     public String forgotUsername(Model model) {
         model.addAttribute("message", "your username with a link to login");
-        model.addAttribute("url", "forgot_username");        return "users/forgot-password";
+        model.addAttribute("url", "forgot_username");
+        return "users/forgot-password";
     }
 
     @PostMapping("/forgot_username")
-    public String forgotUsername(@RequestParam(name = "email") String email, HttpServletRequest request, Model model) throws IOException {
-        User user = userDao.getUserByEmail(email);
-        sendGridEmailService.sendTextEmail(user);
-        return "redirect:/";
+    public String forgotUsername(@RequestParam(name = "email") String email, HttpServletRequest request, Model model, RedirectAttributes redirectAttr) throws IOException {
+        try{
+            User user = userDao.getUserByEmail(email);
+            sendGridEmailService.sendTextEmail(user);
+            redirectAttr.addFlashAttribute("message", "Email was sent to your inbox.");
+            redirectAttr.addFlashAttribute("alert", true);
+            return "redirect:/";
+        }catch(Exception e){
+            model.addAttribute("message", "No user with that email exist.");
+            model.addAttribute("alert", true);
+            return "users/forgot-password";
+        }
     }
 
     @GetMapping("/admin/users")
