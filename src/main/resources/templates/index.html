@@ -17,7 +17,6 @@
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
-<<<<<<< HEAD
 <header>
     <!-- Navbar -->
     <nav id="nav" class="navbar navbar-expand-lg navbar-light d-flex" th:fragment="navBar"
@@ -169,28 +168,6 @@
             <a href="/activities" class="btn path">Activities</a>
         </div>
     </div>
-=======
-<nav th:include="/partials/navBar.html :: navBar"></nav>
-<h1><strong>WELCOME TO PROJECT HAND ME DOWN!!</strong></h1>
-<div class="hero">
-    <h3>this will be our landing content</h3>
-    <div th:text="${message}" th:if="${alert}"></div>
-</div>
-<div class="marketplace">
-    <form action="/listings" method="get">
-        <button type="submit">go to listings</button>
-    </form>
-</div>
-<div class="activities">
-    <form action="/activities" method="get">
-        <button type="submit">go to activities</button>
-    </form>
-</div>
-<div class="forum">
-    <form action="/forum" method="get">
-        <button type="submit">go to forum</button>
-    </form>
->>>>>>> 8bb06e470e6762ea7d9af551c11aa4762718c5fe
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->
