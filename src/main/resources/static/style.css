@@ -1,18 +1,40 @@
-*{
+:root{
+    --font-large: 48px;
+    --font-medium: 28px;
+    --font-regular: 18px;
+    --font-small: 16px;
+    --font-micro: 14px;
+    /*    font weight*/
+    --weight-bold: 700;
+    --weight-semi-bold: 500;
+    --weight-regular: 400;
+    /*colorfont*/
+
 
 }
 
+*{
+
+}
+body{
+    margin:0;
+    box-sizing: border-box;
+    cursor: default;
+}
 
 /*     Font styles          */
 h1{
     font-family: 'Caveat', cursive;
     font-size: 4rem;
+    margin:16px;
 }
 h3{
     font-family: 'Rokkitt', serif;
+    margin:8px;
 }
 p, button, a, input, label, ul, ol, li, span, div {
     font-family: 'Noto Sans', sans-serif;
+    margin:8px;
 }
 /*font-family: 'Noto Sans', sans-serif;*/
 /*font-family: 'Rokkitt', serif;*/
@@ -21,6 +43,16 @@ p, button, a, input, label, ul, ol, li, span, div {
 /*font-family: 'Montserrat', sans-serif;*/
 /*font-family: 'Sniglet', cursive;*/
 
+#logo-pic{
+    position:absolute;
+    z-index: +1;
+    width: 300px;
+    height: 300px;
+    margin-top:-90px;
+}
+.nav{
+    margin-top: 20px!important;
+}
 
 
 #navLogOut{
@@ -54,24 +86,20 @@ p, button, a, input, label, ul, ol, li, span, div {
     box-shadow: 0 0 5px #ffee10;
     text-shadow: 0 0 5px #ffee10!important;
 }
+#home{
+    postion:relative;
+    background-repeat: no-repeat;
+    background-image: url("playfulbg.png");
+    background-position: center;
+    background-size: cover;
+    padding: 40px;
+    text-align: center;
+}
+
+#lists{
+    display: flex;
+
+    justify-content: space-between;
+}
 
 
-
-
-/*.clicker {*/
-/*    width:100px;*/
-/*    height:100px;*/
-/*    background-color:blue;*/
-/*    outline:none;*/
-/*    cursor:pointer;*/
-/*}*/
-
-/*.hiddendiv{*/
-/*    display:none;*/
-/*    !*height:200px;*!*/
-/*    !*background-color:green;*!*/
-/*}*/
-
-/*.clicker:focus + .hiddendiv{*/
-/*    display:block;*/
-/*}*/
