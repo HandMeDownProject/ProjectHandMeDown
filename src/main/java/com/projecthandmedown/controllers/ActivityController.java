@@ -136,8 +136,6 @@ public class ActivityController {
         attr.addFlashAttribute("createMsg", "Successfully added a new post");
 
 
-        emailService.prepareAndSendActivity(activity, activity.getTitle(), activity.getBody());
-
 
         return "redirect:/activities";
     }
