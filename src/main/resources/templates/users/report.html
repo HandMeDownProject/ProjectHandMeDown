@@ -125,6 +125,7 @@
     <!-- Background image -->
 </header>
 <div class="spacer"></div>
+<div class="container">
     <div th:if="${objectType == 'post'}">
         <h1>Sending report to an Admin about the <span th:text="${postType}"></span>: <span th:text="${object.getTitle()}"></span>.
             <br>
@@ -148,6 +149,7 @@
     <textarea rows="12" cols="100" name="report" th:field="*{body}"></textarea>
     <button type="submit">Send Report</button>
 </form>
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>

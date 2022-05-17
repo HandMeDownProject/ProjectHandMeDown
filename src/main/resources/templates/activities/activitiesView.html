@@ -127,13 +127,17 @@
 <div class="spacer"></div>
 <!--searchbar-->
 
-
+<div class="container">
 <form th:action="@{/activities/search}" method="get">
     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
     <button type="submit" class="btn btn-info" >Search</button>
     <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
 </form>
-
+<br>
+<form action="/activities/create" method="get">
+    <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
+</form>
+<br>
 <!--alert msg-->
 
 <div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
@@ -183,9 +187,8 @@
 
 <!------------------ADD POST----------------------->
 
-<a href="/activities/create" class="btn btn-success">add post ?!</a>
 
-
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
@@ -196,6 +199,7 @@
         © 2020 Copyright:
         <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
+
     <!-- Copyright -->
 </footer>
 <!-- MDB -->

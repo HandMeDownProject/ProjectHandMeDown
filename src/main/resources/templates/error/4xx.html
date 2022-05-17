@@ -125,6 +125,7 @@
     <!-- Background image -->
 </header>
 <div class="spacer"></div>
+<div class="container">
 <th:block th:switch="${error}">
     <div th:case="'Not Found'">
         <h1>Page not found!!</h1>
@@ -143,6 +144,7 @@
 <p th:text="${trace}">Stacktrace</p>
 <h2>Binding Errors:</h2>
 <p th:text="${errors}">Binding Errors</p>
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>

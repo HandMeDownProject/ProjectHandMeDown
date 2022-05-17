@@ -125,6 +125,7 @@
     <!-- Background image -->
 </header>
 <div class="spacer"></div>
+<div class="container">
   <h1>Sending User Message</h1>
   <form th:action="@{${url}}" th:object="${message}" method="post">
       <h1>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h1>
@@ -135,6 +136,7 @@
       <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea>
       <button type="submit">Send Message</button>
   </form>
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
