@@ -10,6 +10,7 @@
 <h1><strong>WELCOME TO PROJECT HAND ME DOWN!!</strong></h1>
 <div class="hero">
     <h3>this will be our landing content</h3>
+    <div th:text="${message}" th:if="${alert}"></div>
 </div>
 <div class="marketplace">
     <form action="/listings" method="get">
