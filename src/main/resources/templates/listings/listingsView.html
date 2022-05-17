@@ -142,7 +142,7 @@
         <br>
         <br>
     </div>
-    <div class="d-flex justify-content-center flex-column flex-md-row flex-wrap">
+    <div class="d-flex justify-content-start flex-column flex-md-row flex-wrap">
         <div th:each="listing : ${listings}">
             <div class="card mx-2 mt-3 p-3 listings-card">
                 <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
@@ -150,7 +150,7 @@
                 </div>
                 <div class="card-body text-center text-white">
                     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}" class="card-title"></h4></a>
-                    <p th:text="${listing.body}" class="card-text" th:width="100px"></p>
+<!--                    <p th:text="${listing.body}" class="card-text" th:width="100px"></p>-->
                     <!--    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>-->
                     <p th:text="${listing.price}"></p>
                     <p th:text="${listing.timestamp}"></p>
