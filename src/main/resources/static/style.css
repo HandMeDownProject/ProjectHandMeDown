@@ -31,8 +31,57 @@ h2, h3{
     width: 50%;
 }
 
-/*body{*/
-/*    background-image: url("https://images.pexels.com/photos/6775241/pexels-photo-6775241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");*/
-/*    background-size: cover;*/
-/*}*/
+
+
+/*activity views*/
+#activities__cards{
+    width:800px;
+    height:400px;
+    margin: auto;
+    border-radius: 4px;
+    text-align: center;
+    border: lightblue solid 2px;
+    display:flex;
+}
+#activity__card{
+    position:relative;
+    text-align: center;
+    overflow: hidden;
+    float:left;
+    flex-basis: 60%;
+
+}
+#activities__card__title{
+    display:inline-block;
+    position:relative;
+    margin-top: 16px;
+
+}
+
+
+#activty__card__body{
+    text-align: center;
+}
+
+#btn_activity{
+    position: absolute;
+}
+
+.btn__activity{
+    background-color: cornflowerblue;
+    margin: 24px;
+    padding: 8px 12px;
+    border: 2px solid cornflowerblue;
+    border-radius: 25%;
+}
+#activity__img__url{
+    display:inline-block;
+    position:relative;
+    overflow: hidden;
+    height:100%;
+    width: 50%;
+    float : right;
+    flex-basis: 40%;
+}
+
 
