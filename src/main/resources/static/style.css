@@ -1,43 +1,47 @@
-.spacer{
+.spacer {
     height: 50px;
 }
 
-.index-card-1{
+.index-card-1 {
     background-color: #9EC1A3;
 }
-.index-card-2{
+
+.index-card-2 {
     background-color: #FF9B85;
 }
-.index-card-3{
+
+.index-card-3 {
     background-color: #6495ED;
 }
 
-.listings-card{
-    background-color: #A1E8AF;
+.listings-card {
+    border: 1px solid #011936;
+    background-color: #9EC1A3;
 }
 
-.create-listing-form{
+
+.create-listing-form {
     background-color: #FFD15C;
 }
 
-.path{
+.path {
     background-color: #4D1D72;
     color: white;
 }
 
-.navbar-brand, h1{
+.navbar-brand, h1 {
     font-family: 'Peralta', cursive;
 }
 
-p{
+p {
     font-family: 'Biryani', sans-serif;
 }
 
-h2, h3{
+h2, h3 {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
 
-.form-card{
+.form-card {
     width: 50%;
 }
 
