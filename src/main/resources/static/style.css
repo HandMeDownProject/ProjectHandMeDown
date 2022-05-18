@@ -1,90 +1,44 @@
-:root{
-    --font-large: 48px;
-    --font-medium: 28px;
-    --font-regular: 18px;
-    --font-small: 16px;
-    --font-micro: 14px;
-    /*    font weight*/
-    --weight-bold: 700;
-    --weight-semi-bold: 500;
-    --weight-regular: 400;
-    /*colorfont*/
+.spacer {
+    height: 50px;
+}
+
+.index-card-1 {
+    background-color: #9EC1A3;
+}
+
+.index-card-2 {
+    background-color: #FF9B85;
+}
+
+.index-card-3 {
+    background-color: #6495ED;
 
 
 }
 
-*{
 
-}
-body{
-    margin:0;
-    box-sizing: border-box;
-    cursor: default;
-}
+.listings-card {
+    border: 1px solid #011936;
+    background-color: #9EC1A3;
 
-/*     Font styles          */
-h1{
-    font-family: 'Caveat', cursive;
-    font-size: 4rem;
-    margin:16px;
-}
-h3{
-    font-family: 'Rokkitt', serif;
-    margin:8px;
-}
-p, button, a, input, label, ul, ol, li, span, div {
-    font-family: 'Noto Sans', sans-serif;
-    margin:8px;
-}
-/*font-family: 'Noto Sans', sans-serif;*/
-/*font-family: 'Rokkitt', serif;*/
-/*font-family: 'Caveat', cursive;*/
-/*font-family: 'Love Ya Like A Sister', cursive;*/
-/*font-family: 'Montserrat', sans-serif;*/
-/*font-family: 'Sniglet', cursive;*/
-
-#logo-pic{
-    position:absolute;
-    z-index: +1;
-    width: 300px;
-    height: 300px;
-    margin-top:-90px;
-}
-.nav{
-    margin-top: 20px!important;
 }
 
 
-#navLogOut{
-    color: #999D9F!important;
-    border: none;
-    background: none;
-    text-shadow: none;
+.create-listing-form {
+    background-color: #FFD15C;
 }
 
-.nav-link::before {
-    /*content: '';*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*border-radius: 50%;*/
-    background: #ffee10;
-    transition: .5s;
-    transform: scale(.9);
-    z-index: -1;
+.path {
+    background-color: #4D1D72;
+    color: white;
 }
 
-.nav-link:hover::before {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #ffee10;
+.navbar-brand, h1, h4 {
+    font-family: 'Peralta', cursive;
 }
 
-.nav-link:hover {
-    color: #ffee10;
-    box-shadow: 0 0 5px #ffee10;
-    text-shadow: 0 0 5px #ffee10!important;
+p {
+    font-family: 'Biryani', sans-serif;
 }
 #home{
     postion:relative;
@@ -96,10 +50,15 @@ p, button, a, input, label, ul, ol, li, span, div {
     text-align: center;
 }
 
-#lists{
-    display: flex;
 
-    justify-content: space-between;
+h2, h3, h6 {
+    font-family: 'Ubuntu Condensed', sans-serif;
 }
+
+.form-card {
+    width: 50%;
+}
+
+
 
 

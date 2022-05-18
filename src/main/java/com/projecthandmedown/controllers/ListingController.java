@@ -10,8 +10,6 @@ import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,29 +43,8 @@ public class ListingController {
     @GetMapping("/listings")
 //    @ResponseBody
     public String listings(Model model) {
-        List<Listing> list = listingDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userDAO.getUserById(loggedInUser.getId());
-            List<Listing> filteredList = new ArrayList<>();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
-                    if (list.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
-                        filteredList.add(list.get(i));
-                    }
-                }
-            }
-            model.addAttribute("listings", filteredList);
-            model.addAttribute("cats", listingCategoryDao.findAll());
-            model.addAttribute("user", user);
-            model.addAttribute("loggedIn", true);
-            return "listings/listingsView";
-        }
-
-        model.addAttribute("listings", list);
+        model.addAttribute("listings", listingDao.findAll(Sort.by(Sort.Direction.DESC, "id")));
         model.addAttribute("cats", listingCategoryDao.findAll());
-        model.addAttribute("notLoggedIn", true);
         return "listings/listingsView";
     }
 
@@ -83,11 +60,13 @@ public class ListingController {
     @GetMapping("/listing/{id}")
     public String listingView(Model model, @PathVariable Long id) {
         Listing listing = listingDao.getById(id);
+        List<ListingCategory> categories = listingCategoryDao.findAll();
         List<ListingCategory> cats = listing.getListingsCategories();
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
         model.addAttribute("listing", listing);
         model.addAttribute("cats", cats);
+        model.addAttribute("categories", categories);
 
 
         return "listings/listing";
@@ -160,8 +139,10 @@ public class ListingController {
     public String seeAllUserListings(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Listing> listings = listingDao.getByUser(targetUser);
+        List<ListingCategory> categories = listingCategoryDao.findAll();
         model.addAttribute("listings", listings);
         model.addAttribute("user", targetUser);
+        model.addAttribute("categories", categories);
 
         return "listings/listingUserPosts";
     }
@@ -169,23 +150,6 @@ public class ListingController {
     @GetMapping("listingsByCat/{cat_id}")
     public String listingsByCat(@PathVariable Long cat_id, Model model) {
         List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userDAO.getUserById(loggedInUser.getId());
-            List<Listing> filteredList = new ArrayList<>();
-            for (int i = 0; i < listings.size(); i++) {
-                if (listings.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
-                    if (listings.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
-                        filteredList.add(listings.get(i));
-                    }
-                }
-            }
-            model.addAttribute("listings", filteredList);
-            model.addAttribute("cats", listingCategoryDao.findAll());
-            model.addAttribute("user", user);
-            return "listings/listingsView";
-        }
         List<ListingCategory> cats = listingCategoryDao.findAll();
         model.addAttribute("listings", listings);
         model.addAttribute("cats", cats);
@@ -196,49 +160,12 @@ public class ListingController {
     @GetMapping("listings/search")
     public String filteredActivities(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
-        List<Listing> list = listingDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userDAO.getUserById(loggedInUser.getId());
-            List<Listing> filteredLocationList = new ArrayList<>();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
-                    if (list.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
-                        filteredLocationList.add(list.get(i));
-                    }
-                }
-            }
-            List<Listing> filteredListings = new ArrayList<>();
-
-            for (int i = 0; i < filteredLocationList.size(); i++) {
-                Listing listing = filteredLocationList.get(i);
-                String title = listing.getTitle();
-                String body = listing.getBody();
-                if (title.toLowerCase().contains(keyword.toLowerCase())) {
-                    filteredListings.add(listing);
-                }
-                if (body.toLowerCase().contains(keyword.toLowerCase())) {
-                    filteredListings.add(listing);
-                }
-
-                for (int k = 0; k < filteredListings.size(); k++) {
-                    for (int j = 1; j < filteredListings.size(); j++) {
-                        if (filteredListings.get(k) == filteredListings.get(j)) {
-                            filteredListings.remove(j);
-                        }
-                    }
-                }
-            }
-            model.addAttribute("listings", filteredListings);
-            model.addAttribute("cats", listingCategoryDao.findAll());
-            model.addAttribute("user", user);
-            return "listings/listingsView";
-        }
+        List<Listing> listings = listingDao.findAll();
+        List<ListingCategory> cats = listingCategoryDao.findAll();
         List<Listing> filteredListings = new ArrayList<>();
 
-        for (int i = 0; i < list.size(); i++) {
-            Listing listing = list.get(i);
+        for (int i = 0; i < listings.size(); i++) {
+            Listing listing = listings.get(i);
             String title = listing.getTitle();
             String body = listing.getBody();
             if (title.toLowerCase().contains(keyword.toLowerCase())) {
@@ -257,6 +184,7 @@ public class ListingController {
             }
         }
         model.addAttribute("listings", filteredListings);
+        model.addAttribute("cats", cats);
         return "listings/listingsView";
     }
 

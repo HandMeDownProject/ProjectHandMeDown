@@ -1,48 +1,205 @@
-<!doctype html>
-<html lang="en">
-<head th:include="/partials/head.html :: head">
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>viewProfile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
-<nav th:include="/partials/navBar.html :: navBar"></nav>
-<!--<h1>Post made by <span th:text="${}"></span> .</h1>-->
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!-- Container wrapper -->
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
+
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/sign-up}" th:method="get">
+                    <button type="submit" class="btn btn-link me-3">
+                        Register
+                    </button>
+                </form>
+                <form th:action="@{/login}" th:method="get">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/logout}" th:method="post">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<header class="">
+    <!-- Navbar -->
+
+    <!-- Navbar -->
+    <!-- Background image -->
+    <div
+            class="p-5 text-center bg-image"
+            style="
+      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 400px;
+    "
+    >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Project HandMeDown</h1>
+                    <h4 class="mb-3">A Place for Parents to Connect</h4>
+                    <div sec:authorize="isAnonymous()">
+                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
+                        >Login</a
+                        >
+                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
+                        >Register</a
+                        >
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
+                        >Profile</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Background image -->
+</header>
+
+<div class="spacer"></div>
 
 <h2>Showing Listings by:
     <span th:text="${user.getUsername()}"></span>
 </h2>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Body</th>
-        <th scope="col">Image</th>
-        <th scope="col">Price</th>
-        <th scope="col">User</th>
-        <th scope="col">View</th>
-    </tr>
-    </thead>
-    <tbody  th:each="listing : ${listings}">
-    <tr>
-        <td th:text="${listing.title}"></td>
-        <td th:text="${listing.body}"></td>
-        <td><img th:src="${listing.getImageUrl}" height="100px"></td>
-        <td th:text="${listing.price}"></td>
-        <td th:text="${listing.user.getUsername()}"></td>
-        <td><a th:href="@{'/listing/{id}'(id= ${listing.id})}">View</a></td>
+<div class="spacer"></div>
+<div class="container">
+    <form th:action="@{/listings/search}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search Listings by keyword" size="50">
+        <button type="submit" class="btn btn-info">search</button>
+        <a class="" th:href="@{'/listings'}" role="">reset</a>
+    </form>
+    <br>
+    <form action="/create/listing" method="get">
+        <button class="btn btn-outline-primary" type="submit">Create Listing</button>
+    </form>
+    <br>
+    <br>
+    <div>
+        <a th:href="@{/listings}" th:text="'newest first &#8595;'"></a>
+        <a th:href="@{/listings/reverse}" th:text="'oldest first &#8593;'"></a>
+        <br>
+        <br>
+    </div>
+    <div class="d-flex justify-content-center flex-column flex-md-row flex-wrap">
+        <div th:each="listing : ${listings}">
+            <div class="card mx-2 mt-3 p-3">
+                <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
+                    <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded-pill" style="max-height:200px"></a></p>
+                </div>
+                <div class="card-body text-center text-white">
+                    <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}" class="card-title"></h4></a>
+                    <p th:text="${listing.body}" class="card-text" th:width="100px"></p>
+                    <!--    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>-->
+                    <p th:text="${listing.price}"></p>
+                    <p th:text="${listing.timestamp}"></p>
+                    <!--    <p th:text="${listing.user.getUsername()}"></p>-->
+                    <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
+                       th:text="${listing.getUser().getUsername()}"></a>
+                    <br>
+                    <h6>Categories: </h6>
+                    <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}"
+                                                                                th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a> </span>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <section>
+        <h3>Browse by category:</h3>
+        <a th:each="category : ${categories}" th:text="${category.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${category.getId()})}" class="mx-3"></a>
+    </section>
+    <br>
+    <br>
 
-    </tr>
-    </tbody>
-</table>
+</div>
 
 
 
 
 
-<div th:insert="partials/footer.html :: footer"></div>
+<footer class="text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4"></div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
 
 </body>
 </html>
