@@ -12,11 +12,15 @@
 
 .index-card-3 {
     background-color: #6495ED;
+
+
 }
+
 
 .listings-card {
     border: 1px solid #011936;
     background-color: #9EC1A3;
+
 }
 
 
@@ -36,6 +40,16 @@
 p {
     font-family: 'Biryani', sans-serif;
 }
+#home{
+    postion:relative;
+    background-repeat: no-repeat;
+    background-image: url("playfulbg.png");
+    background-position: center;
+    background-size: cover;
+    padding: 40px;
+    text-align: center;
+}
+
 
 h2, h3, h6 {
     font-family: 'Ubuntu Condensed', sans-serif;
@@ -44,6 +58,7 @@ h2, h3, h6 {
 .form-card {
     width: 50%;
 }
+
 
 
 
