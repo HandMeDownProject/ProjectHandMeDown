@@ -1,3 +1,4 @@
+
 .spacer {
     height: 50px;
 }
@@ -14,10 +15,14 @@
     background-color: #6495ED;
 }
 
+
+
+
 .listings-card {
     border: 1px solid #011936;
     background-color: #9EC1A3;
 }
+
 
 
 .create-listing-form {
@@ -37,6 +42,7 @@ p {
     font-family: 'Biryani', sans-serif;
 }
 
+
 h2, h3 {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
@@ -44,6 +50,7 @@ h2, h3 {
 .form-card {
     width: 50%;
 }
+
 
 
 
@@ -73,6 +80,7 @@ h2, h3 {
 }
 
 
+
 #activty__card__body{
     text-align: center;
 }
@@ -97,6 +105,9 @@ h2, h3 {
     float : right;
     flex-basis: 40%;
 }
+
+
+
 
 
 
