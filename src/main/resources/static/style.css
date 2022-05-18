@@ -2,7 +2,13 @@
     height: 50px;
 }
 
-.index-card{
+.index-card-listings{
+    background-color: #9EC1A3;
+}
+.index-card-forum{
+    background-color: #FF9B85;
+}
+.index-card-activities{
     background-color: cornflowerblue;
 }
 .listings-card{
