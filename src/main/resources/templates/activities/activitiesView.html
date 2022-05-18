@@ -185,7 +185,7 @@
 <!--    </tbody>-->
 <!--</table>-->
 
-<div id="activities__cards" class="card mb-3 card-cascade wider" style="max-width: 540px;" th:each="activity : ${activities}">
+<div id="activities__cards" class="card mb-3" style="max-width: 540px;" th:each="activity : ${activities}">
     <div class="row no-gutters">
         <div class="col-md-8">
             <div class="card-body">
@@ -196,7 +196,7 @@
             </div>
         </div>
         <div id="activity__img__url" class="col-md-4">
-            <img th:src="@{${activity.imageUrl}}">
+            <img th:src="@{${activity.imageUrl}}" class="img-fluid" style="width : 500px;">
         </div>
     </div>
 </div>
