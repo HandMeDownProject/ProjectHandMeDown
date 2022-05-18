@@ -42,4 +42,8 @@ public class UserService {
         Calendar cal = Calendar.getInstance();
         return passToken.getExpiryDate().before(cal.getTime());
     }
+
+    public boolean userVerification(long userId, long postId){
+        return userId == postId;
+    }
 }

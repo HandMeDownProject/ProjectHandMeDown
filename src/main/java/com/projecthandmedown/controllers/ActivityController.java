@@ -1,12 +1,12 @@
 package com.projecthandmedown.controllers;
 import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.ActivityCategory;
-import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.User;
 import com.projecthandmedown.repositories.ActivityCategoryRepository;
 import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import com.projecthandmedown.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -26,12 +26,14 @@ public class ActivityController {
     private final UserRepository userDAO;
     private final EmailService emailService;
     private final ActivityCategoryRepository activityCatDao;
+    private final UserService userService;
 
-    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService, ActivityCategoryRepository activityCatDao) {
+    public ActivityController(ActivityRepository activityDao, UserRepository userDAO, EmailService emailService, ActivityCategoryRepository activityCatDao, UserService userService) {
         this.activityDao = activityDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
         this.activityCatDao = activityCatDao;
+        this.userService = userService;
     }
 
     @GetMapping("/activities")
@@ -142,20 +144,24 @@ public class ActivityController {
 
 
     @GetMapping("/activities/{id}/edit")
-    public String editPost(@PathVariable Long id, Model model) {
+    public String editPost(@PathVariable Long id, Model model, RedirectAttributes attr) {
         Activity activity = activityDao.getById(id);
-
         List<ActivityCategory> categories = activityCatDao.findAll();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), activity.getUser().getId())){
+            model.addAttribute("filestackKey", filestackKey);
+            model.addAttribute("activity", activity);
+            model.addAttribute("categories", categories);
 
-        model.addAttribute("filestackKey", filestackKey);
-        model.addAttribute("activity", activity);
-        model.addAttribute("categories", categories);
+            return "activities/activityEdit";
+        }
+        attr.addFlashAttribute("alert", true);
+        attr.addFlashAttribute("message", "You do not have permission to edit that content. Sign in to the correct account.");
 
-        return "activities/activityEdit";
-
+        return "redirect:/login";
     }
 
-    @PostMapping("activities/edit")
+    @PostMapping("/activities/edit")
     public String editAndSubmit(@ModelAttribute Activity activity) {
 
 
@@ -163,16 +169,23 @@ public class ActivityController {
         return "redirect:/activities";
     }
 
-    @GetMapping("activities/{id}/delete")
+    @GetMapping("/activities/{id}/delete")
     public String deleteActivity(@PathVariable Long id, Model model, RedirectAttributes attr) {
         Activity activity = activityDao.getById(id);
         activity.getActivityCategories().clear();
-        activityDao.delete(activity);
-        attr.addFlashAttribute("deleteMsg", "Successfully deleted the post");
-        return "redirect:/activities";
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), activity.getUser().getId())){
+            activityDao.delete(activity);
+            attr.addFlashAttribute("deleteMsg", "Successfully deleted the post");
+            return "redirect:/activities";
+        }
+        attr.addFlashAttribute("alert", true);
+        attr.addFlashAttribute("message", "You do not have permission to delete that content. Sign in to the correct account.");
+
+        return "redirect:/login";
     }
 
-    @GetMapping("activities/user/{user_id}")
+    @GetMapping("/activities/user/{user_id}")
     public String seeAllUserPosts(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Activity> activities = activityDao.getByUser(targetUser);
@@ -194,7 +207,7 @@ public class ActivityController {
     }
 
 
-    @GetMapping("activities/search")
+    @GetMapping("/activities/search")
     public String filteredActivities(Model model, @RequestParam String keyword) {
 
 
