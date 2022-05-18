@@ -29,7 +29,7 @@
     color: white;
 }
 
-.navbar-brand, h1 {
+.navbar-brand, h1, h4 {
     font-family: 'Peralta', cursive;
 }
 
@@ -37,7 +37,7 @@ p {
     font-family: 'Biryani', sans-serif;
 }
 
-h2, h3 {
+h2, h3, h6 {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
 

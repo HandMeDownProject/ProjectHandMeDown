@@ -136,31 +136,41 @@
     <br>
     <h2>individual listing</h2>
 
-    <div class="d-flex justify-content-center flex-column flex-md-row flex-wrap">
-        <div th:each="listing : ${listing}">
-            <div class="card mx-2 mt-3 p-3 listings-card">
+    <div class="row listings-card">
+<!--        <div th:each="listing : ${listing}">-->
+            <div class="col-md-4 text-right d-flex align-items-center">
                 <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
-                    <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded-pill" style="max-height:200px"></a></p>
+                    <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded" style="max-height:500px"></a></p>
                 </div>
-                <div class="card-body text-center text-white">
+            </div>
+                <div class="text-left col-md-8 mt-2">
                     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}" class="card-title"></h4></a>
+                    <br>
+                    <h4>description:</h4>
                     <p th:text="${listing.body}" class="card-text" th:width="100px"></p>
                     <!--    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>-->
+                    <h4>price:</h4>
                     <p th:text="${listing.price}"></p>
+                    <h4>created at:</h4>
                     <p th:text="${listing.timestamp}"></p>
                     <!--    <p th:text="${listing.user.getUsername()}"></p>-->
+                    <h4>created on:</h4>
                     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
                        th:text="${listing.getUser().getUsername()}"></a>
+                    <br>
                     <br>
                     <h6>Categories: </h6>
                     <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}"
                                                                                 th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}"></a> </span>
                     <br>
                     <br>
+                    <button class="btn btn-link"><a th:href="@{'/listings'}">Go back to listings</a></button>
+                    <button class="btn btn-link"><a th:href="@{/report/{type}/{id}(type = 'listing', id = ${listing.getId()})}">Report Post</a></button>
+                    <button class="btn btn-link"><a th:href="@{/messaging/{listingId}/{userId}(userId = ${listing.user.getId()}, listingId = ${listing.getId()})}">Message User</a></button>
                 </div>
-            </div>
-        </div>
-    </div>
+                </div>
+<!--            </div>-->
+
     <br>
     <br>
     <div th:if="${listing.getUser().getId() == user.getId()}">
@@ -184,9 +194,6 @@
     </div>
     <br>
     <br>
-    <button class="btn btn-outline-primary"><a th:href="@{'/listings'}">Go back to listings</a></button>
-    <button class="btn btn-outline-primary"><a th:href="@{/report/{type}/{id}(type = 'listing', id = ${listing.getId()})}">Report Post</a></button>
-    <button class="btn btn-outline-primary"><a th:href="@{/messaging/{listingId}/{userId}(userId = ${listing.user.getId()}, listingId = ${listing.getId()})}">Send Message</a></button>
     <section>
         <br>
         <br>
