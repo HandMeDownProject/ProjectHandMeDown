@@ -149,41 +149,57 @@
 </div>
 
 
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">image Url</th>
-        <th scope="col">web Url</th>
-        <th scope="col">Category</th>
-        <th scope="col">UserName</th>
-        <th scope="col">view</th>
-        <th scope="col">Date</th>
-        <th scope="col">Hit</th>
-    </tr>
-    </thead>
-    <tbody  th:each="activity : ${activities}">
-    <tr>
-        <td th:text="${activity.title}"></td>
-        <td th:text="${activity.body}"></td>
-        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" height="100px">
-        </td>
-        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">Title</th>-->
+<!--        <th scope="col">Description</th>-->
+<!--        <th scope="col">image Url</th>-->
+<!--        <th scope="col">web Url</th>-->
+<!--        <th scope="col">Category</th>-->
+<!--        <th scope="col">UserName</th>-->
+<!--        <th scope="col">view</th>-->
+<!--        <th scope="col">Date</th>-->
+<!--        <th scope="col">Hit</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody  th:each="activity : ${activities}">-->
+<!--    <tr>-->
+<!--        <td th:text="${activity.title}"></td>-->
+<!--        <td th:text="${activity.body}"></td>-->
+<!--        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" height="100px">-->
+<!--        </td>-->
+<!--        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>-->
 
-        <td >
-            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
-            </p>
-        </td>
+<!--        <td >-->
+<!--            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>-->
+<!--            </p>-->
+<!--        </td>-->
 
 
-        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>
-        <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>
-        <td th:text="${activity.timestamp}"></td>
-        <td th:text="${activity.getViewCount()}"></td>
-    </tr>
-    </tbody>
-</table>
+<!--        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>-->
+<!--        <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>-->
+<!--        <td th:text="${activity.timestamp}"></td>-->
+<!--        <td th:text="${activity.getViewCount()}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<div id="activities__cards" class="card mb-3 card-cascade wider" style="max-width: 540px;" th:each="activity : ${activities}">
+    <div class="row no-gutters">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${activity.title}"></h5>
+                <p class="card-text" th:text="${activity.body}"></p>
+                <p class="card-text" id="activity__card__hit" th:text="${activity.getViewCount()}"></p>
+                <a id="btn__activity" th:href="@{'/activities/{id}'(id= ${activity.id})}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+        <div id="activity__img__url" class="col-md-4">
+            <img th:src="@{${activity.imageUrl}}">
+        </div>
+    </div>
+</div>
 
 <!------------------ADD POST----------------------->
 
