@@ -99,10 +99,10 @@ public class UserController {
         model.addAttribute("filestackKey", filestackKey);
         UserRole userRole = roles.getUserRoleByUserId(loggedInUser.getId());
         if (userRole.getRole().equals("ADMIN")) {
-            return "/users/admin";
+            return "users/admin";
         } else {
 
-            return "/users/profile";
+            return "users/profile";
         }
     }
 
