@@ -1,3 +1,4 @@
+
 <nav class=" " th:fragment="navBar" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
@@ -46,3 +47,34 @@
 </nav>
 
 
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="/partials/head.html :: head">
+
+
+</head>
+<body>
+<nav th:include="/partials/navBar.html :: navBar"></nav>
+<h1><strong>WELCOME TO PROJECT HAND ME DOWN!!</strong></h1>
+<div class="hero">
+    <h3>this will be our landing content</h3>
+    <div th:text="${message}" th:if="${alert}"></div>
+</div>
+<div class="marketplace">
+    <form action="/listings" method="get">
+        <button type="submit">go to listings</button>
+    </form>
+</div>
+<div class="activities">
+    <form action="/activities" method="get">
+        <button type="submit">go to activities</button>
+    </form>
+</div>
+<div class="forum">
+    <form action="/forum" method="get">
+        <button type="submit">go to forum</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script></body>
+</html>

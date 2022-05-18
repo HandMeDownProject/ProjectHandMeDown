@@ -148,6 +148,26 @@
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
 
+<section id="activities__cards" th:each="activity : ${activities}">
+    <div id="activity__card" >
+        <h1 id="activity__card__title" th:text="${activity.title}"></h1>
+        <p id="activty__card__body" th:text="${activity.body}"></p>
+        <span>Views : </span><p id="activity__card__hit" th:text="${activity.getViewCount()}"></p>
+        <div id="btn_activity">
+            <button class="btn__activity">
+              <span><a th:href="@{'/activities/{id}'(id= ${activity.id})}">Details</a></span>
+            </button>
+        </div>
+    </div>
+    <div id="activity__img__url">
+        <img th:src="@{${activity.imageUrl}}">
+    </div>
+</section>
+
+
+
+
+
 
 <table class="table">
     <thead>
@@ -184,6 +204,8 @@
     </tr>
     </tbody>
 </table>
+
+
 
 <!------------------ADD POST----------------------->
 
