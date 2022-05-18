@@ -134,7 +134,9 @@
         <button class="btn btn-outline-primary" type="submit">Create Listing</button>
     </form>
     <br>
-    <h1>This is the marketplace!</h1>
+        <h3>Browse by category:</h3>
+        <a th:each="cat : ${cats}" th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}" class="mx-3"></a>
+    <br>
     <br>
     <div>
         <a th:href="@{/listings}" th:text="'newest first &#8595;'"></a>
@@ -150,13 +152,12 @@
                 </div>
                 <div class="card-body text-center text-white">
                     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}" class="card-title"></h4></a>
-<!--                    <p th:text="${listing.body}" class="card-text" th:width="100px"></p>-->
-                    <!--    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>-->
-                    <p th:text="${listing.price}"></p>
-                    <p th:text="${listing.timestamp}"></p>
-                    <!--    <p th:text="${listing.user.getUsername()}"></p>-->
-                    <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
-                       th:text="${listing.getUser().getUsername()}"></a>
+                    <br>
+                    <p>price: <span th:text="${listing.price}"></span></p>
+                    <p>created by: <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}" th:text="${listing.getUser().getUsername()}"></a></p>
+                    <br>
+                    <br>
+                    <p>created on: <span th:text="${listing.timestamp}"></span></p>
                     <br>
                     <h6>Categories: </h6>
                     <span th:each="cat : ${listing.getListingsCategories()}"><a th:text="${cat.getName()}"
@@ -169,13 +170,6 @@
     </div>
     <br>
     <br>
-    <section>
-        <h3>Browse by category:</h3>
-        <a th:each="cat : ${cats}" th:text="${cat.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${cat.getId()})}" class="mx-3"></a>
-    </section>
-    <br>
-    <br>
-
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->

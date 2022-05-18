@@ -130,6 +130,10 @@
         <a class="" th:href="@{'/listings'}" role="">reset</a>
     </form>
     <br>
+        <h3>Browse by category:</h3>
+        <a th:each="category : ${categories}" th:text="${category.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${category.getId()})}" class="mx-3"></a>
+    <br>
+    <br>
     <form th:action="@{/create/listing}" method="get">
         <button class="btn btn-outline-primary" type="submit">Create Listing</button>
     </form>
@@ -192,14 +196,6 @@
             <button type="submit" class="btn btn-outline-primary">Admin Delete Listing</button>
         </form>
     </div>
-    <br>
-    <br>
-    <section>
-        <br>
-        <br>
-        <h3>Browse by category:</h3>
-        <a th:each="category : ${categories}" th:text="${category.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${category.getId()})}" class="mx-3"></a>
-    </section>
     <br>
     <br>
 </div>
