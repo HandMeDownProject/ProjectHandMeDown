@@ -9,88 +9,86 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body>
-<header>
-    <!-- Navbar -->
-    <nav id="nav" class="navbar navbar-expand-lg navbar-light d-flex" th:fragment="navBar"
-         xmlns:sec="http://www.w3.org/1999/xhtml">
-        <!-- Container wrapper -->
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!-- Container wrapper -->
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
 
-            <!-- Toggle button -->
-            <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarButtonsExample"
-                    aria-controls="navbarButtonsExample"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-            >
-                <i class="fas fa-bars"></i>
-            </button>
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
 
-            <!-- Collapsible wrapper -->
-            <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
-                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
-                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
-                </ul>
-                <!-- Left links -->
-                <div class="d-flex align-items-center">
-                    <form th:action="@{/sign-up}" th:method="get">
-                        <button type="submit" class="btn btn-link me-3">
-                            Register
-                        </button>
-                    </form>
-                    <form th:action="@{/login}" th:method="get">
-                        <button type="submit" class="btn btn-link px-3 me-2">
-                            Login
-                        </button>
-                    </form>
-                </div>
+        <!-- Collapsible wrapper -->
+        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/sign-up}" th:method="get">
+                    <button type="submit" class="btn btn-link me-3">
+                        Register
+                    </button>
+                </form>
+                <form th:action="@{/login}" th:method="get">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Login
+                    </button>
+                </form>
             </div>
-            <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
-                    <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
-                    <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
-                </ul>
-                <!-- Left links -->
-                <div class="d-flex align-items-center">
-                    <form th:action="@{/logout}" th:method="post">
-                        <button type="submit" class="btn btn-link px-3 me-2">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <!-- Collapsible wrapper -->
         </div>
-        <!-- Container wrapper -->
-    </nav>
-    <!-- Navbar -->
+        <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/logout}" th:method="post">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<header class="">
     <!-- Navbar -->
 
+    <!-- Navbar -->
     <!-- Background image -->
     <div
             class="p-5 text-center bg-image"
@@ -121,9 +119,9 @@
             </div>
         </div>
     </div>
-    </div>
     <!-- Background image -->
 </header>
+
 <div class="spacer"></div>
 <div class="container">
 <form th:action="@{/activities/create}" th:object="${activity}" method="post">
