@@ -151,10 +151,10 @@
                     <!--    <p th:if="${listing.imageUrl != null}"><img th:src="@{${listing.imageUrl}}" style="max-height:100px"></p>-->
                     <h4>price:</h4>
                     <p th:text="${listing.price}"></p>
-                    <h4>created at:</h4>
+                    <h4>created on:</h4>
                     <p th:text="${listing.timestamp}"></p>
                     <!--    <p th:text="${listing.user.getUsername()}"></p>-->
-                    <h4>created on:</h4>
+                    <h4>created by:</h4>
                     <a th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
                        th:text="${listing.getUser().getUsername()}"></a>
                     <br>
