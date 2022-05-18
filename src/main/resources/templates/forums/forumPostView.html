@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
+
 </head>
 <body>
 <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
@@ -263,8 +265,8 @@
             </div>
             <div class="panel">
                 <div id="comment_form" class="panel-body">
-                    <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
-                        <textarea class="form-control" rows="4" name="message" th:field="*{body}" required></textarea><br>
+                    <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
+                        <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message" th:field="*{body}" required></textarea>
                         <button class="btn-primary pull-right" type="submit">Submit Reply</button>
                     </form>
                     <div class="mar-top clearfix">
