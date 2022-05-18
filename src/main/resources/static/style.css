@@ -1,39 +1,67 @@
-.spacer{
+.spacer {
     height: 50px;
 }
 
-.index-card-listings{
+
+
+.index-card-1 {
     background-color: #9EC1A3;
-}
-.index-card-forum{
-    background-color: #FF9B85;
-}
-.index-card-activities{
-    background-color: cornflowerblue;
-}
-.listings-card{
-    background-color: #A1E8AF;
+
 }
 
-.create-listing-form{
+.index-card-2 {
+    background-color: #FF9B85;
+}
+
+.index-card-3 {
+    background-color: #6495ED;
+
+
+}
+
+
+.listings-card {
+    border: 1px solid #011936;
+    background-color: #9EC1A3;
+
+}
+
+
+.create-listing-form {
     background-color: #FFD15C;
 }
-.path{
+
+.path {
     background-color: #4D1D72;
     color: white;
 }
 
-.navbar-brand, h1{
+.navbar-brand, h1, h4 {
     font-family: 'Peralta', cursive;
 }
-p{
+
+p {
     font-family: 'Biryani', sans-serif;
 }
-h2, h3{
+#home{
+    postion:relative;
+    background-repeat: no-repeat;
+    background-image: url("playfulbg.png");
+    background-position: center;
+    background-size: cover;
+    padding: 40px;
+    text-align: center;
+}
+
+
+h2, h3, h6 {
     font-family: 'Ubuntu Condensed', sans-serif;
 }
 
-.form-card{
+.form-card {
     width: 50%;
 }
+
+
+
 

@@ -113,6 +113,7 @@ public class ListingController {
         Listing listing = listingDao.getById(id);
         List<ListingCategory> cats = listing.getListingsCategories();
         List<ListingCategory> allCats = listingCategoryDao.findAll();
+        model.addAttribute("filestackKey", filestackKey);
         model.addAttribute("allCats", allCats);
         model.addAttribute("cats", cats);
         model.addAttribute("listing", listing);
