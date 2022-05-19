@@ -9,181 +9,139 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/forum.css">
+
     <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Parents Forum</title>
+
 </head>
 <body>
-<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
-     xmlns:sec="http://www.w3.org/1999/xhtml">
-    <!-- Container wrapper -->
-    <div class="container">
-        <!-- Navbar brand -->
-        <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
+<nav id="nav" class="nav-main navbar navbar-expand-lg navbar-light bg-white  d-flex sticky-top"  th:include="partials/navBar :: navBar"></nav>
 
-        <!-- Toggle button -->
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample"
-                aria-controls="navbarButtonsExample"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <i class="fas fa-bars"></i>
-        </button>
 
-        <!-- Collapsible wrapper -->
-        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
-                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
-                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
-            </ul>
-            <!-- Left links -->
-            <div class="d-flex align-items-center">
-                <form th:action="@{/sign-up}" th:method="get">
-                    <button type="submit" class="btn btn-link me-3">
-                        Register
-                    </button>
-                </form>
-                <form th:action="@{/login}" th:method="get">
-                    <button type="submit" class="btn btn-link px-3 me-2">
-                        Login
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
-                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
-                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
-            </ul>
-            <!-- Left links -->
-            <div class="d-flex align-items-center">
-                <form th:action="@{/logout}" th:method="post">
-                    <button type="submit" class="btn btn-link px-3 me-2">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-        <!-- Collapsible wrapper -->
-    </div>
-    <!-- Container wrapper -->
-</nav>
-<header class="">
-    <!-- Navbar -->
-
-    <!-- Navbar -->
-    <!-- Background image -->
-    <div
-            class="p-5 text-center bg-image"
-            style="
-      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      height: 400px;
-    "
-    >
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <div class="text-white">
-                    <h1 class="mb-3">Project HandMeDown</h1>
-                    <h4 class="mb-3">A Place for Parents to Connect</h4>
-                    <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
-                        >Login</a
-                        >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
-                        >Register</a
-                        >
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
-                        >Profile</a
-                        >
-                    </div>
+<div class="p-5 text-center bg-image"
+     style=" background-image: url('https://images.pexels.com/photos/1337382/pexels-photo-1337382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 150px; ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <div class="row justify-content-center">
+                    <h1 class="forum-main-title col-lg-10 text-center mx-4">Welcome to the Parents Forum</h1>
+                    <h5 class="forum-mission col-lg-10">Ask questions and get Answers</h5>
                 </div>
+<!--                <div sec:authorize="isAnonymous()">-->
+<!--                    <a class="btn btn-outline-light btn-lg" href="/login" role="button">Login</a>-->
+<!--                    <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button">Register</a>-->
+<!--                </div>-->
+
             </div>
         </div>
     </div>
-    <!-- Background image -->
-</header>
+</div>
 
 <div class="spacer"></div>
 
-<main class="container">
-    <h1>Forum header</h1>
-    <div>
-        <!--        searchbar-->
-        <form th:action="@{/posts/search}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}" placeholder="Search topics by keyword" size="50">
-            <button type="submit" class="btn btn-info">search</button>
-            <a class="btn btn-primary" th:href="@{'/forum'}" role="button">reset</a>
-        </form>
-    </div>
-    <div>
-        <label for="forum-categories">Catagories</label>
-        <select id="forum-categories" name="forum-categories" onChange="window.location.replace(this.value)">
-            <div th:if="${categoryChosen}">
-                <div th:each="category : ${categories}">
-                    <div th:if="${category.getId() == chosenCategory.getId()}">
-                        <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}" th:text="${chosenCategory.getName()}"></option>
-                    </div>
+<main class="container row">
+
+    <div class="left-side col-md-4">
+        <div class="cats-search ">
+            <div class="row">
+                <div class="cats-drop col-md-6 align-content-center">
+                    <label for="forum-categories">Search By Categories: &nbsp</label>
+                    <select id="forum-categories" name="forum-categories"
+                            onChange="window.location.replace(this.value)">
+                        <div th:if="${categoryChosen}">
+                            <div th:each="category : ${categories}">
+                                <div th:if="${category.getId() == chosenCategory.getId()}">
+                                    <option
+                                            th:href="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}"
+                                            th:value="@{/FilterByCategory/{cat_id}(cat_id = ${chosenCategory.getId()})}"
+                                            th:text="${chosenCategory.getName()}">
+
+                                    </option>
+                                </div>
+                            </div>
+                            <div th:each="category : ${categories}">
+                                <div th:if="${category.getId() != chosenCategory.getId()}">
+                                    <option
+                                            th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}"
+                                            th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}"
+                                            th:text="${category.getName()}">
+                                    </option>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${noCategory}">
+                            <div th:each="category : ${categories}">
+                                <option
+                                        th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}"
+                                        th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}"
+                                        th:text="${category.getName()}">
+
+                                </option>
+                            </div>
+                        </div>
+                    </select>
                 </div>
-                <div th:each="category : ${categories}">
-                    <div th:if="${category.getId() != chosenCategory.getId()}">
-                        <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:text="${category.getName()}"></option>
-                    </div>
-                </div>
-            </div>
-            <div th:if="${noCategory}">
-                <div th:each="category : ${categories}">
-                    <option th:href="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:value="@{/FilterByCategory/{cat_id}(cat_id = ${category.getId()})}" th:text="${category.getName()}"></option>
+                <div class="col-lg-6">
+                    <form th:action="@{/posts/search}" method="get">
+                        <input type="text" name="keyword" th:value="${keyword}"
+                               placeholder="Search topics by keyword"
+                               >
+                        <button type="submit" class="search-btn btn ">Search</button>
+                    </form>
                 </div>
             </div>
 
-        </select>
+            <div class="row d-flex  page-transfer-button mt-4 justify-content-md-around">
+                <form class="col-sm-6" action="/create/post" method="get">
+                    <a class=" btn reset-btn" th:href="@{'/forum'}" role="button">Reset Search</a>
+                    <button type="submit" class="col-sm-6 btn createPost-btn">Create Post</button>
+
+                </form>
+
+            </div>
+        </div>
     </div>
+
     <!--    forum topics-->
-    <section>
+    <section class="forum-content col-lg-8 ">
         <div class="post_body">
             <ol class="topic_main_body" th:each="post : ${posts}">
                 <div class="inner_main_bloc">
                     <div class="topic_inside_title">
                             <span>
                                <a th:href="@{/forum_post/{id}(id=${post.id})}">
-                                    <span th:text="${post.title}"></span>
+                                    <span class="post-title" th:text="${post.title}"></span>
                                </a>
                             </span>
-                        <span>
-                               <p>Asked by
-                                    <a href=""> <!-- needs anchor to username profile view-->
-                                        <span th:text="${post.user.getUsername()}"></span>
-                                    </a>,&nbsp; <time th:text="${post.timestamp}"></time>
-                               </p>
-                            </span>
+                        <br>
+                        <span class="post-body" th:text="${post.body}"></span>
                         <div class="topic_cats">
-                            <ul class="topic_cats_list" role="list">
-                                <li th:each="cat : ${post.getForumPostCategories()}">
+                            <ul class="topic_cats_list " role="list">
+                                <li class="post-cat-label">Categories:&nbsp;</li>
+                                <li class="post-cats " th:each="cat : ${post.getForumPostCategories()}">
+
                                     <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+
                                         <span class="topic_cat_name" th:text="${cat.getName()}"></span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
+                        <span class="date-time-forum-display">
+                               <p>Asked by:
+                                    <a href=""> <!-- needs anchor to username profile view-->
+                                        <span th:text="${post.user.getUsername()}"></span>
+                                    </a>,&nbsp; <time th:text="${post.timestamp}"></time>
+                               </p>
+                            </span>
                     </div> <!-- end of topic_inside_title-->
                     <div class="replies_count_section">
                         <span th:text="${post.getForumReplies().size()}"></span>
@@ -193,44 +151,23 @@
             </ol>
         </div> <!-- end of post_body-->
     </section>
-
-<!--    original code snippet start-->
-
-    <!--    <div th:each="post : ${posts}">-->
-    <!--        <h4 th:text="${post.title}" ></h4>-->
-    <!--        <p th:text="${post.body}"></p>-->
-    <!--        <p th:text="${post.timestamp}"></p>-->
-    <!--        <p th:text="${post.user.getUsername()}"></p>-->
-    <!--        <span th:text="${post.getForumReplies().size()}"></span>&nbsp<span>replies</span><br>-->
-    <!--        <span th:each="cat : ${post.getForumPostCategories()}">-->
-    <!--        <a th:text="${cat.getName()}" th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}"></a>-->
-    <!--    </span><br>-->
-    <!--        <span><a th:href="@{/forum_post/{id}(id=${post.id})}"><sup>view</sup></a></span>&nbsp;-->
-    <!--    </div>-->
-
-<!--    original code snippet end-->
-
-    <!--    create post button-->
-    <div class="page-transfer-button">
-        <form action="/create/post" method="get">
-            <button type="submit">Create Post</button>
-        </form>
-    </div>
 </main>
-
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
     <!-- Grid container -->
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-3" style="background-color: rgb(255,145,145);">
         © 2020 Copyright:
         <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
     <!-- Copyright -->
 </footer>
+
+
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
 </body>
+
 </html>
