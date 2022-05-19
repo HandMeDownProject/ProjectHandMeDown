@@ -139,7 +139,7 @@
                 <div class="media-block" style="position: relative;right: 50px;">
                     <a class="media-left" href="#">
                         <span th:if="${posts.user.getUserIMG() != null}">
-                            <img class="avatar" alt="Profile Picture" style="height: 250px;width:250px;" th:src="${posts.user.getUserIMG()}">
+                            <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;" th:src="${posts.user.getUserIMG()}">
                         </span>
                     </a>
                     <div class="media-body">
@@ -160,18 +160,18 @@
                             <a class="btn btn-sm btn-default btn-hover-primary" href="#comment_form">
                                 Add comment
                             </a>
-                            <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip"
+                            <a class="btn btn-trans btn-icon add-tooltip"
                                th:if="${posts.user.getId() == user.getId()}"
                                th:href="@{/edit/{id}/post(id=${posts.id})}">
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip"
+                                <a class="btn btn-trans btn-icon add-tooltip"
                                    th:href="@{/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
                                 <br>
-                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip"
+                                <a class="btn btn-trans btn-icon add-tooltip"
                                    th:href="@{/edit/{id}/post(id=${posts.id})}">
                                     Admin Edit Post
                                 </a>
@@ -195,7 +195,7 @@
                                     <!--                                user avatar image-->
                                     <a class="media-left" href="#">
                                         <span th:if="${reply.user.getUserIMG() != null}">
-                                          <img class="avatar" style="height: 150px;width: 150px;" th:src="@{${reply.user.getUserIMG()}}">
+                                          <img class="avatar img-fluid" style="height: 150px;" th:src="@{${reply.user.getUserIMG()}}">
                                         </span>
                                     </a>
                                     <!--                                reply of user-->

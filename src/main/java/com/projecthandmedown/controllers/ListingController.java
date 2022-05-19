@@ -1,6 +1,5 @@
 package com.projecthandmedown.controllers;
 
-import com.projecthandmedown.models.Activity;
 import com.projecthandmedown.models.Listing;
 import com.projecthandmedown.models.ListingCategory;
 import com.projecthandmedown.models.User;
@@ -8,19 +7,17 @@ import com.projecthandmedown.repositories.ListingCategoryRepository;
 import com.projecthandmedown.repositories.ListingRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
+import com.projecthandmedown.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContext;
-
-import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Timestamp;
 import java.util.*;
 
 @Controller
@@ -30,13 +27,15 @@ public class ListingController {
     private final UserRepository userDAO;
     private final EmailService emailService;
     private final ListingCategoryRepository listingCategoryDao;
+    private final UserService userService;
 
 
-    public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService, ListingCategoryRepository listingCategoryDao) {
+    public ListingController(ListingRepository listingDao, UserRepository userDAO, EmailService emailService, ListingCategoryRepository listingCategoryDao, UserService userService) {
         this.listingDao = listingDao;
         this.emailService = emailService;
         this.userDAO = userDAO;
         this.listingCategoryDao = listingCategoryDao;
+        this.userService = userService;
     }
 
 //    public ListingController(ListingRepository listingDao, UserRepository userDAO) {
@@ -109,19 +108,25 @@ public class ListingController {
     }
 
     @GetMapping("/listing/edit/{id}")
-    public String editListing(@PathVariable Long id, Model model) {
+    public String editListing(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         Listing listing = listingDao.getById(id);
         List<ListingCategory> cats = listing.getListingsCategories();
         List<ListingCategory> allCats = listingCategoryDao.findAll();
-        model.addAttribute("filestackKey", filestackKey);
-        model.addAttribute("allCats", allCats);
-        model.addAttribute("cats", cats);
-        model.addAttribute("listing", listing);
-        return "listings/listingEdit";
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), listing.getUser().getId())){
+;           model.addAttribute("filestackKey", filestackKey);
+            model.addAttribute("allCats", allCats);
+            model.addAttribute("cats", cats);
+            model.addAttribute("listing", listing);
+            return "listings/listingEdit";
+        }
+        redirectAttributes.addFlashAttribute("alert", true);
+        redirectAttributes.addFlashAttribute("message", "You do not have permission to delete that content. Sign in to the correct account.");
 
+        return "redirect:/login";
     }
 
-    @PostMapping("listing/edit")
+    @PostMapping("/listing/edit")
     public String editAndSubmitListing(@ModelAttribute Listing listing) {
 
 
@@ -129,7 +134,7 @@ public class ListingController {
         return "redirect:/listings";
     }
 
-    @PostMapping("listing/delete/{id}")
+    @PostMapping("/listing/delete/{id}")
     public String deleteListing(@PathVariable Long id) {
         Listing listing = listingDao.getById(id);
         listing.getListingsCategories().clear();
@@ -138,7 +143,7 @@ public class ListingController {
         return "redirect:/listings";
     }
 
-    @GetMapping("listings/user/{user_id}")
+    @GetMapping("/listings/user/{user_id}")
     public String seeAllUserListings(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Listing> listings = listingDao.getByUser(targetUser);
@@ -150,7 +155,7 @@ public class ListingController {
         return "listings/listingUserPosts";
     }
 
-    @GetMapping("listingsByCat/{cat_id}")
+    @GetMapping("/listingsByCat/{cat_id}")
     public String listingsByCat(@PathVariable Long cat_id, Model model) {
         List<Listing> listings = listingCategoryDao.getById(cat_id).getListings();
         List<ListingCategory> cats = listingCategoryDao.findAll();
@@ -160,7 +165,7 @@ public class ListingController {
         return "listings/listingsView";
     }
 
-    @GetMapping("listings/search")
+    @GetMapping("/listings/search")
     public String filteredActivities(Model model, @RequestParam String keyword) {
         model.addAttribute("keyword", keyword.toLowerCase(Locale.ROOT));
         List<Listing> listings = listingDao.findAll();

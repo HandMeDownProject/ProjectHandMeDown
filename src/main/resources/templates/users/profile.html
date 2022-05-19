@@ -94,27 +94,14 @@
             class="p-5 text-center bg-image"
             style="
       background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      height: 400px;
+      height: 150px;
     "
     >
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
-                    <h1 class="mb-3">Project HandMeDown</h1>
-                    <h4 class="mb-3">A Place for Parents to Connect</h4>
-                    <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
-                        >Login</a
-                        >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
-                        >Register</a
-                        >
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
-                        >Profile</a
-                        >
-                    </div>
+                    <h1 class="mb-3">User Profile</h1>
+
                 </div>
             </div>
         </div>
@@ -151,13 +138,35 @@
             <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
             <br>
             <br>
+            <label for="user-location">Location State</label>
+            <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+            </select>
+            <br>
+            <br>
             <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
             <button type="button" onclick="upload()">upload image</button>
             <p>preview: </p>
             <img id="profile-preview" src="" height="75px">
             <br>
             <br>
-            <input value="Sign me up!" type="submit" />
+            <input value="Edit Profile" type="submit" />
         </form>
 
     </div>
