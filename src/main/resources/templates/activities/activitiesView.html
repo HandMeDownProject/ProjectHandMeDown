@@ -86,58 +86,23 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<!--<header class="">-->
-<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
 
-<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
-<!--    &lt;!&ndash; Background image &ndash;&gt;-->
-<!--    <div-->
-<!--            class="p-5 text-center bg-image"-->
-<!--            style="-->
-<!--      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');-->
-<!--      height: 400px;-->
-<!--    "-->
-<!--    >-->
-<!--        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">-->
-<!--            <div class="d-flex justify-content-center align-items-center h-100">-->
-<!--                <div class="text-white">-->
-<!--                    <h1 class="mb-3">Project HandMeDown</h1>-->
-<!--                    <h4 class="mb-3">A Place for Parents to Connect</h4>-->
-<!--                    <div sec:authorize="isAnonymous()">-->
-<!--                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"-->
-<!--                        >Login</a-->
-<!--                        >-->
-<!--                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"-->
-<!--                        >Register</a-->
-<!--                        >-->
-<!--                    </div>-->
-<!--                    <div sec:authorize="isAuthenticated()">-->
-<!--                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"-->
-<!--                        >Profile</a-->
-<!--                        >-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Background image &ndash;&gt;-->
-<!--</header>-->
 
 <div class="spacer"></div>
 <!--searchbar-->
 
 
 <div class="container">
-<form th:action="@{/activities/search}" method="get">
-    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
-    <button type="submit" class="btn btn-info" >Search</button>
-    <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
-</form>
-<br>
-<form action="/activities/create" method="get">
-    <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
-</form>
-<br>
+    <form th:action="@{/activities/search}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
+        <button type="submit" class="btn btn-info" >Search</button>
+        <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
+    </form>
+    <br>
+    <form action="/activities/create" method="get">
+        <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
+    </form>
+    <br>
 <!--alert msg-->
 
 <div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
@@ -184,23 +149,48 @@
 <!--    </tr>-->
 <!--    </tbody>-->
 <!--</table>-->
-<div class="row">
-    <div id="activities__cards" class="col col-md-3 card mb-3 mx-3" style="max-width: 540px;" th:each="activity : ${activities}">
-        <div class="row">
-            <div id="activity__img__url" class="col-md-4">
-                <img th:src="@{${activity.imageUrl}}" class="img-fluid" style="width : 500px;">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${activity.title}"></h5>
-                    <p class="card-text" th:text="${activity.body}"></p>
-                    <p class="card-text" id="activity__card__hit" th:text="${activity.getViewCount()}"></p>
-                    <a id="btn__activity" th:href="@{'/activities/{id}'(id= ${activity.id})}" class="btn btn-primary">Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+        <tr>
+            <th>Title</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>View counted</th>
+            <th>Details</th>
+
+        </tr>
+        </thead>
+        <tbody th:each="activity : ${activities}">
+            <tr>
+                <td>
+                    <div class="d-flex align-item-center">
+                        <img th:src="@{${activity.imageUrl}}"  th:if="${activity.imageUrl != null}" style="width: 45px; height: 45px"
+                             class="rounded-circle">
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1" th:text="${activity.title}"></p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a>
+                </td>
+                <td>
+                    <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1" th:text="${activity.getViewCount()}"></p>
+                </td>
+                <td>
+                    <button
+                            type="button"
+                            class="btn btn-link btn-rounded btn-sm fw-bold"
+                            data-mdb-ripple-color="dark">
+                        <a th:href="@{'/activities/{id}'(id= ${activity.id})}">Info</a>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 <!------------------ADD POST----------------------->
 
 
