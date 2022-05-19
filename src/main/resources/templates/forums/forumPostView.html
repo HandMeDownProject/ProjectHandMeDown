@@ -217,7 +217,7 @@
                                                th:href="@{/edit/reply/{id}(id=${reply.getId()})}">
                                                 Edit Comment
                                             </a>
-                                            <a class="btn btn-trans btn-icon add-tooltip"
+                                            <a class="btn btn-trans text-danger add-tooltip"
                                                th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">
                                                 Report Comment
                                             </a>
@@ -238,13 +238,13 @@
                 <div id="comment_form" class="panel-body">
                     <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
                         <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message" th:field="*{body}" required></textarea>
-                        <button class="btn-primary pull-right" type="submit">Submit Reply</button>
+                        <button class="btn-primary pull-right" type="submit">Post Reply</button>
                     </form>
                     <div class="mar-top clearfix">
-                        <a class="btn btn-trans btn-icon add-tooltip"
+                        <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
+                        forum</a>
+                        <a class="btn btn-trans text-danger add-tooltip"
                            th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
-                        <a class="btn btn-trans btn-icon add-tooltip" th:href="@{'/forum'}">Go back to
-                            forum</a>
                     </div>
                 </div>
             </div>
