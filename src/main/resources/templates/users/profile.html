@@ -168,7 +168,7 @@
             <br>
             <input value="Edit Profile" type="submit" />
         </form>
-
+        <button onclick="confirmDelete()">Delete Account</button>
     </div>
 </div>
 <footer class="text-center text-white">
@@ -200,6 +200,12 @@
                 }
             };
             client.picker(options).open();
+        }
+
+        function confirmDelete(){
+            if(confirm("Are you sure want to delete your account?")){
+                window.location.replace("http://localhost:8080/profile/delete/" + [[${user.getId()}]]);
+            }
         }
 
         /*]]>*/

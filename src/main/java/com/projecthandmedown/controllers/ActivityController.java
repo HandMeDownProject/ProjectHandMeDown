@@ -234,6 +234,25 @@ public class ActivityController {
         return "activities/ActivityFiltered";
     }
 
+    @GetMapping("/admin/activities/{id}/delete")
+    public String adminDeleteActivity(@PathVariable Long id, Model model, RedirectAttributes attr) {
+        Activity activity = activityDao.getById(id);
+        activity.getActivityCategories().clear();
+        activityDao.delete(activity);
+        attr.addFlashAttribute("deleteMsg", "Successfully deleted the post");
+        return "redirect:/activities";
+    }
+
+    @GetMapping("/admin/activities/{id}/edit")
+    public String adminEditPost(@PathVariable Long id, Model model, RedirectAttributes attr) {
+        Activity activity = activityDao.getById(id);
+        List<ActivityCategory> categories = activityCatDao.findAll();
+        model.addAttribute("filestackKey", filestackKey);
+        model.addAttribute("activity", activity);
+        model.addAttribute("categories", categories);
+        return "activities/activityEdit";
+    }
+
 }
 
 
