@@ -138,7 +138,30 @@
 <div class="alert alert-primary alert-dismissable" th:text="${createMsg}" th:if="${createMsg}" >
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
-
+    <form th:action="@{/activities/filter}" method="get">
+        <label for="category">Categories:</label>
+        <select id="category" name="category">
+            <option selected disabled>Category</option>
+            <div th:each="category : ${categories}">
+                <option th:text="${category.getName()}"></option>
+            </div>
+        </select>
+        <label for="state">States:</label>
+        <select id="state" name="state">
+            <option disabled selected>State</option>
+            <div th:each="state : ${states}">
+                <option th:text="${state}"></option>
+            </div>
+        </select>
+        <label for="city">Cities:</label>
+        <select id="city" name="city">
+            <option disabled selected>City</option>
+            <div th:each="city : ${cities}">
+                <option th:text="${city}"></option>
+            </div>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
 
     <table class="table table-responsive align-middle mb-0 bg-white  ">
         <thead class="bg-light">
@@ -172,7 +195,7 @@
         </tbody>
     </table>
 
-
+<!------------------ADD POST----------------------->
 
 </div>
 <footer class="text-center text-white">

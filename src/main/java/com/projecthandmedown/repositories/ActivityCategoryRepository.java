@@ -12,4 +12,6 @@ public interface ActivityCategoryRepository extends JpaRepository<ActivityCatego
 
     List<ActivityCategory> getByActivities (Activity activity);
 
+    ActivityCategory getActivityCategoryByName(String name);
+
 }

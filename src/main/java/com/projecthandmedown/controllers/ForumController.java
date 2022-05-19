@@ -99,7 +99,7 @@ public class ForumController {
                 checkDuplicate(findKeywordPosts);
             }
         }
-
+        model.addAttribute("noCategory", true);
         model.addAttribute("posts", findKeywordPosts);
         return "forums/forum";
     }

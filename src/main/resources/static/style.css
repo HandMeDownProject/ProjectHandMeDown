@@ -2,8 +2,10 @@
     height: 50px;
 }
 
+
 .index-card-1 {
     background-color: #9EC1A3;
+
     box-shadow: 10px 5px 5px lightgray;
 }
 
@@ -38,8 +40,9 @@
 p {
     font-family: 'Biryani', sans-serif;
 }
-#home{
-    postion:relative;
+
+#home {
+    position: relative;
     background-repeat: no-repeat;
     background-image: url("playfulbg.png");
     background-position: center;
@@ -57,8 +60,19 @@ h2, h3, h6 {
     width: 50%;
 }
 
-a{
+a {
     color: black;
     text-decoration: none;
 }
+
+
+
+html:not([data-scroll='50px']) .left-side {
+    position: sticky;
+    top: 175px;
+}
+
+
+
+
 
