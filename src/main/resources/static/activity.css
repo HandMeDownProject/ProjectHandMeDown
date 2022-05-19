@@ -1,0 +1,55 @@
+/*activity create form css*/
+
+/*#activity_create_form_body{*/
+/*    background-color: #dee9ff;*/
+/*}*/
+.create_activity{
+    padding: 50px 0;
+}
+
+.create_activity form{
+    background-color: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 50px 70px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+    border:  #dee9ff solid 2px;
+}
+.create_activity_item{
+    border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 5px 20px;
+}
+
+.activity_img{
+    border-radius: 150px;
+    padding: 5px 20px;
+    font-size: 14px;
+
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+.activity_submit{
+    border-radius: 30px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+.activity_view_button{
+    border-radius: 30px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
