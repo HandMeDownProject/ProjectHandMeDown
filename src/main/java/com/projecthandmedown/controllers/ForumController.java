@@ -171,9 +171,17 @@ public class ForumController {
     }
 
     @GetMapping("/edit/reply/{id}")
-    public String editReply(@PathVariable long id, Model model) {
-        model.addAttribute("reply", forumReplyDao.getById(id));
-        return "forums/forumEditReplyView";
+    public String editReply(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+        ForumReply reply = forumReplyDao.getById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), reply.getUser().getId())){
+            model.addAttribute("reply", reply);
+            return "forums/forumEditReplyView";
+        }
+        redirectAttributes.addFlashAttribute("alert", true);
+        redirectAttributes.addFlashAttribute("message", "You do not have permission to delete that content. Sign in to the correct account.");
+
+        return "redirect:/login";
     }
 
     @PostMapping("/edit/reply")
@@ -184,12 +192,48 @@ public class ForumController {
     }
 
     @GetMapping("/reply/{id}/delete")
-    public String deleteComment(@PathVariable long id, Model model) {
+    public String deleteComment(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+        ForumReply reply = forumReplyDao.getById(id);
+        ForumPost post = reply.getForumPost();
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), reply.getUser().getId())) {
+            forumReplyDao.delete(reply);
+
+            return "redirect:/forum_post/" + post.getId();
+        }
+        redirectAttributes.addFlashAttribute("alert", true);
+        redirectAttributes.addFlashAttribute("message", "You do not have permission to delete that content. Sign in to the correct account.");
+
+        return "redirect:/login";
+    }
+
+    @GetMapping("/admin/edit/{id}/post")
+    public String adminEditPost(@PathVariable long id, Model model){
+        ForumPost post = forumPostDao.getById(id);
+        model.addAttribute("post", post);
+        return "forums/forumEditPost";
+    }
+
+    @GetMapping("/admin/post/{id}/delete")
+    public String adminDelete(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+        ForumPost post = forumPostDao.getById(id);
+        post.getForumPostCategories().clear();
+        forumPostDao.delete(post);
+        return "redirect:/forum";
+    }
+
+    @GetMapping("/admin/reply/{id}/delete")
+    public String adminDeleteComment(@PathVariable long id, Model model) {
         ForumReply reply = forumReplyDao.getById(id);
         ForumPost post = reply.getForumPost();
         forumReplyDao.delete(reply);
         return "redirect:/forum_post/" + post.getId();
     }
 
+    @GetMapping("/admin/edit/reply/{id}")
+    public String adminEditReply(@PathVariable long id, Model model) {
+        model.addAttribute("reply", forumReplyDao.getById(id));
+        return "forums/forumEditReplyView";
+    }
     //TODO: enable deleting a comment and redirecting to the post source after deletion.
 }

@@ -406,4 +406,17 @@ public class UserController {
         return "redirect:/admin/email_list";
     }
 
+    @GetMapping("/profile/delete/{id}")
+    public String userDeleteAccount(@PathVariable long id, RedirectAttributes redirectAttributes){
+        User user = userDao.getUserById(id);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(userService.userVerification(loggedInUser.getId(), user.getId())){
+            userDao.delete(user);
+            return "redirect:/logout";
+        }
+            redirectAttributes.addFlashAttribute("alert", true);
+            redirectAttributes.addFlashAttribute("message", "You do not have permission to delete that account. Sign in to the correct account.");
+            return "redirect:/login";
+    }
+
 }

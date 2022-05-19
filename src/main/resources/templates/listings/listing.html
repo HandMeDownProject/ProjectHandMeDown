@@ -188,7 +188,7 @@
         <br>
     </div>
     <div sec:authorize="hasAuthority('ADMIN')">
-        <form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
+        <form th:action="@{/admin/listing/edit/{id}(id=${listing.getId()})} " method="get">
             <button type="submit" class="btn btn-outline-primary"> Admin Edit Listing</button>
         </form>
         <br>

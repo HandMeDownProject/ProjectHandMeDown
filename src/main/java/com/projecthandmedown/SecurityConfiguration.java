@@ -73,7 +73,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin",
                         "/admin/users/delete/{id}",
                         "/admin/users",
-                        "/admin/users/message/{id}")
+                        "/admin/users/message/{id}",
+                        "/admin/activities/{id}/delete",
+                        "/admin/activities/{id}/edit",
+                        "/admin/listing/delete/{id}",
+                        "/admin/listing/edit/{id}",
+                        "/admin/post/{id}/delete",
+                        "/admin/edit/{id}/post",
+                        "/admin/edit/reply/{id}",
+                        "/admin/reply/{id}/delete"
+                )
                 .hasAuthority("ADMIN")
         ;
     }
