@@ -155,20 +155,23 @@
 <!--    </tbody>-->
 <!--</table>-->
 
-<div class="card" style="max-width: 540px;">
-    <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}" style="max-height:100px" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title" th:text="${activity.title}"></h5>
-        <p th:text="${activity.body}" class="card-text"></p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank" class="card-link"></a></li>
-        <li class="list-group-item" th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a></li>
-        <li class="list-group-item"><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></li>
-    </ul>
-    <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+<div class="card mb-3" >
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}"  class="card-img-top" >
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+             <h3>ACTIVITY NAME : <span class="card-title" th:text="${activity.title}"></span></h3>
+
+                <p th:text="${activity.body}" class="card-text"></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank" class="card-link"></a></li>
+                <li class="list-group-item">Categories:&nbsp<span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp,&nbsp</span></li>
+                <li class="list-group-item">Who posted it?: &nbsp<a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

@@ -89,9 +89,8 @@
 
 
 <div class="spacer"></div>
+
 <!--searchbar-->
-
-
 <div class="container">
     <div class="d-flex justify-content-between">
         <form action="/activities/create" method="get">
@@ -106,8 +105,8 @@
         <br>
     </div>
     <div class="spacer"></div>
-<!--alert msg-->
 
+    <!--alert msg-->
 <div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
@@ -151,25 +150,27 @@
 <!--        <td th:text="${activity.getViewCount()}"></td>-->
 <!--    </tr>-->
 <!--    </tbody>-->
-<!--</table>-->
-    <table class="table table-responsive align-middle mb-0 bg-white">
+
+    <!--</table>-->
+    <table class="table table-responsive align-middle mb-0 bg-white  ">
         <thead class="bg-light">
         <tr>
             <th>Title</th>
             <th>Name</th>
             <th>Category</th>
-            <th>View counted</th>
+
         </tr>
         </thead>
-        <tbody th:each="activity : ${activities}">
+        <tbody  th:each="activity : ${activities}">
             <tr>
                 <td>
                     <div class="d-flex align-item-center">
                         <img th:src="@{${activity.imageUrl}}"  th:if="${activity.imageUrl != null}" style="width: 45px; height: 45px"
                              class="rounded-circle">
                         <div class="ms-3">
-                            <a th:href="@{'/activities/{id}'(id= ${activity.id})}"><span class="fw-bold mb-1" th:text="${activity.title}"></span>
-                            </a>
+                           <h3><a th:href="@{'/activities/{id}'(id= ${activity.id})}"><span class="fw-bold mb-1" th:text="${activity.title}"></span>
+                            </a></h3>
+                           <p>Views : <span class="fw-normal mb-1" th:text="${activity.getViewCount()}"></span></p>
                         </div>
                     </div>
                 </td>
@@ -177,15 +178,12 @@
                     <a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a>
                 </td>
                 <td>
-                    <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1" th:text="${activity.getViewCount()}"></p>
+                    <span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp&nbsp</span>
                 </td>
             </tr>
         </tbody>
     </table>
-<!------------------ADD POST----------------------->
+
 
 
 </div>
