@@ -43,4 +43,13 @@
     color: white;
     margin-top: 20px;
 }
-
+.activity_view_button{
+    border-radius: 30px;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
