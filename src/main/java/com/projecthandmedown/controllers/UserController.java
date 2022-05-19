@@ -380,7 +380,12 @@ public class UserController {
     public String addStrike(@PathVariable long id){
         User user = userDao.getUserById(id);
         user.increaseStrikes();
-        userDao.save(user);
+        if(user.getStrikes() == 3){
+             userDao.delete(user);
+        }else {
+            userDao.save(user);
+        }
+
         return "redirect:/admin/users";
     }
 

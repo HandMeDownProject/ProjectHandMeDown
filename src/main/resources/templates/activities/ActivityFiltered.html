@@ -143,7 +143,49 @@
 <div class="alert alert-primary alert-dismissable" th:text="${createMsg}" th:if="${createMsg}" >
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
-
+    <form th:action="@{/activities/location}" method="get">
+        <label for="state">States</label>
+        <select id="state" name="state">
+            <div th:if="${stateChosen}">
+                <div th:each="state : ${states}">
+                    <div th:if="${state == stateChosen}">
+                        <option th:text="${state}"></option>
+                    </div>
+                </div>
+                <div th:each="state : ${states}">
+                    <div th:if="${state != stateChosen}">
+                        <option th:text="${state}"></option>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${noLocation}">
+                <div th:each="state : ${states}">
+                    <option th:text="${state}"></option>
+                </div>
+            </div>
+        </select>
+        <label for="city">Cities</label>
+        <select id="city" name="city">
+            <div th:if="${cityChosen}">
+                <div th:each="city : ${cities}">
+                    <div th:if="${city == cityChosen}">
+                        <option th:text="${city}"></option>
+                    </div>
+                </div>
+                <div th:each="city : ${cities}">
+                    <div th:if="${city != cityChosen}">
+                        <option th:text="${city}"></option>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${noLocation}">
+                <div th:each="city : ${cities}">
+                    <option th:text="${city}"></option>
+                </div>
+            </div>
+        </select>
+        <button type="submit" class="btn btn-primary">Search Location</button>
+    </form>
 
 <table class="table">
     <thead>
