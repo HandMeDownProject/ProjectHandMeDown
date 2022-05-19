@@ -9,22 +9,30 @@ a{
 .forum-body{
     /*background: linear-gradient(4deg, #fac2a7 0%, #fce0d3 50%, #fcc4a9 100%);*/
 }
+.nav-main{
+    background-color: #fad0c6;
+}
+
+.cats-search{
+    /*margin: 2rem 5rem 0 8rem ;*/
+}
 
 .search-btn{
     border-radius: 15px;
-    color: black;
+    color: white;
     background-color: #FF9B85;
 }
 .reset-btn{
     border-radius: 15px;
-    color: black;
+    color: white;
     background-color: #c96c58;
 
 }
 .createPost-btn{
     border-radius: 15px;
-    color: black;
+    color: white;
     background-color: #c96c58;
+    width: fit-content;
 
 }
 
