@@ -85,73 +85,96 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<header class="">
-    <!-- Navbar -->
+<!--<header class="">-->
+<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
 
-    <!-- Navbar -->
-    <!-- Background image -->
-    <div
-            class="p-5 text-center bg-image"
-            style="
-      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      height: 400px;
-    "
-    >
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <div class="text-white">
-                    <h1 class="mb-3">Project HandMeDown</h1>
-                    <h4 class="mb-3">A Place for Parents to Connect</h4>
-                    <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
-                        >Login</a
-                        >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
-                        >Register</a
-                        >
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
-                        >Profile</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Background image -->
-</header>
+<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
+<!--    &lt;!&ndash; Background image &ndash;&gt;-->
+<!--    <div-->
+<!--            class="p-5 text-center bg-image"-->
+<!--            style="-->
+<!--      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');-->
+<!--      height: 400px;-->
+<!--    "-->
+<!--    >-->
+<!--        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">-->
+<!--            <div class="d-flex justify-content-center align-items-center h-100">-->
+<!--                <div class="text-white">-->
+<!--                    <h1 class="mb-3">Project HandMeDown</h1>-->
+<!--                    <h4 class="mb-3">A Place for Parents to Connect</h4>-->
+<!--                    <div sec:authorize="isAnonymous()">-->
+<!--                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"-->
+<!--                        >Login</a-->
+<!--                        >-->
+<!--                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"-->
+<!--                        >Register</a-->
+<!--                        >-->
+<!--                    </div>-->
+<!--                    <div sec:authorize="isAuthenticated()">-->
+<!--                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"-->
+<!--                        >Profile</a-->
+<!--                        >-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Background image &ndash;&gt;-->
+<!--</header>-->
 
 <div class="spacer"></div>
-<div class="container">
-<h1 th:text="${activity.title}"></h1>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">image Url</th>
-        <th scope="col">web Url</th>
-        <th scope="col">Category</th>
-        <th scope="col">UserName</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${activity.title}"></td>
-        <td th:text="${activity.body}"></td>
-        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">
-        </td>
-        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>
-        <td >
-            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>
-            </p>
-        </td>
-<!--        <td th:text="${activity.user.getUsername()}"></td>-->
-        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>
-    </tr>
-    </tbody>
-</table>
+
+<!--INDIVIDUAL ACTIVITY-->
+<!--<div class="container">-->
+<!--<h1 th:text="${activity.title}"></h1>-->
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">Title</th>-->
+<!--        <th scope="col">Description</th>-->
+<!--        <th scope="col">image Url</th>-->
+<!--        <th scope="col">web Url</th>-->
+<!--        <th scope="col">Category</th>-->
+<!--        <th scope="col">UserName</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--        <td th:text="${activity.title}"></td>-->
+<!--        <td th:text="${activity.body}"></td>-->
+<!--        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" style="max-height:100px">-->
+<!--        </td>-->
+<!--        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>-->
+<!--        <td >-->
+<!--            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>-->
+<!--            </p>-->
+<!--        </td>-->
+<!--&lt;!&ndash;        <td th:text="${activity.user.getUsername()}"></td>&ndash;&gt;-->
+<!--        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<div class="card mb-3" >
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}"  class="card-img-top" >
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+             <h3>ACTIVITY NAME : <span class="card-title" th:text="${activity.title}"></span></h3>
+
+                <p th:text="${activity.body}" class="card-text"></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank" class="card-link"></a></li>
+                <li class="list-group-item">Categories:&nbsp<span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp,&nbsp</span></li>
+                <li class="list-group-item">Who posted it?: &nbsp<a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 
 
 <!---->
@@ -164,9 +187,9 @@
 <button><a th:href="@{'/activities'}">Go back to activities</a></button>
 <button><a th:href="@{/report/{type}/{id}(type = 'activity', id = ${activity.getId()})}">Report Post</a></button>
 <div sec:authorize="hasAuthority('ADMIN')">
-    <button><a th:href="@{/activities/{id}/delete(id=${activity.getId()})}">Admin Delete Post</a></button>
+    <button><a th:href="@{/admin/activities/{id}/delete(id=${activity.getId()})}">Admin Delete Post</a></button>
     <br>
-    <button><a th:href="@{/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
+    <button><a th:href="@{/admin/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
 </div>
 </div>
 <footer class="text-center text-white">

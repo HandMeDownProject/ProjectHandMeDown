@@ -108,7 +108,7 @@
 					</span>
                 </h1>
                 <ul class="ipsTags ipsList_inline p-0">
-                    <li class="topic_cats_list" style="background: rgb(49,49,49);
+                    <li class="topic_cats_list" style="background: lightgrey;
             color: rgb(255,255,255) !important;
             font-size: 11px;
             vertical-align: middle;
@@ -160,19 +160,19 @@
                             <a class="btn btn-sm btn-default btn-hover-primary" href="#comment_form">
                                 Add comment
                             </a>
-                            <a class="btn btn-trans btn-icon add-tooltip"
+                            <a class="btn btn-sm btn-default btn-hover-primary"
                                th:if="${posts.user.getId() == user.getId()}"
                                th:href="@{/edit/{id}/post(id=${posts.id})}">
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
                                 <a class="btn btn-trans btn-icon add-tooltip"
-                                   th:href="@{/post/{id}/delete(id=${posts.id})}">
+                                   th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
                                 <br>
                                 <a class="btn btn-trans btn-icon add-tooltip"
-                                   th:href="@{/edit/{id}/post(id=${posts.id})}">
+                                   th:href="@{/admin/edit/{id}/post(id=${posts.id})}">
                                     Admin Edit Post
                                 </a>
                             </span>
@@ -217,12 +217,12 @@
                                                th:href="@{/edit/reply/{id}(id=${reply.getId()})}">
                                                 Edit Comment
                                             </a>
-                                            <a class="btn btn-trans btn-icon add-tooltip"
+                                            <a class="btn btn-trans text-danger add-tooltip"
                                                th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">
                                                 Report Comment
                                             </a>
                                             <span sec:authorize="hasAuthority('ADMIN')">
-                                                <a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
+                                                <a th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
                                             </span>
                                         </div>
                                         <hr>
@@ -238,13 +238,13 @@
                 <div id="comment_form" class="panel-body">
                     <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
                         <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message" th:field="*{body}" required></textarea>
-                        <button class="btn-primary pull-right" type="submit">Submit Reply</button>
+                        <button class="btn-primary pull-right" type="submit">Post Reply</button>
                     </form>
                     <div class="mar-top clearfix">
-                        <a class="btn btn-trans btn-icon add-tooltip"
+                        <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
+                        forum</a>
+                        <a class="btn btn-trans text-danger add-tooltip"
                            th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
-                        <a class="btn btn-trans btn-icon add-tooltip" th:href="@{'/forum'}">Go back to
-                            forum</a>
                     </div>
                 </div>
             </div>

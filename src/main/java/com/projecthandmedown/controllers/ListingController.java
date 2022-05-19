@@ -196,6 +196,17 @@ public class ListingController {
         return "listings/listingsView";
     }
 
+    @GetMapping("/admin/listing/edit/{id}")
+    public String adminEditListing(@PathVariable Long id, Model model) {
+        Listing listing = listingDao.getById(id);
+        List<ListingCategory> cats = listing.getListingsCategories();
+        List<ListingCategory> allCats = listingCategoryDao.findAll();
+        model.addAttribute("filestackKey", filestackKey);
+        model.addAttribute("allCats", allCats);
+        model.addAttribute("cats", cats);
+        model.addAttribute("listing", listing);
+        return "listings/listingEdit";
+    }
 //    /listingsByCat/{cat_id}
 
 

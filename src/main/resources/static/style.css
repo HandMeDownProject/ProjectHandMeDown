@@ -7,22 +7,21 @@
 .index-card-1 {
     background-color: #9EC1A3;
 
+    box-shadow: 10px 5px 5px lightgray;
 }
 
 .index-card-2 {
     background-color: #FF9B85;
+    box-shadow: 10px 5px 5px lightgray;
 }
 
 .index-card-3 {
     background-color: #6495ED;
-
-
+    box-shadow: 10px 5px 5px lightgray;
 }
-
 
 .listings-card {
     background-color: #9EC1A3;
-
 }
 
 
@@ -43,7 +42,7 @@ p {
     font-family: 'Biryani', sans-serif;
 }
 #home{
-    postion:relative;
+    position:relative;
     background-repeat: no-repeat;
     background-image: url("playfulbg.png");
     background-position: center;
