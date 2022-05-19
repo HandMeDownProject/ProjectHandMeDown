@@ -111,25 +111,28 @@
             <input th:field="*{webUrl}" id="webUrl" type="url">
             </label>
         </div>
-
-    <p>
-        <label>Select Categories:
-            <input type="checkbox" name="activityCategories"
-                   th:each="category : ${categories}"
-                   th:text="${category.getName()}"
-                   th:value="${category.id}"
-                   th:field="*{activityCategories}"/>
-        </label>
-    </p>
-
-    <p>preview: </p>
-    <img id="profile-preview" src="" height="100px">
-    <br>
-
-    <button type="submit">Save my post!</button>
-</form>
-<br>
+        <div class="form-group">
+            <label>Select Categories:
+                <input type="checkbox" name="activityCategories"
+                       th:each="category : ${categories}"
+                       th:text="${category.getName()}"
+                       th:value="${category.id}"
+                       th:field="*{activityCategories}"/>
+            </label>
+        </div>
+        <button type="submit">Save my post!</button>
+    </form>
 </div>
+
+
+
+
+
+
+
+
+
+
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
