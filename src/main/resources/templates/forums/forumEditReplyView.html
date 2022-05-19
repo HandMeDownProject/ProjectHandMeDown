@@ -85,70 +85,59 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<header class="">
-    <!-- Navbar -->
 
-    <!-- Navbar -->
-    <!-- Background image -->
-    <div
-            class="p-5 text-center bg-image"
-            style="
-      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      height: 400px;
-    "
-    >
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <div class="text-white">
-                    <h1 class="mb-3">Project HandMeDown</h1>
-                    <h4 class="mb-3">A Place for Parents to Connect</h4>
-                    <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
-                        >Login</a
-                        >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
-                        >Register</a
-                        >
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
-                        >Profile</a
-                        >
+<div class="container">
+
+    <div class="container px-5 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1" style="background-color: #fff">
+                        <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/forum_post/{id}(id=${reply.getForumPost().getId()},action='show_all')}" th:text="${reply.getForumPost().getTitle()}"></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Editing</li>
+                    </ol>
+                </nav>
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <div class="h1 fw-light">Editing Comment</div>
+                        </div>
+
+                        <form th:action="@{/edit/reply}" th:method="post" th:object="${reply}">
+                            <!-- Required fields -->
+                            <input th:field="*{id}" th:value="${reply.getId()}" hidden> <input th:field="*{user}" th:value="${reply.getUser()}" hidden> <input th:field="*{timestamp}" th:value="${reply.getTimestamp()}" hidden> <input th:field="*{forumPost}" th:value="${reply.getForumPost()}" hidden>
+
+                            <!-- Body Input -->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="comment-body" placeholder="comment" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required></textarea>
+                                <label for="comment-body">Make changes...</label>
+                                <div class="invalid-feedback" data-sb-feedback="body:required">Post body is required.</div>
+                            </div>
+
+                            <!-- Submission-->
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Save</button>
+                            </div>
+                        </form> <!-- End of form -->
+
+                        <!-- Delete/Cancel buttons -->
+                        <div id="button_group" class="mt-3" style="text-align: right; display: flex; justify-content: space-between">
+                            <span><a style="color: rgb(119,117,117)" th:href="@{/forum_post/{id}(id=${reply.getForumPost().getId()},action='show_all')}">Cancel</a></span>
+                            <span><a style="color: rgba(227,12,12,0.99)" th:href="@{/reply/{id}/delete(id=${reply.getId()},action='show_all')}">Delete Comment</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Background image -->
-</header>
 
-<div class="spacer"></div>
-<div class="container">
-    <h1>Edit Comment</h1>
-
-    <form th:action="@{/edit/reply}" th:method="post" th:object="${reply}">
-        <input th:field="*{id}" th:value="${reply.getId()}" hidden>
-        <input th:field="*{user}" th:value="${reply.getUser()}" hidden>
-        <input th:field="*{timestamp}" th:value="${reply.getTimestamp()}" hidden>
-        <input th:field="*{forumPost}" th:value="${reply.getForumPost()}" hidden>
-        <label >editing comment</label><br>
-        <textarea th:field="*{body}"></textarea><br>
-        <input type="submit">
-    </form>
-    <span><a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}"><sup>Delete Comment</sup></a></span>&nbsp;
 </div>
 
 <footer class="text-center text-white">
-    <!-- Grid container -->
-    <div class="container p-4"></div>
-    <!-- Grid container -->
-
+    <div class="container p-4"></div> <!-- Grid container -->
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);"> © 2020 Copyright: <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> </div>
 </footer>
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
