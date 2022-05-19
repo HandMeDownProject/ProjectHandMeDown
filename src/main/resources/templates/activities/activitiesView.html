@@ -93,16 +93,19 @@
 
 
 <div class="container">
-    <form th:action="@{/activities/search}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
-        <button type="submit" class="btn btn-info" >Search</button>
-        <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
-    </form>
-    <br>
-    <form action="/activities/create" method="get">
-        <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
-    </form>
-    <br>
+    <div class="d-flex justify-content-between">
+        <form action="/activities/create" method="get">
+            <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
+        </form>
+        <br>
+        <form th:action="@{/activities/search}" method="get">
+            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
+            <button type="submit" class="btn btn-info" >Search</button>
+            <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
+        </form>
+        <br>
+    </div>
+    <div class="spacer"></div>
 <!--alert msg-->
 
 <div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
@@ -149,15 +152,13 @@
 <!--    </tr>-->
 <!--    </tbody>-->
 <!--</table>-->
-    <table class="table align-middle mb-0 bg-white">
+    <table class="table table-responsive align-middle mb-0 bg-white">
         <thead class="bg-light">
         <tr>
             <th>Title</th>
             <th>Name</th>
             <th>Category</th>
             <th>View counted</th>
-            <th>Details</th>
-
         </tr>
         </thead>
         <tbody th:each="activity : ${activities}">
@@ -167,7 +168,8 @@
                         <img th:src="@{${activity.imageUrl}}"  th:if="${activity.imageUrl != null}" style="width: 45px; height: 45px"
                              class="rounded-circle">
                         <div class="ms-3">
-                            <p class="fw-bold mb-1" th:text="${activity.title}"></p>
+                            <a th:href="@{'/activities/{id}'(id= ${activity.id})}"><span class="fw-bold mb-1" th:text="${activity.title}"></span>
+                            </a>
                         </div>
                     </div>
                 </td>
@@ -179,14 +181,6 @@
                 </td>
                 <td>
                     <p class="fw-normal mb-1" th:text="${activity.getViewCount()}"></p>
-                </td>
-                <td>
-                    <button
-                            type="button"
-                            class="btn btn-link btn-rounded btn-sm fw-bold"
-                            data-mdb-ripple-color="dark">
-                        <a th:href="@{'/activities/{id}'(id= ${activity.id})}">Info</a>
-                    </button>
                 </td>
             </tr>
         </tbody>
