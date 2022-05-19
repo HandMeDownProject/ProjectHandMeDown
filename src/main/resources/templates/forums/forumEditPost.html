@@ -90,6 +90,12 @@
 <div class="container">
 
     <div class="container px-5 my-5">
+        <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0" style="background-color: #fff">
+                <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Editing <span th:text="${post.getTitle()}"></span></li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card border-0 rounded-3 shadow-lg">
@@ -114,6 +120,7 @@
                                 <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
                             </div>
                         </form> <!-- End of form -->
+<!--                        TODO: need a cancel button or link here, aligned to the left-->
                         <!-- Delete post button -->
                         <div class="mt-2" style="text-align: right">
                             <span><a style="color: rgba(227,12,12,0.99)" th:href="@{/post/{id}/delete(id=${post.id},action='show_all')}"><sup>Delete Topic</sup></a></span>
@@ -137,16 +144,9 @@
 </div>
 
 <footer class="text-center text-white">
-    <!-- Grid container -->
-    <div class="container p-4"></div>
-    <!-- Grid container -->
-
+    <div class="container p-4"></div><!-- Grid container -->
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2020 Copyright: <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> </div>
 </footer>
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
