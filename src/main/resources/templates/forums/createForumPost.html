@@ -93,10 +93,16 @@
     <div class="container px-5 my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
+                <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1" style="background-color: #fff">
+                        <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">New Topic</li>
+                    </ol>
+                </nav>
                 <div class="card border-0 rounded-3 shadow-lg">
                     <div class="card-body p-4">
                         <div class="text-center">
-                            <div class="h1 fw-light">Create A Topic</div>
+                            <div class="h1 fw-light">Create New Topic</div>
                         </div>
 
                         <form th:action="@{/create/post}" th:method="post" th:object="${post}">
@@ -104,18 +110,19 @@
                             <!-- Name Input -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="post-title" type="text" placeholder="Title" data-sb-validations="required" th:field="*{title}" required/>
-                                <label for="post-title">Title</label>
+                                <label for="post-title">Enter title</label>
                                 <div class="invalid-feedback" data-sb-feedback="title:required">A title is required.</div>
                             </div>
 
                             <!-- Body Input -->
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" id="post-body" placeholder="Body" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required></textarea>
-                                <label for="post-body">Post Body</label>
+                                <label for="post-body">Write something...</label>
                                 <div class="invalid-feedback" data-sb-feedback="body:required">Post body is required.</div>
                             </div>
 
                             <!-- Category Selection -->
+                            <div><span>Tags:</span></div>
                             <div class="categories" style="display: flex">
                                 <div class="form-check mb-3" th:each="category : ${categories}">
                                     <input class="form-check-input" type="checkbox" id="categories"
@@ -132,7 +139,9 @@
                             </div>
                         </form>
                         <!-- End of contact form -->
-
+                        <div id="button_group" class="mt-3">
+                            <span><a style="color: rgb(119,117,117)" th:href="@{'/forum'}">Cancel</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
