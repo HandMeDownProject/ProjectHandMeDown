@@ -35,10 +35,10 @@
                     <h1 class="forum-main-title col-lg-10 text-center mx-4">Welcome to the Parents Forum</h1>
                     <h5 class="forum-mission col-lg-10">Ask questions and get Answers</h5>
                 </div>
-                <div sec:authorize="isAnonymous()">
-                    <a class="btn btn-outline-light btn-lg" href="/login" role="button">Login</a>
-                    <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button">Register</a>
-                </div>
+<!--                <div sec:authorize="isAnonymous()">-->
+<!--                    <a class="btn btn-outline-light btn-lg" href="/login" role="button">Login</a>-->
+<!--                    <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button">Register</a>-->
+<!--                </div>-->
 
             </div>
         </div>
@@ -47,9 +47,9 @@
 
 <div class="spacer"></div>
 
-<main class="container">
+<main class="container row">
 
-    <div sec:authorize="isAuthenticated()">
+    <div class="left-side col-md-4">
         <div class="cats-search ">
             <div class="row">
                 <div class="cats-drop col-md-6 align-content-center">
@@ -89,11 +89,11 @@
                         </div>
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <form th:action="@{/posts/search}" method="get">
                         <input type="text" name="keyword" th:value="${keyword}"
                                placeholder="Search topics by keyword"
-                               size="40">
+                               >
                         <button type="submit" class="search-btn btn ">Search</button>
                     </form>
                 </div>
@@ -108,9 +108,10 @@
 
             </div>
         </div>
+    </div>
 
     <!--    forum topics-->
-    <section class="forum-content">
+    <section class="forum-content col-lg-8 ">
         <div class="post_body">
             <ol class="topic_main_body" th:each="post : ${posts}">
                 <div class="inner_main_bloc">
