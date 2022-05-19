@@ -139,7 +139,7 @@ public class ForumController {
     @PostMapping("/edit/post")
     public String edit(@ModelAttribute ForumPost post) {
         forumPostDao.save(post);
-        return "redirect:/forum";
+        return "redirect:/forum_post/" + post.getId();
     }
 
     @GetMapping("/post/{id}/delete")
@@ -179,8 +179,7 @@ public class ForumController {
     @PostMapping("/edit/reply")
     public String addEditedReply(@ModelAttribute ForumReply reply) {
         forumReplyDao.save(reply);
-        String redirect = "redirect:/forum_post/" + reply.getForumPost().getId();
-        return redirect;
+        return "redirect:/forum_post/" + reply.getForumPost().getId();
     }
 
     @GetMapping("/reply/{id}/delete")
@@ -190,6 +189,4 @@ public class ForumController {
         forumReplyDao.delete(reply);
         return "redirect:/forum_post/" + post.getId();
     }
-
-    //TODO: enable deleting a comment and redirecting to the post source after deletion.
 }
