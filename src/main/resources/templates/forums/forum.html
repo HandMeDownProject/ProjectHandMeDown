@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <title>Parenting Forum</title>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,11 +19,78 @@
     <link rel="stylesheet" type="text/css" href="/forum.css">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <title>Parents Forum</title>
 
 </head>
 <body>
-<nav id="nav" class="nav-main navbar navbar-expand-lg navbar-light bg-white  d-flex sticky-top"  th:include="partials/navBar :: navBar"></nav>
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!-- Container wrapper -->
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="/">Project HandMeDown</a>
+
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/sign-up}" th:method="get">
+                    <button type="submit" class="btn btn-link me-3">
+                        Register
+                    </button>
+                </form>
+                <form th:action="@{/login}" th:method="get">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--                <li class="nav-link"><a class="" th:href="@{/sign-up}">Register</a></li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{/listings}">Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/forum}">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/activities}">Activities</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/profile}">Profile</a></li>
+                <!--                <li class="nav-link"><a class="" th:href="@{/login}">Login</a></li>-->
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <form th:action="@{/logout}" th:method="post">
+                    <button type="submit" class="btn btn-link px-3 me-2">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
 
 
 <div class="p-5 text-center bg-image"
@@ -32,8 +100,8 @@
         <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white">
                 <div class="row justify-content-center">
-                    <h1 class="forum-main-title col-lg-10 text-center mx-4">Welcome to the Parents Forum</h1>
-                    <h5 class="forum-mission col-lg-10">Ask questions and get Answers</h5>
+                    <h1 class="forum-main-title col-lg-10 text-center mx-4">Welcome to the Parenting Forum</h1>
+                    <h4 class="forum-mission col-lg-10">Ask Questions and Get Answers</h4>
                 </div>
 <!--                <div sec:authorize="isAnonymous()">-->
 <!--                    <a class="btn btn-outline-light btn-lg" href="/login" role="button">Login</a>-->
