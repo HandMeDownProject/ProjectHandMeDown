@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/activity.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
-<body>
+<body id="activity_create_form_body">
 <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <!-- Container wrapper -->
@@ -86,79 +86,62 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-<header class="">
-    <!-- Navbar -->
 
-    <!-- Navbar -->
-    <!-- Background image -->
-    <div
-            class="p-5 text-center bg-image"
-            style="
-      background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-      height: 400px;
-    "
-    >
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <div class="text-white">
-                    <h1 class="mb-3">Project HandMeDown</h1>
-                    <h4 class="mb-3">A Place for Parents to Connect</h4>
-                    <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
-                        >Login</a
-                        >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
-                        >Register</a
-                        >
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
-                        >Profile</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Background image -->
-</header>
 
 <div class="spacer"></div>
+
 <div class="container">
-<form th:action="@{/activities/create}" th:object="${activity}" method="post">
 
-    <label for="title">title:
-        <input th:field="*{title}" id="title" type="text" required>
-    </label><br>
+<div class="create_activity">
+    <form role="form" th:action="@{/activities/create}" th:object="${activity}" method="post">
+        <div class="form-group mb-3">
+            <label for="title">title:
+            </label>
+            <input class="form-control create_activity_item" th:field="*{title}" id="title" type="text" required>
 
-    <label for="body">New Activity
-        <input th:field="*{body}" id="body" type="text" required>
-    </label><br>
+        </div>
+        <div class="form-group mb-3">
+            <label for="body">New Activity
+            </label>
+            <textarea class="form-control create_activity_item" th:field="*{body}" id="body" type="text" required rows="3"></textarea>
 
-    <input th:field="*{imageUrl}" id="imageUrl" type="text" hidden>
+        </div>
+        <div class="form-group mb-3">
+            <button class="btn activity_img" type="button" onclick="upload()">Add an image</button>
+            <input th:field="*{imageUrl}" id="imageUrl" type="text" hidden>
+        </div>
+        <div class="form-group mb-3">
+            <label for="webUrl">Activity info URL here
+            </label>
+            <input class="form-control create_activity_item" th:field="*{webUrl}" id="webUrl" type="url">
 
-    <label for="webUrl">Activity info URL here
-        <input th:field="*{webUrl}" id="webUrl" type="url">
-    </label><br>
-
-    <p>
-        <label>Select Categories:
+        </div>
+        <div class="form-group mb-3">
+            <label>Select Categories:
+            </label>
             <input type="checkbox" name="activityCategories"
                    th:each="category : ${categories}"
                    th:text="${category.getName()}"
                    th:value="${category.id}"
                    th:field="*{activityCategories}"/>
-        </label>
-    </p>
-    <button type="button" onclick="upload()">upload image</button>
-    <p>preview: </p>
-    <img id="profile-preview" src="" height="100px">
-    <br>
-
-    <button type="submit">Save my post!</button>
-</form>
-<br>
+        </div>
+        <div class="form-group mb-3 d-flex justify-content-center">
+            <button class="btn activity_submit" type="submit">Save my post!</button>
+        </div>
+    </form>
 </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>

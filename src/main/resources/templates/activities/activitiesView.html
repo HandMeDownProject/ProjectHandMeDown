@@ -123,7 +123,7 @@
         </form>
         <br>
         <form th:action="@{/activities/search}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword" size="50" >
+            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword"><br><br>
             <button type="submit" class="btn btn-info" >Search</button>
             <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
         </form>
@@ -164,48 +164,12 @@
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 
-<!--<table class="table">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th scope="col">Title</th>-->
-<!--        <th scope="col">Description</th>-->
-<!--        <th scope="col">image Url</th>-->
-<!--        <th scope="col">web Url</th>-->
-<!--        <th scope="col">Category</th>-->
-<!--        <th scope="col">UserName</th>-->
-<!--        <th scope="col">view</th>-->
-<!--        <th scope="col">Date</th>-->
-<!--        <th scope="col">Hit</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody  th:each="activity : ${activities}">-->
-<!--    <tr>-->
-<!--        <td th:text="${activity.title}"></td>-->
-<!--        <td th:text="${activity.body}"></td>-->
-<!--        <td th:if="${activity.imageUrl != null}"><img th:src="@{${activity.imageUrl}}" height="100px">-->
-<!--        </td>-->
-<!--        <td> <a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank"></a></td>-->
-
-<!--        <td >-->
-<!--            <p th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>-->
-<!--            </p>-->
-<!--        </td>-->
-
-
-<!--        <td><a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></td>-->
-<!--        <td><a th:href="@{'/activities/{id}'(id= ${activity.id})}">View</a></td>-->
-<!--        <td th:text="${activity.timestamp}"></td>-->
-<!--        <td th:text="${activity.getViewCount()}"></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-
-    <!--</table>-->
     <table class="table table-responsive align-middle mb-0 bg-white  ">
         <thead class="bg-light">
         <tr>
             <th>Title</th>
             <th>Name</th>
-            <th>Category</th>
+            <th class="text-center">Category</th>
 
         </tr>
         </thead>
@@ -225,7 +189,7 @@
                 <td>
                     <a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a>
                 </td>
-                <td>
+                <td class="text-center">
                     <span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp&nbsp</span>
                 </td>
             </tr>

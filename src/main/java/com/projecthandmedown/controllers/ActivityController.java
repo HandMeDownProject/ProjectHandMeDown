@@ -84,13 +84,10 @@ public class ActivityController {
         List<ActivityCategory> categories = activityCatDao.findAll();
         model.addAttribute("categories", activityCatDao.findAll());
         List<Activity> activities = activityCatDao.getById(id).getActivities();
-        model.addAttribute("categoryChosen", true);
-        model.addAttribute("chosenCategory",activityCatDao.getById(id));
         List<String> states = activitiesStateLocation(activities);
         List<String> cities = activitiesCityLocation(activities);
         model.addAttribute("cities", cities);
         model.addAttribute("states", states);
-        model.addAttribute("noLocation", true);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -202,9 +199,12 @@ public class ActivityController {
     public String seeAllUserPosts(@PathVariable Long user_id, Model model) {
         User targetUser = userDAO.getUserById(user_id);
         List<Activity> activities = activityDao.getByUser(targetUser);
+        model.addAttribute("categories", activityCatDao.findAll());
+        List<String> states = activitiesStateLocation(activityDao.findAll());
+        List<String> cities = activitiesCityLocation(activityDao.findAll());
+        model.addAttribute("cities", cities);
+        model.addAttribute("states", states);
         model.addAttribute("activities", activities);
-        model.addAttribute("noCategory", true);
-        model.addAttribute("noLocation", true);
         return "activities/activityUserPosts";
     }
 
