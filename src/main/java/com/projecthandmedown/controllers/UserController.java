@@ -8,6 +8,7 @@ import com.projecthandmedown.services.SendGridEmailService;
 import com.projecthandmedown.services.UserService;
 import net.bytebuddy.utility.RandomString;
 
+import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,6 +73,8 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(@ModelAttribute User user) {
+        String city = WordUtils.capitalize(user.getUserLocation());
+        user.setUserLocation(city);
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setUserIsAdmin(false);
