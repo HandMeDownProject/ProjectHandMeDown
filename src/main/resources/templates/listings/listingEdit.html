@@ -150,7 +150,7 @@
                     </div>
                     <h3>categories:</h3>
                     <div class="form-check d-flex flex-wrap">
-                        <div th:each="cat : ${cats}" class="d-flex mx-3">
+                        <div th:each="cat : ${allCats}" class="d-flex mx-3">
                             <input type="checkbox" class="form-check-input" name="listingsCategories"
                                    th:text="${cat.getName()}"
                                    th:value="${cat.id}"
