@@ -78,7 +78,9 @@ html:not([data-scroll='50px']) .left-side {
     top: 175px;
 }
 
-
+footer h4{
+    font-size: 1em;
+}
 
 
 
