@@ -114,13 +114,20 @@
 </div>
 
 <div class="spacer"></div>
-
-<main class="container row">
-
-    <div class="left-side col-md-4">
+<div class="container">
+<div class="row">
+    <div class="left-side col-md-3">
         <div class="cats-search ">
-            <div class="row">
-                <div class="cats-drop col-md-6 align-content-center">
+            <div>
+                <div>
+                    <form th:action="@{/posts/search}" method="get">
+                        <input type="text" name="keyword" th:value="${keyword}"
+                               placeholder="Search topics by keyword"
+                        >
+                        <button type="submit" class="search-btn btn ">Search</button>
+                    </form>
+                </div>
+                <div class="cats-drop align-content-center">
                     <label for="forum-categories">Search By Categories: &nbsp</label>
                     <select id="forum-categories" name="forum-categories"
                             onChange="window.location.replace(this.value)">
@@ -157,19 +164,14 @@
                         </div>
                     </select>
                 </div>
-                <div class="col-lg-6">
-                    <form th:action="@{/posts/search}" method="get">
-                        <input type="text" name="keyword" th:value="${keyword}"
-                               placeholder="Search topics by keyword"
-                               >
-                        <button type="submit" class="search-btn btn ">Search</button>
-                    </form>
-                </div>
+
             </div>
 
             <div class="row d-flex  page-transfer-button mt-4 justify-content-md-around">
                 <form class="col-sm-6" action="/create/post" method="get">
                     <a class=" btn reset-btn" th:href="@{'/forum'}" role="button">Reset Search</a>
+                    <br>
+                    <br>
                     <button type="submit" class="col-sm-6 btn createPost-btn">Create Post</button>
 
                 </form>
@@ -219,7 +221,8 @@
             </ol>
         </div> <!-- end of post_body-->
     </section>
-</main>
+</div>
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
