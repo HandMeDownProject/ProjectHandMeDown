@@ -114,15 +114,18 @@
     <section class="main-create d-flex flex-column align-items-center">
         <div class="card text-center form-card index-card">
             <div class="card-body">
+                <p class="text-danger">* required</p>
                 <form th:action="@{/listing/edit}" th:method="post" th:object="${listing}">
                     <!-- Name input -->
                     <div class="form-outline mb-4">
+                        <label for="ListingTitle" class="required"></label>
                         <input th:field="*{title}" type="text" name="ListingTitle" id="ListingTitle" class=""
                                placeholder="enter title" required/>
                     </div>
 
                     <!-- Message input -->
                     <div class="form-outline mb-4">
+                        <label for="ListingBody" class="required"></label>
         <textarea th:field="*{body}" type="text" name="ListingBody" id="ListingBody" class="" placeholder="enter body"
                   required rows="15" cols="50"></textarea>
                     </div>
@@ -138,6 +141,7 @@
                     <br>
 
                     <div class="form-outline mb-4">
+                        <label for="ListingPrice" class="required"></label>
                         <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="" placeholder="Price"
                                required/>
                         <input th:field="*{user}" th:value="${listing.getUser()}" hidden>

@@ -112,31 +112,33 @@
 <div class="spacer"></div>
 <div class="container">
 <h1>Create an account</h1>
+    <div class="container">
 <form th:action="@{/sign-up}" method="POST" th:object="${user}">
-    <label for="username">Username</label>
+    <p class="text-danger">* required</p>
+    <label class="required" for="username">Username</label>
     <input id="username" th:field="*{username}" required />
     <br>
     <br>
     <div th:if="${alert}">
         <div th:text="${message}"></div>
     </div>
-    <label for="email">Email</label>
+    <label class="required" for="email">Email</label>
     <input id="email" th:field="*{email}" required />
     <br>
     <br>
-    <label for="password">Password</label>
+    <label class="required" for="password">Password</label>
     <input id="password" type="password" th:field="*{password}" required />
     <br>
     <br>
-    <label for="user-phone">Phone Number</label>
+    <label class="required" for="user-phone">Phone Number</label>
     <input id="user-phone" type="text" th:field="*{userPhone}" required />
     <br>
     <br>
-    <label for="user-location">Location</label>
+    <label class="required" for="user-location">Location</label>
     <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
     <br>
     <br>
-    <label for="user-location">Location State</label>
+    <label class="required" for="user-location">Location State</label>
     <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
         <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
         <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
@@ -166,6 +168,7 @@
     <br>
     <input value="Sign me up!" type="submit" />
 </form>
+    </div>
 <br>
 <br>
 </div>
