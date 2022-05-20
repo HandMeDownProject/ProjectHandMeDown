@@ -116,8 +116,8 @@
 <div class="spacer"></div>
 <div class="container">
 <div class="row">
-    <div class="left-side col-md-3">
-        <div class="cats-search ">
+    <div class="col-md-3 d-flex flex-column">
+        <div class="cats-search left-side d-flex flex-column">
             <div>
                 <div>
                     <form th:action="@{/posts/search}" method="get">
@@ -167,21 +167,19 @@
 
             </div>
 
-            <div class="row d-flex  page-transfer-button mt-4 justify-content-md-around">
+            <div class="row d-flex  page-transfer-button mt-4 justify-content-start">
                 <form class="col-sm-6" action="/create/post" method="get">
                     <a class=" btn reset-btn" th:href="@{'/forum'}" role="button">Reset Search</a>
                     <br>
                     <br>
                     <button type="submit" class="col-sm-6 btn createPost-btn">Create Post</button>
-
                 </form>
-
             </div>
         </div>
     </div>
 
     <!--    forum topics-->
-    <section class="forum-content col-lg-8 ">
+    <section class="forum-content col-md-9 mt-3">
         <div class="post_body">
             <ol class="topic_main_body" th:each="post : ${posts}">
                 <div class="inner_main_bloc">
