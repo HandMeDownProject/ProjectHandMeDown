@@ -177,8 +177,9 @@
             <tr>
                 <td>
                     <div class="d-flex align-item-center">
-                        <img th:src="@{${activity.imageUrl}}"  th:if="${activity.imageUrl != null}" style="width: 45px; height: 45px"
+                        <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}" style="width: 45px; height: 45px"
                              class="rounded-circle">
+
                         <div class="ms-3">
                            <h3><a th:href="@{'/activities/{id}'(id= ${activity.id})}"><span class="fw-bold mb-1" th:text="${activity.title}"></span>
                             </a></h3>
@@ -190,7 +191,7 @@
                     <a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a>
                 </td>
                 <td class="text-center">
-                    <span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp&nbsp</span>
+                    <div class="d-flex flex-column flex-md-row justify-content-center" th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a></div>
                 </td>
             </tr>
         </tbody>
