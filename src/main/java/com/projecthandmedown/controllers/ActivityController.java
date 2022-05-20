@@ -7,6 +7,7 @@ import com.projecthandmedown.repositories.ActivityRepository;
 import com.projecthandmedown.repositories.UserRepository;
 import com.projecthandmedown.services.EmailService;
 import com.projecthandmedown.services.UserService;
+import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -52,8 +53,8 @@ public class ActivityController {
             User user = userDAO.getUserById(loggedInUser.getId());
             List<Activity> filteredList = new ArrayList<>();
             for (int i = 0; i < activities.size(); i++) {
-                if (activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
-                    if (activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
+                if (activities.get(i).getUser().getUserLocationState().equalsIgnoreCase(user.getUserLocationState())) {
+                    if (activities.get(i).getUser().getUserLocation().equalsIgnoreCase(user.getUserLocation())) {
                         filteredList.add(activities.get(i));
                     }
                 }
@@ -325,7 +326,7 @@ public class ActivityController {
     private List<String> activitiesCityLocation(List<Activity> activities){
         List<String> cities = new ArrayList<>();
         for(int i = 0; i < activities.size(); i++){
-            String cityLoop = activities.get(i).getUser().getUserLocation();
+            String cityLoop = WordUtils.capitalize(activities.get(i).getUser().getUserLocation());
             if(!cities.contains(cityLoop)){
                 cities.add(cityLoop);
             }
@@ -337,7 +338,7 @@ public class ActivityController {
         List<Activity> filtered = new ArrayList<>();
         for(int i = 0; i < activities.size(); i++){
             Activity activity = activities.get(i);
-            if(activity.getUser().getUserLocationState().equals(state)){
+            if(activity.getUser().getUserLocationState().equalsIgnoreCase(state)){
                 filtered.add(activity);
             }
         }
@@ -348,7 +349,7 @@ public class ActivityController {
         List<Activity> filtered = new ArrayList<>();
         for(int i = 0; i < activities.size(); i++){
             Activity activity = activities.get(i);
-            if(activity.getUser().getUserLocation().equals(city)){
+            if(activity.getUser().getUserLocation().equalsIgnoreCase(city)){
                 filtered.add(activity);
             }
         }
