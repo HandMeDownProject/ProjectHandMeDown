@@ -166,7 +166,7 @@
                     <br>
                 </div>
                 <div class="d-flex justify-content-start flex-column flex-md-row flex-wrap">
-                    <div th:each="listing : ${listings}">
+                    <div th:each="listing : ${listings}" class="card-holder">
                         <div class="card mx-2 mt-3 p-3 listings-card text-black">
                             <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
                                 <p th:if="${listing.imageUrl != null}"><a
