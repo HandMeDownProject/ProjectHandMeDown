@@ -105,15 +105,15 @@
                     <h1 class="mb-3 animate__animated animate__bounceInDown">Project HandMeDown</h1>
                     <h4 class="mb-3 animate__animated animate__bounceInUp">A Place for Parents to Connect</h4>
                     <div sec:authorize="isAnonymous()">
-                        <a class="btn btn-outline-light btn-lg" href="/login" role="button"
+                        <a class="btn bg-light opacity-75 index-btn btn-lg" href="/login" role="button"
                         >Login</a
                         >
-                        <a class="btn btn-outline-light btn-lg" href="/sign-up" role="button"
+                        <a class="btn bg-light opacity-75 index-button btn-lg" href="/sign-up" role="button"
                         >Register</a
                         >
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-light btn-lg" href="/profile" role="button"
+                        <a class="btn bg-light opacity-75 index-button btn-lg" href="/profile" role="button"
                         >Profile</a
                         >
                     </div>
@@ -125,11 +125,12 @@
 </header>
 
 <div class="spacer"></div>
+<div class="container">
 <div class="d-flex justify-content-evenly flex-column flex-md-row">
     <div class="card mx-3 mt-3 mt-md-0 p-3 index-card-1">
         <div class="bg-image hover-overlay ripple rounded-pill" data-mdb-ripple-color="light">
             <img src="https://images.pexels.com/photos/1620675/pexels-photo-1620675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                 class="img-fluid rounded-pill"/>
+                 class="img-fluid rounded-pill index-image"/>
             <a href="/listings">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
             </a>
@@ -143,7 +144,7 @@
     <div class="card mx-3 mt-3 mt-md-0 p-3 index-card-2">
         <div class="bg-image hover-overlay ripple rounded-pill" data-mdb-ripple-color="light">
             <img src="https://images.pexels.com/photos/4051134/pexels-photo-4051134.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                 class="img-fluid rounded-pill"/>
+                 class="img-fluid rounded-pill index-image"/>
             <a href="/forum">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
             </a>
@@ -157,7 +158,7 @@
     <div class="card mx-3 mt-3 mt-md-0 p-3 index-card-3">
         <div class="bg-image hover-overlay ripple rounded-pill" data-mdb-ripple-color="light">
             <img src="https://images.pexels.com/photos/2442392/pexels-photo-2442392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                 class="img-fluid rounded-pill"/>
+                 class="img-fluid rounded-pill index-image"/>
             <a href="/activities">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
             </a>
@@ -169,7 +170,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <footer class="text-center text-white">
     <!-- Grid container -->
     <div class="container p-4"></div>
