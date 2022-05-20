@@ -177,8 +177,8 @@
             <tr>
                 <td>
                     <div class="d-flex align-item-center">
-                        <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}" style="width: 45px; height: 45px"
-                             class="rounded-circle">
+                        <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}"
+                             class="rounded-circle activity-pic">
 
                         <div class="ms-3">
                            <h3><a th:href="@{'/activities/{id}'(id= ${activity.id})}"><span class="fw-bold mb-1" th:text="${activity.title}"></span>
