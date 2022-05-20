@@ -145,7 +145,7 @@
                     </a>
                     <div class="media-body">
                         <div id="topic_creator_signature" class="mar-btm">
-                            <a id="topic_author" href="#" class="btn-link text-semibold media-heading box-inline"
+                            <a id="topic_author" th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}" class="btn-link text-semibold media-heading box-inline"
                                th:text="${posts.getUser().getUsername()}">
                                 <!--username of post author-->
                             </a>,&nbsp;
