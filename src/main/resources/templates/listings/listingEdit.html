@@ -112,7 +112,7 @@
 
 <div class="spacer"></div>
     <section class="main-create d-flex flex-column align-items-center">
-        <div class="card text-center form-card index-card">
+        <div class="card text-center form-card index-card-1">
             <div class="card-body">
                 <p class="text-danger">* required</p>
                 <form th:action="@{/listing/edit}" th:method="post" th:object="${listing}">
@@ -150,7 +150,7 @@
                     </div>
                     <h3>categories:</h3>
                     <div class="form-check d-flex flex-wrap">
-                        <div th:each="cat : ${cats}" class="d-flex mx-3">
+                        <div th:each="cat : ${allCats}" class="d-flex mx-3">
                             <input type="checkbox" class="form-check-input" name="listingsCategories"
                                    th:text="${cat.getName()}"
                                    th:value="${cat.id}"
