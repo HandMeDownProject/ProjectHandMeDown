@@ -115,30 +115,31 @@
 <img th:src="*{user.getUserIMG()}" height="200px">
 <h1>Hello, <span th:text="${user.getUsername()}"></span>!</h1>
 <button class="clicker" >Edit Profile</button>
-<div class="hiddendiv">
+<div class="container">
+    <p class="text-danger">* required</p>
     <form th:action="@{/profile}" method="POST" th:object="${user}">
         <input th:field="*{id}" th:value="*{id}" hidden />
-        <label for="username">Username</label>
+        <label class="required" for="username">Username</label>
         <input id="username" th:field="*{username}" required />
         <br>
         <br>
-        <label for="email">Email</label>
+        <label class="required" for="email">Email</label>
         <input id="email" th:field="*{email}" required />
         <br>
         <br>
-        <label for="password">Password</label>
+        <label class="required" for="password">Password</label>
         <input id="password" type="password" th:field="*{password}" required />
         <br>
         <br>
-        <label for="user-phone">Phone Number</label>
+        <label class="required" for="user-phone">Phone Number</label>
         <input id="user-phone" type="text" th:field="*{userPhone}" required />
         <br>
         <br>
-        <label for="user-location">Location</label>
+        <label class="required" for="user-location">Location</label>
         <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
         <br>
         <br>
-        <label for="user-location">Location State</label>
+        <label class="required" for="user-location">Location State</label>
         <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
             <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
             <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>

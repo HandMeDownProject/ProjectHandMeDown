@@ -14,6 +14,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/activity.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body id="activity_create_form_body">
@@ -91,17 +92,16 @@
 <div class="spacer"></div>
 
 <div class="container">
-
-<div class="create_activity">
+    <div class="create_activity">
     <form role="form" th:action="@{/activities/create}" th:object="${activity}" method="post">
+        <p class="text-danger">* required</p>
         <div class="form-group mb-3">
-            <label for="title">title:
-            </label>
+            <label class="required" for="title">title:</label>
             <input class="form-control create_activity_item" th:field="*{title}" id="title" type="text" required>
 
         </div>
         <div class="form-group mb-3">
-            <label for="body">New Activity
+            <label class="required" for="body">New Activity
             </label>
             <textarea class="form-control create_activity_item" th:field="*{body}" id="body" type="text" required rows="3"></textarea>
 
