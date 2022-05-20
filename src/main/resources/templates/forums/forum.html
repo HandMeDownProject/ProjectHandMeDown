@@ -205,7 +205,7 @@
                         </div>
                         <span class="date-time-forum-display">
                                <p>Asked by:
-                                    <a href=""> <!-- needs anchor to username profile view-->
+                                    <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}">
                                         <span th:text="${post.user.getUsername()}"></span>
                                     </a>,&nbsp; <time th:text="${post.timestamp}"></time>
                                </p>

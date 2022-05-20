@@ -235,4 +235,15 @@ public class ForumController {
         return "forums/forumEditReplyView";
     }
     //TODO: enable deleting a comment and redirecting to the post source after deletion.
+
+    @GetMapping("/posts/user/{id}")
+    public String findPostsBYUserId( @PathVariable long id, Model model) {
+        List<ForumPost> posts = forumPostDao.getByUser(userDAO.getUserById(id));
+
+
+        model.addAttribute("noCategory", true);
+        model.addAttribute("posts", posts);
+        model.addAttribute("categories", forumPostCategoryDao.findAll());
+        return "forums/forum";
+    }
 }
