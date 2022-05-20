@@ -10,7 +10,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
@@ -109,36 +110,83 @@
     <!-- Background image -->
 </header>
 
-<div class="spacer"></div>
 <div class="container">
-<h1>Log In</h1>
-<div th:if="${param.error}">
-    Invalid Username and Password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<div th:if="${alert}" th:text="${message}">
+
+    <div class="container px-5 my-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="card-body p-4 p-sm-1">
+                    <h5 class="card-title text-center mb-4 fw-light fs-4"></h5>
+                    <div th:if="${param.error}">
+                        Invalid Username and Password.
+                    </div>
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <div th:if="${alert}" th:text="${message}">
+
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="username" required autofocus>
+                            <label for="username">Username</label>
+                            <i class="fas fa-caret-right" style="color: #6495ed"></i>&nbsp;<a th:href="@{/forgot_username}">Forgot Username</a>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <label for="password">Password</label>
+                            <i class="fas fa-caret-right primary" style="color: #6495ed"></i>&nbsp;<a th:href="@{/forgot_password}">Forgot Password</a>
+                        </div>
+
+
+                        <div class="d-grid mb-2">
+                            <input class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit" value="Login">
+                        </div>
+
+                        <hr class="my-4">
+
+                        <a class="d-block text-center mt-2 small" th:href="@{/sign-up}"><u>Need an account? Sign Up!</u></a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>
-    <input id="username" name="username" type="text" />
-    <br>
-    <a th:href="@{/forgot_username}">Forgot Username</a>
-    <br>
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" />
-    <br>
-    <a th:href="@{/forgot_password}">Forgot Password</a>
-    <br>
-    <input type="submit" value="Log In" />
-</form>
-<br>
-<br>
-</div>
-<footer class="text-center text-white">
+<!--<div class="container">-->
+<!--    <h1>Log In</h1>-->
+<!--    <div th:if="${param.error}">-->
+<!--        Invalid Username and Password.-->
+<!--    </div>-->
+<!--    <div th:if="${param.logout}">-->
+<!--        You have been logged out.-->
+<!--    </div>-->
+<!--    <div th:if="${alert}" th:text="${message}">-->
+
+<!--    </div>-->
+
+<!--    <form th:action="@{/login}" method="post">-->
+<!--        <label for="username">Username</label>-->
+<!--        <input id="username" name="username" type="text"/>-->
+<!--        <br>-->
+<!--        <a th:href="@{/forgot_username}">Forgot Username</a>-->
+<!--        <br>-->
+<!--        <label for="password">Password</label>-->
+<!--        <input id="password" name="password" type="password"/>-->
+<!--        <br>-->
+<!--        <a th:href="@{/forgot_password}">Forgot Password</a>-->
+<!--        <br>-->
+<!--        <input type="submit" value="Log In"/>-->
+<!--    </form>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--</div>-->
+<footer class="text-center text-white fixed-bottom">
     <!-- Grid container -->
     <div class="container p-4"></div>
     <!-- Grid container -->
