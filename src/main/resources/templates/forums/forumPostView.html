@@ -201,7 +201,7 @@
                                     <!--                                reply of user-->
                                     <div class="media-body">
                                         <div class="mar-btm" style="display: flex;">
-                                            <a href="#" class="btn-link text-semibold media-heading box-inline"
+                                            <a th:href="@{/posts/user/{user_id}(user_id=${reply.user.getId()})}" class="btn-link text-semibold media-heading box-inline"
                                                th:text="${reply.user.getUsername()}">
                                                 <!--reply username-->
                                             </a>,&nbsp;
