@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Parenting Forum</title>
     <meta name="viewport"
@@ -120,7 +120,8 @@
         <div class="col-md-3 d-flex flex-column mt-2 left-side-holder">
             <div class="left-side d-flex flex-column justify-items-center">
                 <form th:action="@{/posts/search}" method="get" class="d-flex flex-column justify-content-center">
-                    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by Keyword">
+                    <input class="search-window text-center" type="text" name="keyword" th:value="${keyword}"
+                           placeholder="Search by Keyword">
                     <br>
                     <button type="submit" class="btn  search-btn">Search</button>
                     <br>
@@ -134,7 +135,7 @@
                 <br>
                 <div>
                     <h3>Browse by category:</h3>
-                    <div class="d-flex flex-md-column flex-wrap">
+                    <div class="d-flex flex-md-column flex-wrap ">
                         <a th:each="cat : ${categories}" th:text="${cat.getName()}"
                            th:href="@{/FilterByCategory/{cat_id}(cat_id = ${cat.getId()})}"
                            class="mx-3 mx-md-0"></a>
@@ -148,13 +149,13 @@
         <!--    forum topics-->
         <section class="forum-content col-md-9 mt-2 ">
             <div class="post_body ">
-<!--               figure out pagination-->
+                <!--               figure out pagination-->
                 <ul class="topic_main_body " th:each="post : ${posts}">
                     <div class="inner_main_bloc">
                         <div class="topic_inside_title">
                             <span>
                                <a th:href="@{/forum_post/{id}(id=${post.id})}">
-                                    <span class="post-title" th:text="${post.title}"></span>
+                                    <h4 class="post-title mb-0" th:text="${post.title}"></h4>
                                </a>
                             </span>
                             <br>
@@ -171,17 +172,19 @@
                                     </li>
                                 </ul>
                             </div>
-                            <span class="date-time-forum-display">
-                               <p>Asked by:
-                                    <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}">
-                                        <span th:text="${post.user.getUsername()}"></span>
-                                    </a>,&nbsp; <time th:text="${post.timestamp}"></time>
-                               </p>
-                            </span>
+                            <div class="date-time-forum-display">
+                                <p>Asked by:
+                                    <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}" th:text="${post.user.getUsername()}" class="timeStamp-name">
+                                    </a>,&nbsp;
+                                    <time th:text="${post.timestamp}"></time>
+                                </p>
+                            </div>
+
+
                         </div> <!-- end of topic_inside_title-->
                         <div class="replies_count_section">
                             <span th:text="${post.getForumReplies().size()}"></span>
-                            <span>replies</span>
+                            <p>replies</p>
                         </div>
                     </div> <!-- end of inner_main_bloc-->
                 </ul>
