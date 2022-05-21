@@ -108,7 +108,8 @@
         </div>
         <div class="form-group mb-3">
             <button class="btn activity_img" type="button" onclick="upload()">Add an image</button>
-            <input th:field="*{imageUrl}" id="imageUrl" type="text" hidden>
+            <input th:field="*{imageUrl}" id="imgUrl" type="text" hidden>
+            <div id="profile-box" class="d-none"> <img id="profile-preview" src="" height="75px"> </div>
         </div>
         <div class="form-group mb-3">
             <label for="webUrl">Activity info URL here
@@ -159,19 +160,21 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     function upload() {
-        console.log([[${filestackKey}]]);
+        // console.log([[${filestackKey}]]);
         const apiKey = [[${filestackKey}]];
-        console.log(apiKey);
+        // console.log(apiKey);
         const client = filestack.init(apiKey);
         const options = {
             onUploadDone: file => {
                 let imgURL = file.filesUploaded[0].url;
                 console.log(imgURL);
-                document.getElementById("imageUrl").value = imgURL;
+                document.getElementById("imgUrl").value = imgURL;
                 document.getElementById("profile-preview").src = imgURL;
             }
         };
         client.picker(options).open();
+        document.getElementById("profile-box").classList.toggle("d-none");
+
     }
 
     /*]]>*/

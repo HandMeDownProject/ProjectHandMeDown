@@ -92,8 +92,9 @@
 <div class="spacer"></div>
 
 <div class="create_activity">
-    <p class="text-danger">* required</p>
+
     <form role="form" th:action="@{/activities/edit}" th:object="${activity}" method="post">
+        <p class="text-danger">* required</p>
         <div class="form-group mb-3">
             <label class="required" for="title">title:
             </label>
