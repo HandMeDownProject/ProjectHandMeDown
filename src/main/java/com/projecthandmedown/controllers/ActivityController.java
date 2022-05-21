@@ -41,28 +41,28 @@ public class ActivityController {
     public String activitiesView(Model model) {
         List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("categories", activityCatDao.findAll());
-        List<String> states = activitiesStateLocation(activities);
-        List<String> cities = activitiesCityLocation(activities);
-        model.addAttribute("cities", cities);
-        model.addAttribute("states", states);
-        model.addAttribute("noLocation", true);
-        model.addAttribute("noCategory", true);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userDAO.getUserById(loggedInUser.getId());
-            List<Activity> filteredList = new ArrayList<>();
-            for (int i = 0; i < activities.size(); i++) {
-                if (activities.get(i).getUser().getUserLocationState().equalsIgnoreCase(user.getUserLocationState())) {
-                    if (activities.get(i).getUser().getUserLocation().equalsIgnoreCase(user.getUserLocation())) {
-                        filteredList.add(activities.get(i));
-                    }
-                }
-            }
-            model.addAttribute("activities", filteredList);
-            model.addAttribute("user", user);
-            return "activities/activitiesView";
-        }
+//        List<String> states = activitiesStateLocation(activities);
+//        List<String> cities = activitiesCityLocation(activities);
+//        model.addAttribute("cities", cities);
+//        model.addAttribute("states", states);
+//        model.addAttribute("noLocation", true);
+//        model.addAttribute("noCategory", true);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            User user = userDAO.getUserById(loggedInUser.getId());
+//            List<Activity> filteredList = new ArrayList<>();
+//            for (int i = 0; i < activities.size(); i++) {
+//                if (activities.get(i).getUser().getUserLocationState().equalsIgnoreCase(user.getUserLocationState())) {
+//                    if (activities.get(i).getUser().getUserLocation().equalsIgnoreCase(user.getUserLocation())) {
+//                        filteredList.add(activities.get(i));
+//                    }
+//                }
+//            }
+//            model.addAttribute("activities", filteredList);
+//            model.addAttribute("user", user);
+//            return "activities/activitiesView";
+//        }
         model.addAttribute("activities", activities);
         return "activities/activitiesView";
     }

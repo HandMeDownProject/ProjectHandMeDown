@@ -113,27 +113,7 @@
     <!-- Background image -->
 </header>
 
-
-
-<div class="spacer"></div>
-
-<!--searchbar-->
-<div class="container">
-    <div class="d-flex justify-content-between">
-        <form action="/activities/create" method="get">
-            <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
-        </form>
-        <br>
-        <form th:action="@{/activities/search}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword"><br><br>
-            <button type="submit" class="btn btn-info" >Search</button>
-            <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
-        </form>
-        <br>
-    </div>
-    <div class="spacer"></div>
-
-    <!--alert msg-->
+<!--alert msg-->
 <div class="alert alert-primary alert-dismissable" th:text="${deleteMsg}" th:if="${deleteMsg}" >
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
@@ -141,30 +121,73 @@
 <div class="alert alert-primary alert-dismissable" th:text="${createMsg}" th:if="${createMsg}" >
     <button type="button" class = "btn-class" data-bs-dismiss="alert" aria-label="close"></button>
 </div>
-    <form th:action="@{/activities/filter}" method="get">
-        <label for="category">Categories:</label>
-        <select id="category" name="category">
-            <option selected disabled>Category</option>
-            <div th:each="category : ${categories}">
-                <option th:text="${category.getName()}"></option>
+
+<div class="spacer"></div>
+
+<!--searchbar-->
+<div class="container">
+    <div class="row">
+
+<!--        <div class="d-flex justify-content-around ml-0">-->
+
+    <div class="col-md-3 d-flex flex-column left_side mt-2">
+        <div class="mt-5">
+            <form th:action="@{/activities/search}" method="get">
+                <input type="text" name="keyword" size="25" th:value="${keyword}"  placeholder="Search Activities by keyword"><br><br>
+               <div class="">
+                    <button type="submit" class="btn btn-info" >Search</button>
+                    <a class="btn btn-primary ml-3" th:href="@{'/activities'}" role="button">reset</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex flex-md-column flex-wrap mt-3 category_search">
+            <h3 class="">Browse by category</h3>
+            <div class="d-flex align-items-start flex-column">
+                <ul th:each="category : ${categories}">
+                    <li><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a></li>
+                </ul>
             </div>
-        </select>
-        <label for="state">States:</label>
-        <select id="state" name="state">
-            <option disabled selected>State</option>
-            <div th:each="state : ${states}">
-                <option th:text="${state}"></option>
-            </div>
-        </select>
-        <label for="city">Cities:</label>
-        <select id="city" name="city">
-            <option disabled selected>City</option>
-            <div th:each="city : ${cities}">
-                <option th:text="${city}"></option>
-            </div>
-        </select>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
+        </div>
+
+    </div>
+
+<!--        <a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>-->
+
+<!--    <div class="spacer"></div>-->
+
+    <div class="col-md-9 right_table">
+<!--    <form th:action="@{/activities/filter}" method="get">-->
+<!--        <label for="category">Categories:</label>-->
+<!--        <select id="category" name="category">-->
+<!--            <option selected disabled>Category</option>-->
+<!--            <div th:each="category : ${categories}">-->
+<!--                <option th:text="${category.getName()}"></option>-->
+<!--            </div>-->
+<!--        </select>-->
+<!--        <label for="state">States:</label>-->
+<!--        <select id="state" name="state">-->
+<!--            <option disabled selected>State</option>-->
+<!--            <div th:each="state : ${states}">-->
+<!--                <option th:text="${state}"></option>-->
+<!--            </div>-->
+<!--        </select>-->
+<!--        <label for="city">Cities:</label>-->
+<!--        <select id="city" name="city">-->
+<!--            <option disabled selected>City</option>-->
+<!--            <div th:each="city : ${cities}">-->
+<!--                <option th:text="${city}"></option>-->
+<!--            </div>-->
+<!--        </select>-->
+<!--        <button type="submit" class="btn btn-primary">Filter</button>-->
+<!--    </form>-->
+        <div class="mb-2 d-flex justify-content-center">
+            <form action="/activities/create" method="get">
+                <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
+            </form>
+        </div>
+
+
 
     <table class="table table-responsive align-middle mb-0 bg-white  ">
         <thead class="bg-light">
@@ -198,6 +221,8 @@
             </tr>
         </tbody>
     </table>
+    </div>
+    </div>
 
 <!------------------ADD POST----------------------->
 
