@@ -78,6 +78,17 @@ html:not([data-scroll='50px']) .left-side {
     top: 175px;
 }
 
+@media screen and (max-width: 768px){
+    .left-side{
+        max-width: 95%;
+        justify-content: center;
+    }
+    .left-side-holder{
+        align-items: center;
+    }
+}
+
+
 footer h4{
     font-size: 1em;
 }
@@ -94,8 +105,23 @@ footer h4{
 .activity-pic{
     height: 50px;
     max-width: 50px;
-
-
 }
 
+.card-holder{
+    max-width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .card-holder{
+        max-width: 50%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .card-holder{
+        max-width: 30%;
+    }
+}
+
+.index-image{
+    border: 1px solid #4D1D72;
+}
 

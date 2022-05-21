@@ -10,7 +10,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
@@ -109,68 +110,127 @@
     <!-- Background image -->
 </header>
 
-<div class="spacer"></div>
-<div class="container">
-<h1>Create an account</h1>
-    <div class="container">
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
-    <p class="text-danger">* required</p>
-    <label class="required" for="username">Username</label>
-    <input id="username" th:field="*{username}" required />
-    <br>
-    <br>
-    <div th:if="${alert}">
-        <div th:text="${message}"></div>
+<div class="container px-5 my-1">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card-body p-2 p-sm-1">
+                <h5 class="card-title text-center mb-4 fw-light fs-4"></h5>
+                <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+
+                    <div th:if="${alert}"> <div th:text="${message}"></div> </div>
+
+                    <p class="text-danger p-0">* required</p>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputUsername" placeholder="username"
+                               th:field="*{username}" required autofocus>
+                        <label for="floatingInputUsername">Username<span class="required"></span></label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com"
+                               th:field="*{email}" required>
+                        <label for="floatingInputEmail">Email address<span class="required"></span></label>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                               th:field="*{password}" required>
+                        <label for="floatingPassword">Password<span class="required"></span></label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingPhoneNumber" placeholder="Phone"
+                               th:field="*{userPhone}" required>
+                        <label for="floatingPhoneNumber">Phone number<span class="required"></span></label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingLocation" placeholder="San Antonio..."
+                               th:field="*{userLocation}" required>
+                        <label for="floatingLocation">City Location<span class="required"></span></label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" style="width: 100%" required>
+                            <option value="" disabled>Select state *</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                        </select>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class=""
+                               placeholder="Image Url" hidden/>
+                        <button type="button" class="btn btn-md btn-outline-primary fw-bold text-uppercase" onclick="upload()">Upload Avatar</button>
+                        <div id="profile-box" class="d-none"> <img id="profile-preview" src="" height="75px"> </div>
+                    </div>
+
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">
+                            Register
+                        </button>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <a class="d-block text-center mt-2 small" th:href="@{/login}">Have an account? Sign In</a>
+
+                </form>
+
+            </div>
+        </div>
     </div>
-    <label class="required" for="email">Email</label>
-    <input id="email" th:field="*{email}" required />
-    <br>
-    <br>
-    <label class="required" for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" required />
-    <br>
-    <br>
-    <label class="required" for="user-phone">Phone Number</label>
-    <input id="user-phone" type="text" th:field="*{userPhone}" required />
-    <br>
-    <br>
-    <label class="required" for="user-location">Location</label>
-    <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
-    <br>
-    <br>
-    <label class="required" for="user-location">Location State</label>
-    <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
-        <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
-        <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
-        <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
-        <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
-        <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
-        <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
-        <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
-        <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
-        <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
-        <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
-        <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
-        <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
-        <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
-        <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
-        <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
-        <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
-        <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
-    </select>
-    <br>
-    <br>
-    <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
-    <button type="button" onclick="upload()">upload image</button>
-    <p>preview: </p>
-    <img id="profile-preview" src="" height="75px">
-    <br>
-    <br>
-    <input value="Sign me up!" type="submit" />
-</form>
-    </div>
-<br>
-<br>
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->
@@ -200,6 +260,7 @@
             }
         };
         client.picker(options).open();
+        document.getElementById("profile-box").classList.toggle("d-none");
     }
 
     /*]]>*/

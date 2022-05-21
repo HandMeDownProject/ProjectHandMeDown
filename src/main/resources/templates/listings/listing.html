@@ -112,30 +112,16 @@
 
 <div class="spacer"></div>
 <div class="container">
-    <form th:action="@{/listings/search}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search Listings by keyword" size="50">
-        <button type="submit" class="btn btn-info">search</button>
-        <a class="" th:href="@{'/listings'}" role="">reset</a>
-    </form>
-    <br>
-        <h3>Browse by category:</h3>
-        <a th:each="category : ${categories}" th:text="${category.getName()}" th:href="@{'/listingsByCat/{cat_id}'(cat_id=${category.getId()})}" class="mx-3"></a>
-    <br>
-    <br>
-    <form th:action="@{/create/listing}" method="get">
-        <button class="btn btn-outline-primary" type="submit">Create Listing</button>
-    </form>
-    <br>
-    <h2>individual listing</h2>
 
-    <div class="row listings-card">
+
+    <div class="row listings-card mx-2">
 <!--        <div th:each="listing : ${listing}">-->
             <div class="col-md-4 text-right d-flex align-items-center">
                 <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
-                    <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded" style="max-height:500px"></a></p>
+                    <p th:if="${listing.imageUrl != null}"><a th:href="@{/listing/{id}(id=${listing.getId()})}"><img th:src="@{${listing.imageUrl}}" class="img-fluid rounded"style="max-height:500px"></a></p>
                 </div>
             </div>
-                <div class="text-left col-md-8 mt-2">
+                <div class="card-body text-left text-black col-md-8 mt-2">
                     <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}" class="card-title"></h4></a>
                     <br>
                     <h4>description:</h4>
@@ -165,7 +151,7 @@
 
     <br>
     <br>
-    <div th:if="${listing.getUser().getId() == user.getId()}">
+    <div class="mx-2" th:if="${listing.getUser().getId() == user.getId()}">
         <form th:action="@{/listing/edit/{id}(id=${listing.getId()})} " method="get">
             <button type="submit" class="btn btn-outline-primary">Edit Listing</button>
         </form>
@@ -175,7 +161,7 @@
         </form>
         <br>
     </div>
-    <div sec:authorize="hasAuthority('ADMIN')">
+    <div class="mx-2" sec:authorize="hasAuthority('ADMIN')">
         <form th:action="@{/admin/listing/edit/{id}(id=${listing.getId()})} " method="get">
             <button type="submit" class="btn btn-outline-primary"> Admin Edit Listing</button>
         </form>

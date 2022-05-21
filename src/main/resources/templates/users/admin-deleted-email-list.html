@@ -112,14 +112,33 @@
 
 <div class="spacer"></div>
 <div class="container">
-<div>
-    <div th:each="email : ${emailList}">
-        <div th:text="${email.getEmail()}"></div>
-        <a th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}">Remove From List</a>
+    <div class="table-responsive text-nowrap">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Remove From List</th>
+            </tr>
+            </thead>
+            <tbody th:each="email : ${emailList}">
+            <tr>
+                <td th:text="${email.getEmail()}"></td>
+                <td><a th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}">Remove</a></td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
+
+<!--    <div>-->
+<!--    <div th:each="email : ${emailList}">-->
+<!--        <div th:text="${email.getEmail()}"></div>-->
+<!--        <a th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}"> From List</a>-->
+<!--    </div>-->
+<!--</div>-->
 </div>
-</div>
-<footer class="text-center text-white">
+<footer class="text-center text-white fixed-bottom">
     <!-- Grid container -->
     <div class="container p-4"></div>
     <!-- Grid container -->

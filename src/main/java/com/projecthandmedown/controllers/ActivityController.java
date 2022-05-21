@@ -41,6 +41,7 @@ public class ActivityController {
     public String activitiesView(Model model) {
         List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("categories", activityCatDao.findAll());
+
 //        List<String> states = activitiesStateLocation(activities);
 //        List<String> cities = activitiesCityLocation(activities);
 //        model.addAttribute("cities", cities);
@@ -63,6 +64,9 @@ public class ActivityController {
 //            model.addAttribute("user", user);
 //            return "activities/activitiesView";
 //        }
+
+        model.addAttribute("noCategory", true);
+
         model.addAttribute("activities", activities);
         return "activities/activitiesView";
     }
@@ -273,22 +277,23 @@ public class ActivityController {
 
     @GetMapping("/activities/filter")
     public String filterByStateAndCity(@RequestParam(required = false) String state, @RequestParam(required = false) String city, @RequestParam(required = false) String category,  Model model){
-        List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+//        List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Activity> filteredList = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("categories", activityCatDao.findAll());
-        List<String> states = activitiesStateLocation(activities);
-        List<String> cities = activitiesCityLocation(activities);
+        List<String> states = activitiesStateLocation(filteredList);
+        List<String> cities = activitiesCityLocation(filteredList);
         model.addAttribute("cities", cities);
         model.addAttribute("states", states);
-        List<Activity> filteredList = new ArrayList<>();
+
             if(state != null && city != null && category != null){
                 List<Activity> activitiesByCat = activityCatDao.getActivityCategoryByName(category).getActivities();
                 List<Activity> activitiesByState = filterByState(activitiesByCat, state);
                 filteredList = filterByCity(activitiesByState, city);
             }else if(state != null && city != null){
-                for (int i = 0; i < activities.size(); i++) {
-                    if (activities.get(i).getUser().getUserLocationState().equals(state)) {
-                        if (activities.get(i).getUser().getUserLocation().equals(city)) {
-                            filteredList.add(activities.get(i));
+                for (int i = 0; i < filteredList.size(); i++) {
+                    if (filteredList.get(i).getUser().getUserLocationState().equals(state)) {
+                        if (filteredList.get(i).getUser().getUserLocation().equals(city)) {
+                            filteredList.add(filteredList.get(i));
                         }
                     }
                 }
@@ -303,9 +308,9 @@ public class ActivityController {
                 String redirect = "redirect:/activities/categories/" + category1.getId();
                 return redirect;
             }else if(category == null && state != null && city == null){
-                filteredList = filterByState(activities, state);
+                filteredList = filterByState(filteredList, state);
             }else if(category == null && state == null && city != null){
-                filteredList = filterByCity(activities, city);
+                filteredList = filterByCity(filteredList, city);
             }
 
             model.addAttribute("activities", filteredList);
