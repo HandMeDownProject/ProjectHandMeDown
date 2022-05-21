@@ -42,11 +42,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendTextEmail(Message message, long listingId) throws IOException {
+    public String sendTextEmail(Message message, long listingId, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Message From: " + message.getSender().getUsername() + " With a subject of: " + message.getSubject();
         Email to = new Email(message.getReceiver());
-        Content content = new Content("text/plain", "Message Content: \n" + message.getBody() + "\n To reply back use the following link: \n http://localhost:8080/messaging/" + listingId + "/" + message.getSender().getId() + "\nIf user has sent inappropriate content use the following link to report them.\n" + "http://localhost:8080/report/user/" + message.getSender().getId());
+        Content content = new Content("text/plain", "Message Content: \n" + message.getBody() + "\n To reply back use the following link: \n" + url + "/messaging/" + listingId + "/" + message.getSender().getId() + "\nIf user has sent inappropriate content use the following link to report them.\n" + url + "/report/user/" + message.getSender().getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -63,12 +63,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendTextEmail(User user, String token) throws IOException {
+    public String sendTextEmail(User user, String token, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "Reset Password Link";
         Email to = new Email(user.getEmail());
-        Content content = new Content("text/plain", "Here is the link to reset your password: \n"
-        + "http://localhost:8080/reset_password?token=" + token);
+        Content content = new Content("text/plain", "Here is the link to reset your password: \n" + url + "/reset_password?token=" + token);
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -85,12 +84,12 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendTextEmail(User user) throws IOException {
+    public String sendTextEmail(User user, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "Forgot Username.";
         Email to = new Email(user.getEmail());
         Content content = new Content("text/plain", "Here is the username used for this email. \n"
-            + "Username: " + user.getUsername()  + "\nHere is the log in link.\n" + "http://localhost:8080/login");
+            + "Username: " + user.getUsername()  + "\nHere is the log in link.\n" + url + "/login");
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -107,11 +106,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendReportEmail(Message message, Activity activity) throws IOException {
+    public String sendReportEmail(Message message, Activity activity, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Report For Activity From: " + message.getSender().getUsername() + " Title: " + message.getSubject();
         Email to = new Email(senderEmail);
-        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported activity: \n" + activity.getTitle() + "\n" + activity.getBody() + "\nPosted By: " + activity.getUser().getUsername() + "\nWith a Activity Id of " + activity.getId() + "\nLink to specific activity.\n" + "http://localhost:8080/activities/" + activity.getId());
+        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported activity: \n" + activity.getTitle() + "\n" + activity.getBody() + "\nPosted By: " + activity.getUser().getUsername() + "\nWith a Activity Id of " + activity.getId() + "\nLink to specific activity.\n" + url + "/" + activity.getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -128,11 +127,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendReportEmail(Message message, Listing listing) throws IOException {
+    public String sendReportEmail(Message message, Listing listing, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Listing Report From: " + message.getSender().getUsername() + " Title: " + message.getSubject();
         Email to = new Email(senderEmail);
-        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported listing: \n" + listing.getTitle() + "\n" + listing.getBody() + "\nPosted By: " + listing.getUser().getUsername() + "\nWith a Listing Id of " + listing.getId() + "\nLink to specific activity.\n" + "http://localhost:8080/listing/" + listing.getId());
+        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported listing: \n" + listing.getTitle() + "\n" + listing.getBody() + "\nPosted By: " + listing.getUser().getUsername() + "\nWith a Listing Id of " + listing.getId() + "\nLink to specific activity.\n" + url + "/listing/" + listing.getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -149,11 +148,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendReportEmail(Message message, ForumPost forumPost) throws IOException {
+    public String sendReportEmail(Message message, ForumPost forumPost, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Report For Forum Post From: " + message.getSender().getUsername() + " Title: " + message.getSubject();
         Email to = new Email(senderEmail);
-        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported forum post: \n" + forumPost.getTitle() + "\n" + forumPost.getBody() + "\nPosted By: " + forumPost.getUser().getUsername() + "\nWith a Forum Post Id of " + forumPost.getId() + "\nLink to specific forum post.\n" + "http://localhost:8080/forum_post/" + forumPost.getId());
+        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported forum post: \n" + forumPost.getTitle() + "\n" + forumPost.getBody() + "\nPosted By: " + forumPost.getUser().getUsername() + "\nWith a Forum Post Id of " + forumPost.getId() + "\nLink to specific forum post.\n" + url + "/forum_post/" + forumPost.getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -170,11 +169,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendReportEmail(Message message, ForumReply forumReply) throws IOException {
+    public String sendReportEmail(Message message, ForumReply forumReply, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Report For Forum Reply From: " + message.getSender().getUsername() + " Title: " + message.getSubject();
         Email to = new Email(senderEmail);
-        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported reply: \n" + forumReply.getBody() + "\nPosted By: " + forumReply.getUser().getUsername() + "\nWith a Reply Id of " + forumReply.getId() + "\nLink to specific forum post reply is in.\n" + "http://localhost:8080/forum_post/" + forumReply.getForumPost().getId());
+        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nContents of reported reply: \n" + forumReply.getBody() + "\nPosted By: " + forumReply.getUser().getUsername() + "\nWith a Reply Id of " + forumReply.getId() + "\nLink to specific forum post reply is in.\n" + url + "/forum_post/" + forumReply.getForumPost().getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -191,11 +190,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendReportEmail(Message message, User user) throws IOException {
+    public String sendReportEmail(Message message, User user, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Report For User From: " + message.getSender().getUsername() + " Title: " + message.getSubject();
         Email to = new Email(senderEmail);
-        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nInformation of reported User: \n" + user.getUsername() + "\nEmail: " + user.getEmail() + "\nWith a User Id of " + user.getId() + "\nLink to all users.\n" + "http://localhost:8080/admin/users");
+        Content content = new Content("text/plain", "Report Content: \n" + message.getBody() + "\nInformation of reported User: \n" + user.getUsername() + "\nEmail: " + user.getEmail() + "\nWith a User Id of " + user.getId() + "\nLink to all users.\n" + url + "/admin/users");
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -212,11 +211,11 @@ public class SendGridEmailService {
         }
     }
 
-    public String sendAdminEmail(Message message) throws IOException {
+    public String sendAdminEmail(Message message, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "Email From: Admin.  With a subject of: " + message.getSubject();
         Email to = new Email(message.getReceiver());
-        Content content = new Content("text/plain", "Admin Message Content: \n" + message.getBody() + "\n If there was a mistake reply back with the following link: \n http://localhost:8080/user/admin/message/" + message.getSender().getId() + "\nIf an admin has sent inappropriate content use the following link to report them.\n" + "http://localhost:8080/report/user/" + message.getSender().getId());
+        Content content = new Content("text/plain", "Admin Message Content: \n" + message.getBody() + "\n If there was a mistake reply back with the following link: \n" + url + "/user/admin/message/" + message.getSender().getId() + "\nIf an admin has sent inappropriate content use the following link to report them.\n" + url + "/report/user/" + message.getSender().getId());
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
@@ -233,7 +232,7 @@ public class SendGridEmailService {
         }
     }
 
-    public String userSendAdminEmail(Message message, User admin) throws IOException {
+    public String userSendAdminEmail(Message message, User admin, String url) throws IOException {
         Email from = new Email(senderEmail);
         String subject = "New Message From User: " + message.getSender().getUsername() + " To Admin: " + admin.getUsername() +" Title: " + message.getSubject();
         Email to = new Email(senderEmail);
