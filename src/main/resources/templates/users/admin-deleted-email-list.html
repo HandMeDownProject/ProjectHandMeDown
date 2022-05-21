@@ -124,7 +124,7 @@
             <tbody th:each="email : ${emailList}">
             <tr>
                 <td th:text="${email.getEmail()}"></td>
-                <td><a th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}">Remove</a></td>
+                <td><a class="user-link" th:href="@{/admin/email_list/remove/{id}(id = ${email.getId()})}">Remove</a></td>
             </tr>
             </tbody>
         </table>

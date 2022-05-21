@@ -8,17 +8,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String username;
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String userLocation;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String userLocationState;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Boolean userIsAdmin;
     @Column(nullable = false, length = 20)
     private String userPhone;
