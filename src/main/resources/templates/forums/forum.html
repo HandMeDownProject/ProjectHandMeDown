@@ -135,10 +135,10 @@
                 <br>
                 <div>
                     <h3>Browse by category:</h3>
-                    <div class="d-flex flex-md-column flex-wrap ">
+                    <div class="d-flex flex-md-column  ">
                         <a th:each="cat : ${categories}" th:text="${cat.getName()}"
                            th:href="@{/FilterByCategory/{cat_id}(cat_id = ${cat.getId()})}"
-                           class="mx-3 mx-md-0"></a>
+                           class="mx-3 mx-md-0 "></a>
                     </div>
                 </div>
                 <br>
@@ -165,9 +165,9 @@
                                     <li class="post-cat-label">Categories:&nbsp;</li>
                                     <li class="post-cats " th:each="cat : ${post.getForumPostCategories()}">
 
-                                        <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+                                        <a class="post-cat " th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
 
-                                            <span class="topic_cat_name" th:text="${cat.getName()}"></span>
+                                            <span class="topic_cat_name " th:text="${cat.getName()}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -184,7 +184,7 @@
                         </div> <!-- end of topic_inside_title-->
                         <div class="replies_count_section">
                             <span th:text="${post.getForumReplies().size()}"></span>
-                            <p>replies</p>
+                            <a th:href="@{/forum_post/{id}(id=${post.id})}">Replies</a>
                         </div>
                     </div> <!-- end of inner_main_bloc-->
                 </ul>

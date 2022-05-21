@@ -25,33 +25,33 @@ a{
 .search-window{
     border-radius: 15px;
     height: 37px;
-    border: 1px solid #c96c58;
-    -webkit-box-shadow: 6px 7px 15px 2px #FF9B85;
-    box-shadow: 6px 7px 15px 2px #FF9B85;
+    border: 1px solid #FF9B85;
+    -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
+    box-shadow: 6px 7px 15px 2px #FFBCAD;;
 }
 .search-window:focus{
     color: white;
     background-color: #FDF0EC;
     box-shadow: none;
-    outline-color: #c96c58;
+    outline-color: #FF9B85;
 outline-width: 1px;
 }
 .search-btn{
     border-radius: 15px;
     /*background-color: #FF9B85;*/
     color: #c96c58;
-    border: 1px solid #c96c58;
-    -webkit-box-shadow: 6px 7px 15px 2px #FF9B85;
-    box-shadow: 6px 7px 15px 2px #FF9B85;
+    border: 1px solid #FF9B85;
+    -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
+    box-shadow: 6px 7px 15px 2px #FFBCAD;;
 
 }
 .reset-btn, .createPost-btn{
     border-radius: 15px;
     /*background-color: #FF9B85;*/
     color: #c96c58;
-    border: 1px solid #c96c58;
-    -webkit-box-shadow: 6px 7px 15px 2px #FF9B85;
-    box-shadow: 6px 7px 15px 2px #FF9B85;
+    border: 1px solid #FF9B85;
+    -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
+    box-shadow: 6px 7px 15px 2px #FFBCAD;
 }
 .search-btn:hover{
     color: white;
@@ -154,10 +154,14 @@ ol[role='list'] {
     font-size: .75rem;
     text-align: center;
 }
+a:hover{
+    color: #EE522F;
+}
 .post-cat-label{
     font-size: .75rem;
     text-align: center;
 }
+
 .date-time-forum-display{
     font-size: .65rem;
 }
