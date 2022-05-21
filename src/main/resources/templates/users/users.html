@@ -111,30 +111,50 @@
 
 <div class="spacer"></div>
 <div class="container">
-    <div>
-        <div th:each="user : ${users}">
-            <div>
-                <span th:text="${user.getId()}"></span>
-                <img th:src="*{user.getUserIMG()}" height="100px">
-            </div>
-            <p th:text="${user.getUsername()}"></p>
-            <p th:text="${user.getEmail()}"></p>
-            <p># of Strikes: <span th:text="${user.getStrikes()}"></span></p>
-            <a th:href="@{/admin/users/delete/{id}(id = ${user.getId()})}">Delete User</a>
-            <a th:href="@{/admin/users/message/{id}(id = ${user.getId()})}">Message User</a>
-            <a th:href="@{/admin/users/strike/{id}(id = ${user.getId()})}">Add Strike</a>
-            <a th:href="@{/admin/users/remove/strike/{id}(id = ${user.getId()})}">Subtract Strike</a>
-            <div th:each="role : ${userRoles}">
-                <div th:if="${role.userId == user.getId()}">
-                    <div th:if="${role.getRole() == 'USER'}">
-                        <a th:href="@{/admin/users/change/{type}/{id}(type = 'admin', id = ${user.getId()})}">Make User Admin</a>
+    <div class="table-responsive text-nowrap">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Avatar</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Delete User</th>
+                <th scope="col">Message User</th>
+                <th scope="col">Change Role</th>
+                <th scope="col"># of Strikes</th>
+            </tr>
+            </thead>
+            <tbody th:each="user : ${users}">
+            <tr class="">
+                <td><img th:if="${user.getUserIMG() != null}" th:src="@{${user.getUserIMG()}}"
+                         class="rounded-circle activity-pic"></td>
+                <td class="align-middle" th:text="${user.getUsername()}"></td>
+                <td class="align-middle" th:text="${user.getEmail()}"></td>
+                <td class="align-middle"><a class="user-link" th:href="@{/admin/users/delete/{id}(id = ${user.getId()})}">Delete</a></td>
+                <td class="align-middle"><a class="user-link" th:href="@{/admin/users/message/{id}(id = ${user.getId()})}">Message</a></td>
+                <td class="align-middle">
+                    <div th:each="role : ${userRoles}">
+                        <div th:if="${role.userId == user.getId()}">
+                            <div th:if="${role.getRole() == 'USER'}">
+                                <a class="user-link" th:href="@{/admin/users/change/{type}/{id}(type = 'admin', id = ${user.getId()})}">Make User Admin</a>
+                            </div>
+                            <div th:if="${role.getRole() == 'ADMIN'}">
+                                <a class="user-link" th:href="@{/admin/users/change/{type}/{id}(type = 'user', id = ${user.getId()})}">Make Admin User</a>
+                            </div>
+                        </div>
                     </div>
-                    <div th:if="${role.getRole() == 'ADMIN'}">
-                        <a th:href="@{/admin/users/change/{type}/{id}(type = 'user', id = ${user.getId()})}">Make Admin User</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </td>
+                <td class="align-middle">
+                        <span th:text="${user.getStrikes()}"></span>
+                        <span>
+                            <a class="user-link" th:href="@{/admin/users/strike/{id}(id = ${user.getId()})}">+</a> /
+                            <a class="user-link" th:href="@{/admin/users/remove/strike/{id}(id = ${user.getId()})}">-</a>
+                        </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <footer class="text-center text-white">

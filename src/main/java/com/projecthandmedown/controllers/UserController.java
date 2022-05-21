@@ -286,10 +286,15 @@ public class UserController {
             user.setPassword(hash);
             userDao.save(user);
             passwordResetTokenRepository.delete(pass);
+            redirectAttr.addFlashAttribute("message", "Password has been reset.");
+            redirectAttr.addFlashAttribute("alert", true);
+            return "redirect:/login";
         }
-        redirectAttr.addFlashAttribute("message", "Password has been reset.");
+        redirectAttr.addFlashAttribute("message", "Passwords must match.");
         redirectAttr.addFlashAttribute("alert", true);
-        return "redirect:/login";
+        String redirect = "redirect:/reset_password?token=" + resetPassword.getToken();
+        return redirect;
+
     }
 
     @GetMapping("/forgot_username")
@@ -329,7 +334,13 @@ public class UserController {
         User user = userDao.getUserById(id);
         AdminDeletedEmail deletedEmail = new AdminDeletedEmail(user.getEmail());
         adminDeletedEmailDao.save(deletedEmail);
+
+        deleteUserActivities(user.getActivities());
+        deleteUserForumPost(user.getForumPosts());
+        deleteUserForumPostReplies(user.getForumReplies());
+        deleteUserListings(user.getListings());
         userDao.delete(user);
+        roles.delete(roles.getUserRoleByUserId(user.getId()));
         return "redirect:/admin/users";
     }
 
@@ -391,9 +402,14 @@ public class UserController {
         User user = userDao.getUserById(id);
         user.increaseStrikes();
         if(user.getStrikes() == 3){
-             userDao.delete(user);
             AdminDeletedEmail deletedEmail = new AdminDeletedEmail(user.getEmail());
+            roles.delete(roles.getUserRoleByUserId(user.getId()));
+            deleteUserActivities(user.getActivities());
+            deleteUserForumPost(user.getForumPosts());
+            deleteUserForumPostReplies(user.getForumReplies());
+            deleteUserListings(user.getListings());
             adminDeletedEmailDao.save(deletedEmail);
+            userDao.delete(user);
         }else {
             userDao.save(user);
         }
@@ -428,12 +444,48 @@ public class UserController {
         User user = userDao.getUserById(id);
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(userService.userVerification(loggedInUser.getId(), user.getId())){
+            roles.delete(roles.getUserRoleByUserId(user.getId()));
+            deleteUserActivities(user.getActivities());
+            deleteUserForumPost(user.getForumPosts());
+            deleteUserForumPostReplies(user.getForumReplies());
+            deleteUserListings(user.getListings());
             userDao.delete(user);
-            return "redirect:/logout";
+            return "redirect:/";
         }
             redirectAttributes.addFlashAttribute("alert", true);
             redirectAttributes.addFlashAttribute("message", "You do not have permission to delete that account. Sign in to the correct account.");
             return "redirect:/login";
+    }
+
+    public void deleteUserActivities(List<Activity> activities){
+        for(int i = 0; i < activities.size(); i++){
+            Activity activity = activities.get(i);
+            activity.getActivityCategories().clear();
+            activityDao.delete(activity);
+        }
+    }
+
+    public void deleteUserForumPost(List<ForumPost> posts){
+        for(int i = 0; i < posts.size(); i++){
+            ForumPost post = posts.get(i);
+            post.getForumPostCategories().clear();
+            forumPostDao.delete(post);
+        }
+    }
+
+    public void deleteUserForumPostReplies(List<ForumReply> replies){
+        for(int i = 0; i < replies.size(); i++){
+            ForumReply reply = replies.get(i);
+            forumReplyDao.delete(reply);
+        }
+    }
+
+    public void deleteUserListings(List<Listing> listings){
+        for(int i = 0; i < listings.size(); i++){
+            Listing listing = listings.get(i);
+            listing.getListingsCategories().clear();
+            listingDao.delete(listing);
+        }
     }
 
 }
