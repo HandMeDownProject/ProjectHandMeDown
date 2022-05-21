@@ -116,24 +116,24 @@
 <div class="spacer"></div>
 
 <!--searchbar-->
+<!--<div class="container">-->
+<!--    <div class="d-flex justify-content-between">-->
+<!--        <form action="/activities/create" method="get">-->
+<!--            <button class="btn btn-outline-primary" type="submit">Add New Activity</button>-->
+<!--        </form>-->
+<!--        <br>-->
+<!--        <form th:action="@{/activities/search}" method="get">-->
+<!--            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword"><br><br>-->
+<!--            <button type="submit" class="btn btn-info" >Search</button>-->
+<!--            <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>-->
+<!--        </form>-->
+<!--        <br>-->
+<!--    </div>-->
+<!--    <div class="spacer"></div>-->
+
+
+
 <div class="container">
-    <div class="d-flex justify-content-between">
-        <form action="/activities/create" method="get">
-            <button class="btn btn-outline-primary" type="submit">Add New Activity</button>
-        </form>
-        <br>
-        <form th:action="@{/activities/search}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Search Activities by keyword"><br><br>
-            <button type="submit" class="btn btn-info" >Search</button>
-            <a class="btn btn-primary" th:href="@{'/activities'}" role="button">reset</a>
-        </form>
-        <br>
-    </div>
-    <div class="spacer"></div>
-
-
-
-
 <div class="card mb-3" >
     <div class="row g-0">
         <div class="col-md-4">
@@ -171,7 +171,9 @@
     <button class="btn btn-outline-primary mb-3"><a th:href="@{/admin/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
 </div>
 
-<footer class="text-center text-white">
+</div>
+
+<footer class="text-center text-white fixed-bottom">
     <!-- Grid container -->
     <div class="container p-4"></div>
     <!-- Grid container -->
