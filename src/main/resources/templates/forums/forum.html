@@ -122,14 +122,14 @@
                 <form th:action="@{/posts/search}" method="get" class="d-flex flex-column justify-content-center">
                     <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by Keyword">
                     <br>
-                    <button type="submit" class="btn btn-outline-primary search-btn">Search</button>
+                    <button type="submit" class="btn  search-btn">Search</button>
                     <br>
-                    <a class="btn btn-outline-primary reset-btn" th:href="@{'/forum'}" role="">Reset</a>
+                    <a class="btn  reset-btn" th:href="@{'/forum'}" role="">Reset</a>
                 </form>
 
                 <br>
                 <form action="/create/post" method="get" class="d-flex flex-column justify-content-center">
-                    <button class="btn btn-outline-primary createPost-btn" type="submit">Create Post</button>
+                    <button class="btn  createPost-btn" type="submit">Create Post</button>
                 </form>
                 <br>
                 <div>
@@ -146,9 +146,10 @@
 
 
         <!--    forum topics-->
-        <section class="forum-content col-md-9 mt-2">
-            <div class="post_body">
-                <ol class="topic_main_body" th:each="post : ${posts}">
+        <section class="forum-content col-md-9 mt-2 ">
+            <div class="post_body ">
+<!--               figure out pagination-->
+                <ul class="topic_main_body " th:each="post : ${posts}">
                     <div class="inner_main_bloc">
                         <div class="topic_inside_title">
                             <span>
@@ -183,7 +184,7 @@
                             <span>replies</span>
                         </div>
                     </div> <!-- end of inner_main_bloc-->
-                </ol>
+                </ul>
             </div> <!-- end of post_body-->
         </section>
     </div>

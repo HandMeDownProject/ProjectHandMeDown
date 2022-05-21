@@ -26,6 +26,7 @@ a{
     border-radius: 15px;
     color: white;
     background-color: #FF9B85;
+    border: ;
 }
 .reset-btn{
     border-radius: 15px;
@@ -37,7 +38,7 @@ a{
     border-radius: 15px;
     color: white;
     background-color: #c96c58;
-    width: fit-content;
+    /*width: fit-content;*/
 
 }
 
