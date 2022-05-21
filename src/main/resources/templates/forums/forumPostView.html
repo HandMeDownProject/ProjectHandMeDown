@@ -135,9 +135,9 @@
                 <div class="media-block">
                     <!--                    This will be the area of the topic title-->
                 </div>
-                <!-- Newsfeed Content -->
+                <!-- Thread Content -->
                 <!--===================================================-->
-                <div class="media-block" style="position: relative;right: 50px;">
+                <div class="media-block" style="position: relative; right: 14px;">
                     <a class="media-left" href="#">
                         <span th:if="${posts.user.getUserIMG() != null}">
                             <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;" th:src="${posts.user.getUserIMG()}">
@@ -167,12 +167,11 @@
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-trans btn-icon add-tooltip"
+                                <a class="btn btn-sm btn-default btn-hover-primary"
                                    th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
-                                <br>
-                                <a class="btn btn-trans btn-icon add-tooltip"
+                                <a class="btn btn-sm btn-default btn-hover-primary"
                                    th:href="@{/admin/edit/{id}/post(id=${posts.id})}">
                                     Admin Edit Post
                                 </a>
@@ -185,12 +184,12 @@
                     <!-- Reply feed Content -->
                     <!--===================================================-->
                     <div class="media-block">
-                        <div class="media-body">
+                        <div class="media-body" style="position: relative; left: 20px;">
 
                             <!-- Comments -->
                             <div>
                                 <div class="media-block" th:each="reply : ${replies}">
-                                    <div style="position: relative; right: 25px;">
+                                    <div style="position: relative; right: 20px;">
                                         <i class="fab fa-replyd"></i>
                                     </div>&nbsp;
                                     <!--                                user avatar image-->
@@ -223,7 +222,7 @@
                                                 Report Comment
                                             </a>
                                             <span sec:authorize="hasAuthority('ADMIN')">
-                                                <a th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
+                                                <a class="btn btn-trans btn-icon add-tooltip" th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
                                             </span>
                                         </div>
                                         <hr>
@@ -236,7 +235,7 @@
                 </div>
             </div>
             <div class="panel">
-                <div id="comment_form" class="panel-body">
+                <div id="comment_form" class="panel-body" style="position: relative;right: 15px;">
                     <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
                         <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message" th:field="*{body}" required></textarea>
                         <button class="btn-primary pull-right" type="submit">Post Reply</button>
