@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -156,12 +157,13 @@ public class UserController {
     }
 
     @PostMapping("/messaging/{listingId}/{userId}")
-    public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId) throws IOException {
+    public String sendMessage(@ModelAttribute Message message, @PathVariable long listingId, @PathVariable long userId, HttpServletRequest request) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser);
         User receiver = userDao.getById(userId);
         message.setReceiver(receiver.getEmail());
-        sendGridEmailService.sendTextEmail(message, listingId);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        sendGridEmailService.sendTextEmail(message, listingId, url);
         String redirect = "redirect:/listing/" + listingId;
         return redirect;
     }
@@ -201,24 +203,25 @@ public class UserController {
     }
 
     @PostMapping("/report/{type}/{id}")
-    public String sendReport(@ModelAttribute Message message, @PathVariable String type, @PathVariable long id) throws IOException {
+    public String sendReport(@ModelAttribute Message message, @PathVariable String type, @PathVariable long id, HttpServletRequest request) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         if(type.equals("listing")){
             Listing listing = listingDao.getById(id);
-            sendGridEmailService.sendReportEmail(message, listing);
+            sendGridEmailService.sendReportEmail(message, listing, url);
         }else if(type.equals("forum_post")){
             ForumPost forumPost = forumPostDao.getById(id);
-            sendGridEmailService.sendReportEmail(message, forumPost);
+            sendGridEmailService.sendReportEmail(message, forumPost, url);
         }else if(type.equals("forum_reply")){
             ForumReply forumReply = forumReplyDao.getById(id);
-            sendGridEmailService.sendReportEmail(message, forumReply);
+            sendGridEmailService.sendReportEmail(message, forumReply, url);
         }else if(type.equals("activity")){
             Activity activity = activityDao.getById(id);
-            sendGridEmailService.sendReportEmail(message, activity);
+            sendGridEmailService.sendReportEmail(message, activity, url);
         }else {
             User user = userDao.getUserById(id);
-            sendGridEmailService.sendReportEmail(message, user);
+            sendGridEmailService.sendReportEmail(message, user, url);
         }
         message.setSender(loggedInUser);
         message.setReceiver("admin@mail.com");
@@ -236,9 +239,10 @@ public class UserController {
     public String forgotPassword(@RequestParam(name = "email") String email, HttpServletRequest request, Model model, RedirectAttributes redirectAttr) throws IOException {
         try{
             User user = userDao.getUserByEmail(email);
+            String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
             String token = RandomString.make(30);
             userService.createPasswordResetTokenForUser(user, token);
-            sendGridEmailService.sendTextEmail(user, token);
+            sendGridEmailService.sendTextEmail(user, token, url);
             redirectAttr.addFlashAttribute("alert", true);
             redirectAttr.addFlashAttribute("message", "Email was sent to your inbox.");
             return "redirect:/";
@@ -299,7 +303,8 @@ public class UserController {
     public String forgotUsername(@RequestParam(name = "email") String email, HttpServletRequest request, Model model, RedirectAttributes redirectAttr) throws IOException {
         try{
             User user = userDao.getUserByEmail(email);
-            sendGridEmailService.sendTextEmail(user);
+            String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+            sendGridEmailService.sendTextEmail(user, url);
             redirectAttr.addFlashAttribute("message", "Email was sent to your inbox.");
             redirectAttr.addFlashAttribute("alert", true);
             return "redirect:/";
@@ -340,12 +345,13 @@ public class UserController {
     }
 
     @PostMapping ("/admin/users/message/{id}")
-    public String adminSendMessage(@ModelAttribute Message message, @PathVariable long id) throws IOException {
+    public String adminSendMessage(@ModelAttribute Message message, @PathVariable long id, HttpServletRequest request) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser);
         User receiver = userDao.getById(id);
         message.setReceiver(receiver.getEmail());
-        sendGridEmailService.sendAdminEmail(message);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        sendGridEmailService.sendAdminEmail(message, url);
         return "redirect:/admin/users";
     }
 
@@ -361,12 +367,13 @@ public class UserController {
     }
 
     @PostMapping ("/user/admin/message/{id}")
-    public String userSendAdminMessage(@ModelAttribute Message message, @PathVariable long id) throws IOException {
+    public String userSendAdminMessage(@ModelAttribute Message message, @PathVariable long id, HttpServletRequest request) throws IOException {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         message.setSender(loggedInUser);
         User receiver = userDao.getById(id);
         message.setReceiver(receiver.getEmail());
-        sendGridEmailService.userSendAdminEmail(message, receiver);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        sendGridEmailService.userSendAdminEmail(message, receiver, url);
         return "redirect:/";
     }
 
@@ -385,6 +392,8 @@ public class UserController {
         user.increaseStrikes();
         if(user.getStrikes() == 3){
              userDao.delete(user);
+            AdminDeletedEmail deletedEmail = new AdminDeletedEmail(user.getEmail());
+            adminDeletedEmailDao.save(deletedEmail);
         }else {
             userDao.save(user);
         }
@@ -402,7 +411,7 @@ public class UserController {
 
     @GetMapping("/admin/email_list")
     public String showEmailList(Model model){
-        List<AdminDeletedEmail> emailList =adminDeletedEmailDao.findAll();
+        List<AdminDeletedEmail> emailList = adminDeletedEmailDao.findAll();
         model.addAttribute("emailList", emailList);
         return "users/admin-deleted-email-list";
     }
