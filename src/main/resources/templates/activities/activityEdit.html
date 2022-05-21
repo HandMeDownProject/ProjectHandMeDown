@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="stylesheet" type="text/css" href="/activity.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
@@ -92,7 +93,7 @@
 
 <div class="create_activity">
     <p class="text-danger">* required</p>
-    <form role="form" th:action="@{/activities/create}" th:object="${activity}" method="post">
+    <form role="form" th:action="@{/activities/edit}" th:object="${activity}" method="post">
         <div class="form-group mb-3">
             <label class="required" for="title">title:
             </label>
@@ -107,7 +108,8 @@
         </div>
         <div class="form-group mb-3">
             <button class="btn activity_img" type="button" onclick="upload()">Add an image</button>
-            <input th:field="*{imageUrl}" id="imageUrl" type="text" hidden>
+            <input th:field="*{imageUrl}" id="ListingImage" type="text" hidden>
+            <div id="profile-box" class="d-none"> <img id="profile-preview" src="" height="75px"> </div>
         </div>
         <div class="form-group mb-3">
             <label for="webUrl">Activity info URL here
@@ -167,6 +169,7 @@
             }
         };
         client.picker(options).open();
+        document.getElementById("profile-box").classList.toggle("d-none");
     }
 
     /*]]>*/
