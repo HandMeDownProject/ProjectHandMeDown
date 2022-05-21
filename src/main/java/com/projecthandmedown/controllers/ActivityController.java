@@ -41,7 +41,6 @@ public class ActivityController {
     public String activitiesView(Model model) {
         List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("categories", activityCatDao.findAll());
-        model.addAttribute("noCategory", true);
         model.addAttribute("activities", activities);
         return "activities/activitiesView";
     }
