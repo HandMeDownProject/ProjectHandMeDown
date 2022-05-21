@@ -167,12 +167,11 @@
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-trans btn-icon add-tooltip"
+                                <a class="btn btn-sm btn-default btn-hover-primary"
                                    th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
-                                <br>
-                                <a class="btn btn-trans btn-icon add-tooltip"
+                                <a class="btn btn-sm btn-default btn-hover-primary"
                                    th:href="@{/admin/edit/{id}/post(id=${posts.id})}">
                                     Admin Edit Post
                                 </a>
@@ -223,7 +222,7 @@
                                                 Report Comment
                                             </a>
                                             <span sec:authorize="hasAuthority('ADMIN')">
-                                                <a th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
+                                                <a class="btn btn-trans btn-icon add-tooltip" th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
                                             </span>
                                         </div>
                                         <hr>
