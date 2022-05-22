@@ -29,10 +29,10 @@ a{
     -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
     box-shadow: 6px 7px 15px 2px #FFBCAD;
     background-color: #f8f4f3;
-
+    color: #c96c58;
 }
 .search-window:focus{
-    color: white;
+    color: #c96c58;
     background-color: #FDF0EC;
     box-shadow: none;
     outline-color: #FF9B85;
@@ -166,6 +166,6 @@ a:hover{
     font-size: .65rem;
 }
 /*---------------fix hove in header-------------*/
-h4:hover{
+.post-title:hover{
     color: #EE522F;
 }
