@@ -27,7 +27,9 @@ a{
     height: 37px;
     border: 1px solid #FF9B85;
     -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
-    box-shadow: 6px 7px 15px 2px #FFBCAD;;
+    box-shadow: 6px 7px 15px 2px #FFBCAD;
+    background-color: #f8f4f3;
+
 }
 .search-window:focus{
     color: white;
@@ -42,7 +44,9 @@ outline-width: 1px;
     color: #c96c58;
     border: 1px solid #FF9B85;
     -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
-    box-shadow: 6px 7px 15px 2px #FFBCAD;;
+    box-shadow: 6px 7px 15px 2px #FFBCAD;
+    background-color: #f8f4f3;
+
 
 }
 .reset-btn, .createPost-btn{
@@ -52,6 +56,8 @@ outline-width: 1px;
     border: 1px solid #FF9B85;
     -webkit-box-shadow: 6px 7px 15px 2px #FFBCAD;;
     box-shadow: 6px 7px 15px 2px #FFBCAD;
+    background-color: #f8f4f3;
+
 }
 .search-btn:hover{
     color: white;
