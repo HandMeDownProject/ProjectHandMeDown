@@ -112,29 +112,36 @@
 
 <div class="spacer"></div>
 <div class="container">
+    <div class="d-flex flex-column align-items-center">
     <div th:if="${objectType == 'post'}">
-        <h1>Sending report to an Admin about the <span th:text="${postType}"></span>: <span th:text="${object.getTitle()}"></span>.
+        <h3>Sending report to an Admin about the <span th:text="${postType}"></span>: <span th:text="${object.getTitle()}"></span>.
             <br>
             From User: <span th:text="${object.getUser().getUsername()}"></span>.
-        </h1>
+        </h3>
+        <br>
     </div>
     <div th:if="${objectType == 'reply'}">
-        <h1>Sending report to an Admin about the reply from <span th:text="${object.getUser().getUsername()}"></span>.
+        <h3>Sending report to an Admin about the reply from <span th:text="${object.getUser().getUsername()}"></span>.
             <br>
             Which said: <span th:text="${object.getBody()}"></span>.
-        </h1>
+        </h3>
+        <br>
     </div>
     <div th:if="${objectType == 'user'}">
-        <h1>Sending report to an Admin about the user: <span th:text="${object.getUsername()}"></span>.</h1>
+        <h3>Sending report to an Admin about the user: <span th:text="${object.getUsername()}"></span>.</h3>
+        <br>
     </div>
-    <form th:action="@{/report/{type}/{id}(type = ${type}, id = ${id})}" th:object="${message}" method="post" >
-    <label for="title">title:
+    <form th:action="@{/report/{type}/{id}(type = ${type}, id = ${id})}" th:object="${message}" method="post" class="d-flex flex-column align-items-center" >
+    <label for="title">Subject:
         <input th:field="*{subject}" id="title" type="text">
     </label>
     <br>
     <textarea rows="12" cols="100" name="report" th:field="*{body}"></textarea>
-    <button type="submit">Send Report</button>
+        <br>
+        <br>
+        <input type="submit" class="btn btn-outline-primary" value="Send">
 </form>
+</div>
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->
