@@ -73,6 +73,8 @@ a {
     text-decoration: none;
 }
 
+
+
 html:not([data-scroll='50px']) .left-side {
     position: sticky;
     top: 175px;
