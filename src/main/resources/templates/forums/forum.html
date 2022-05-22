@@ -160,21 +160,24 @@
                             </span>
                             <br>
                             <span class="post-body" th:text="${post.body}"></span>
-                            <div class="topic_cats">
-                                <ul class="topic_cats_list " role="list">
-                                    <li class="post-cat-label">Categories:&nbsp;</li>
-                                    <li class="post-cats " th:each="cat : ${post.getForumPostCategories()}">
+                            <div class="d-flex">
+                                <div class=" " role="list">
 
-                                        <a class="post-cat " th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+                                        <div class="post-cats row" >
+                                            <div class="post-cat-label ">Categories:&nbsp;
+                                            <a class="post-cat col-sm-2 mx-1" th:each="cat : ${post.getForumPostCategories()}"
+                                               th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
 
-                                            <span class="topic_cat_name " th:text="${cat.getName()}"></span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                                <span class="topic_cat_name " th:text="${cat.getName()}"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="date-time-forum-display">
                                 <p>Asked by:
-                                    <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}" th:text="${post.user.getUsername()}" class="timeStamp-name">
+                                    <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}"
+                                       th:text="${post.user.getUsername()}" class="timeStamp-name">
                                     </a>,&nbsp;
                                     <time th:text="${post.timestamp}"></time>
                                 </p>

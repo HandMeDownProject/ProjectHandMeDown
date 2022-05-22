@@ -92,32 +92,40 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-
+<!----------------Heder----------------- -->
+<div class="p-5 text-center bg-image"
+     style=" background-image: url('https://images.pexels.com/photos/1337382/pexels-photo-1337382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 150px; ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <div class="row justify-content-center">
+                    <h1 class="forum-main-title col-lg-10 text-center mx-4">Viewing Forum Post</h1>
+                    <h4 class="forum-mission col-lg-10">View posts and reply to posts</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------- content ------------------- -->
 <div class="container">
-    <div class="topic_wrapper">
+    <!--    breadcrumb-->
+    <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" style="background-color: #fff">
+            <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${posts.title}"></li>
+        </ol>
+    </nav>
+    <!--            breadcrumb end-->
+    <div class="row">
         <div class="topic_box">
             <!--    breadcrumb-->
-            <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0" style="background-color: #fff">
-                    <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" th:text="${posts.title}"></li>
-                </ol>
-            </nav>
+
             <!--            breadcrumb end-->
             <div class="topic_signature_area">
                 <h1 class="single-title" th:text="${posts.title}"></h1>
                 <ul class="ipsTags ipsList_inline p-0">
-                    <li class="topic_cats_list" style="background: lightgrey;
-            color: rgb(255,255,255) !important;
-            font-size: 11px;
-            vertical-align: middle;
-            line-height: 20px;
-            padding: 0 12px;
-            margin: 0 2px 0 2px;
-            display: inline-block;
-            border-radius: 50px;
-            letter-spacing: 0;
-            font-weight: normal;" th:each="cat : ${categories}">
+                    <li class="topic_cats_list" style="" th:each="cat : ${categories}">
                         <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
                             <span th:text="${cat.name}"><!--category tags--></span>
                         </a>
@@ -127,15 +135,13 @@
         </div>
         <hr>
     </div>
-    <div class="col-md-12 thread">
+    <div class="roe thread">
         <div class="panel">
             <div class="panel-body one">
-                <div class="media-block">
-                    <!--                    This will be the area of the topic title-->
-                </div>
+
                 <!-- Thread Content -->
                 <!--===================================================-->
-                <div class="media-block" style="position: relative; right: 14px;">
+                <div class="media-block" s>
                     <a class="media-left" href="#">
                         <span th:if="${posts.user.getUserIMG() != null}">
                             <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;"
@@ -158,16 +164,16 @@
                         </p>
                         <div class="pad-ver">
                             <!--link for comment creation page-->
-                            <a class="btn btn-sm btn-default btn-hover-primary" href="#comment_form">
+                            <a class="btn add-comment-btn" href="#comment_form">
                                 Add comment
                             </a>
-                            <a class="btn btn-sm btn-default btn-hover-primary"
+                            <a class="btn edit-post-btn"
                                th:if="${posts.user.getId() == user.getId()}"
                                th:href="@{/edit/{id}/post(id=${posts.id})}">
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-sm btn-default btn-hover-primary"
+                                <a class="btn Admin-delete-btn"
                                    th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>

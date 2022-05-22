@@ -135,37 +135,31 @@ ol[role='list'] {
 .replies_count_section > * {
     text-align: center;
 }
-
+.topic_cats_list{
+    ;
+}
 .topic_cat_name {
     /*position: relative;*/
     /*bottom: 0.5em;*/
-    margin-right: 0.5em;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
 }
-.topic-label{
-    text-align: center;
 
-}
 .topic_cats{
     margin-top: 15px;
     margin-bottom: 8px;
 }
-.topic_cats_list {
-    display: flex;
-}
+
 .post-title{
     font-size: 1.5rem;
 }
 .post-cats{
     font-size: .75rem;
-    text-align: center;
 }
 a:hover{
     color: #EE522F;
 }
 .post-cat-label{
     font-size: .75rem;
-    text-align: center;
 }
 
 .date-time-forum-display{
