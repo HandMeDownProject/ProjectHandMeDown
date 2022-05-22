@@ -6,15 +6,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Biryani&family=Peralta&family=Ubuntu+Condensed&display=swap"
+          rel="stylesheet">
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/single-forum.css">
+
     <link rel="icon" type="image/png" href="/favicon.png">
 
 </head>
@@ -88,38 +92,40 @@
     </div>
     <!-- Container wrapper -->
 </nav>
-
+<!----------------Heder----------------- -->
+<div class="p-5 text-center bg-image"
+     style=" background-image: url('https://images.pexels.com/photos/1337382/pexels-photo-1337382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      height: 150px; ">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+                <div class="row justify-content-center">
+                    <h1 class="forum-main-title col-lg-10 text-center mx-4">Viewing Forum Post</h1>
+                    <h4 class="forum-mission col-lg-10">View posts and reply to posts</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----------------- content ------------------- -->
 <div class="container">
-    <div class="topic_wrapper">
+    <!--    breadcrumb-->
+    <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" style="background-color: #fff">
+            <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${posts.title}"></li>
+        </ol>
+    </nav>
+    <!--            breadcrumb end-->
+    <div class="row">
         <div class="topic_box">
             <!--    breadcrumb-->
-            <nav style="margin-top: 0.5em;" aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0" style="background-color: #fff">
-                    <li class="breadcrumb-item"><a th:href="@{'/forum'}">Forum</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" th:text="${posts.title}"></li>
-                </ol>
-            </nav>
-<!--            breadcrumb end-->
+
+            <!--            breadcrumb end-->
             <div class="topic_signature_area">
-                <h1>
-					<span class="ipsType_break ipsContained">
-						<span style="word-wrap: break-word; word-break: break-word; font-weight: 600; font-size: 28px; line-height: 1.2; letter-spacing: -.02em; color: #313131;" th:text="${posts.title}">
-                            <!--title of topic-->
-                        </span>
-					</span>
-                </h1>
+                <h1 class="single-title" th:text="${posts.title}"></h1>
                 <ul class="ipsTags ipsList_inline p-0">
-                    <li class="topic_cats_list" style="background: lightgrey;
-            color: rgb(255,255,255) !important;
-            font-size: 11px;
-            vertical-align: middle;
-            line-height: 20px;
-            padding: 0 12px;
-            margin: 0 2px 0 2px;
-            display: inline-block;
-            border-radius: 50px;
-            letter-spacing: 0;
-            font-weight: normal;" th:each="cat : ${categories}">
+                    <li class="topic_cats_list" style="" th:each="cat : ${categories}">
                         <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
                             <span th:text="${cat.name}"><!--category tags--></span>
                         </a>
@@ -129,23 +135,23 @@
         </div>
         <hr>
     </div>
-    <div class="col-md-12 thread">
+    <div class="roe thread">
         <div class="panel">
             <div class="panel-body one">
-                <div class="media-block">
-                    <!--                    This will be the area of the topic title-->
-                </div>
+
                 <!-- Thread Content -->
                 <!--===================================================-->
-                <div class="media-block" style="position: relative; right: 14px;">
+                <div class="media-block" s>
                     <a class="media-left" href="#">
                         <span th:if="${posts.user.getUserIMG() != null}">
-                            <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;" th:src="${posts.user.getUserIMG()}">
+                            <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;"
+                                 th:src="${posts.user.getUserIMG()}">
                         </span>
                     </a>
                     <div class="media-body">
                         <div id="topic_creator_signature" class="mar-btm">
-                            <a id="topic_author" th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}" class="btn-link text-semibold media-heading box-inline"
+                            <a id="topic_author" th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}"
+                               class="btn-link text-semibold media-heading box-inline"
                                th:text="${posts.getUser().getUsername()}">
                                 <!--username of post author-->
                             </a>,&nbsp;
@@ -158,16 +164,16 @@
                         </p>
                         <div class="pad-ver">
                             <!--link for comment creation page-->
-                            <a class="btn btn-sm btn-default btn-hover-primary" href="#comment_form">
+                            <a class="btn add-comment-btn" href="#comment_form">
                                 Add comment
                             </a>
-                            <a class="btn btn-sm btn-default btn-hover-primary"
+                            <a class="btn edit-post-btn"
                                th:if="${posts.user.getId() == user.getId()}"
                                th:href="@{/edit/{id}/post(id=${posts.id})}">
                                 Edit Post
                             </a>
                             <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn btn-sm btn-default btn-hover-primary"
+                                <a class="btn Admin-delete-btn"
                                    th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
@@ -195,13 +201,15 @@
                                     <!--                                user avatar image-->
                                     <a class="media-left" href="#">
                                         <span th:if="${reply.user.getUserIMG() != null}">
-                                          <img class="avatar img-fluid" style="height: 150px;" th:src="@{${reply.user.getUserIMG()}}">
+                                          <img class="avatar img-fluid" style="height: 150px;"
+                                               th:src="@{${reply.user.getUserIMG()}}">
                                         </span>
                                     </a>
                                     <!--                                reply of user-->
                                     <div class="media-body">
                                         <div class="mar-btm" style="display: flex;">
-                                            <a th:href="@{/posts/user/{user_id}(user_id=${reply.user.getId()})}" class="btn-link text-semibold media-heading box-inline"
+                                            <a th:href="@{/posts/user/{user_id}(user_id=${reply.user.getId()})}"
+                                               class="btn-link text-semibold media-heading box-inline"
                                                th:text="${reply.user.getUsername()}">
                                                 <!--reply username-->
                                             </a>,&nbsp;
@@ -222,7 +230,8 @@
                                                 Report Comment
                                             </a>
                                             <span sec:authorize="hasAuthority('ADMIN')">
-                                                <a class="btn btn-trans btn-icon add-tooltip" th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
+                                                <a class="btn btn-trans btn-icon add-tooltip"
+                                                   th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
                                             </span>
                                         </div>
                                         <hr>
@@ -236,13 +245,15 @@
             </div>
             <div class="panel">
                 <div id="comment_form" class="panel-body" style="position: relative;right: 15px;">
-                    <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">
-                        <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message" th:field="*{body}" required></textarea>
+                    <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}"
+                          method="post" th:object="${reply}">
+                        <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message"
+                                  th:field="*{body}" required></textarea>
                         <button class="btn-primary pull-right" type="submit">Post Reply</button>
                     </form>
                     <div class="mar-top clearfix">
                         <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
-                        forum</a>
+                            forum</a>
                         <a class="btn btn-trans text-danger add-tooltip"
                            th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
                     </div>
@@ -252,52 +263,10 @@
     </div> <!-- thread end -->
 </div> <!-- container end -->
 
-<!--ORIGINAL VIEW-->
-<!--    topic-->
-<!--    <div>-->
-<!--        <h3 th:text="${posts.getTitle()}"></h3>-->
-<!--        <p th:text="${posts.getBody()}"></p>-->
-<!--        <h5><span th:text="${posts.getUser().getUsername()}">username</span></h5>-->
-<!--        <span th:if="${posts.user.getId() == user.getId()}"><a th:href="@{/edit/{id}/post(id=${posts.id})}"><sup>edit</sup></a></span>&nbsp;-->
-<!--        <div sec:authorize="hasAuthority('ADMIN')">-->
-<!--            <a th:href="@{/post/{id}/delete(id=${posts.id})}">Admin Delete Post</a>-->
-<!--            <br>-->
-<!--            <a th:href="@{/edit/{id}/post(id=${posts.id})}">Admin Edit Post</a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <p>Tags: &nbsp;</p>-->
-<!--    <ul th:each="category : ${categories}">-->
-<!--        <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${category.getId()})}">-->
-<!--            <li th:text="${category.getName()}"></li>-->
-<!--        </a>-->
-<!--    </ul>-->
 
-<!--&lt;!&ndash;    replies&ndash;&gt;-->
-<!--    <div  th:each="reply : ${replies}">-->
-<!--        <p th:text="${reply.body}"></p>-->
-<!--        <p th:text="${reply.timestamp}"></p>-->
-<!--        <h4 th:text="${reply.forumPost.getId()}" ></h4>-->
-<!--        <p th:text="${reply.user.getUsername()}"></p>-->
-<!--        <span sec:authorize="hasAuthority('ADMIN')">-->
-<!--            <a th:href="@{/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>-->
-<!--        </span>-->
-<!--        <button><a th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">Report Reply</a></button>-->
-<!--        <span th:if="${reply.user.getId() == user.getId()}"><a th:href="@{/edit/reply/{id}(id=${reply.getId()})}"><sup>edit</sup></a></span>&nbsp;-->
-<!--    </div>-->
-<!--    <br>-->
-
-<!--    reply form-->
-<!--    <form th:action="@{/create/reply/{id}(id=${posts.getId()})}" method="post" th:object="${reply}">-->
-<!--        <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea><br>-->
-<!--        <button type="submit">Submit Reply</button>-->
-<!--    </form>-->
-<!--    <button><a th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a></button>-->
-<!--    <button><a th:href="@{'/forum'}">Go back to forum</a></button>-->
-<!--</div>-->
-
-<footer class="text-center text-white">
+<footer class="text-center text-white  ">
     <!-- Grid container -->
-    <div class="container p-4"></div>
+    <div class="container p-4 "></div>
     <!-- Grid container -->
 
     <!-- Copyright -->
@@ -307,8 +276,8 @@
     <!-- Copyright -->
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-                 crossorigin="anonymous"></script>
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/f98b77bf40.js" crossorigin="anonymous"></script> <!--icons-->
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>

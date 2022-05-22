@@ -176,6 +176,8 @@ public class ListingController {
             Listing listing = listings.get(i);
             String title = listing.getTitle();
             String body = listing.getBody();
+
+
             if (title.toLowerCase().contains(keyword.toLowerCase())) {
                 filteredListings.add(listing);
             }
@@ -183,13 +185,13 @@ public class ListingController {
                 filteredListings.add(listing);
             }
 
-            for (int k = 0; k < filteredListings.size(); k++) {
-                for (int j = 1; j < filteredListings.size(); j++) {
-                    if (filteredListings.get(k) == filteredListings.get(j)) {
-                        filteredListings.remove(j);
-                    }
-                }
-            }
+//            for (int k = 0; k < filteredListings.size(); k++) {
+//                for (int j = 1; j < filteredListings.size(); j++) {
+//                    if (filteredListings.get(k) == filteredListings.get(j)) {
+//                        filteredListings.remove(j);
+//                    }
+//                }
+//            }
         }
         model.addAttribute("listings", filteredListings);
         model.addAttribute("cats", cats);
