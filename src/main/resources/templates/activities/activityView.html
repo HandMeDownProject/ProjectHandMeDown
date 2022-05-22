@@ -134,42 +134,42 @@
 
 
 <div class="container">
-<div class="card mb-3" >
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}"  class="card-img-top" >
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-             <h3>ACTIVITY NAME : <span class="card-title" th:text="${activity.title}"></span></h3>
-
-                <p th:text="${activity.body}" class="card-text"></p>
+    <div class="card mb-3" >
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img th:if="${activity.imageUrl != null}" th:src="@{${activity.imageUrl}}"  class="card-img-top" >
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank" class="card-link"></a></li>
-                <li class="list-group-item">Categories:&nbsp<span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp&nbsp</span></li>
-                <li class="list-group-item">Who posted it?: &nbsp<a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></li>
-            </ul>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3>ACTIVITY NAME : <span class="card-title" th:text="${activity.title}"></span></h3>
+
+                    <p th:text="${activity.body}" class="card-text"></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a th:href="@{${activity.webUrl}}" th:text="${activity.getWebUrl()}" target="_blank" class="card-link"></a></li>
+                    <li class="list-group-item">Categories:&nbsp<span th:each="category : ${activity.getActivityCategories()}"><a th:href="@{/activities/categories/{id} (id= ${category.getId()})}" th:text="${category.getName() }"></a>&nbsp&nbsp&nbsp</span></li>
+                    <li class="list-group-item">Who posted it?: &nbsp<a th:href="@{'/activities/user/{user_id}'(user_id=${activity.getUser().getId()})}" th:text="${activity.getUser().getUsername()}"></a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
 
 
-<!---->
+    <!---->
 
 
-<div th:if="${activity.getUser().getId() == user.getId()}">
-    <button class="btn btn-outline-primary mb-3"><a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a></button>
-    <button class="btn btn-outline-primary mb-3"><a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a></button>
-</div>
+    <div th:if="${activity.getUser().getId() == user.getId()}">
+        <button class="btn btn-outline-primary mb-3"><a th:href="@{'/activities/{id}/delete'(id=${activity.id})}">Delete this post</a></button>
+        <button class="btn btn-outline-primary mb-3"><a th:href="@{'/activities/{id}/edit'(id=${activity.id})}">go to edit this post</a></button>
+    </div>
     <button class="btn btn-outline-primary mb-3"><a th:href="@{'/activities'}">Go back to activities</a></button>
     <button class="btn btn-outline-primary mb-3"><a th:href="@{/report/{type}/{id}(type = 'activity', id = ${activity.getId()})}">Report Post</a></button>
-<div sec:authorize="hasAuthority('ADMIN')">
-    <button class="btn btn-outline-primary mb-3"><a th:href="@{/admin/activities/{id}/delete(id=${activity.getId()})}">Admin Delete Post</a></button>
-    <br>
-    <button class="btn btn-outline-primary mb-3"><a th:href="@{/admin/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
-</div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <button class="btn btn-outline-primary mb-3"><a th:href="@{/admin/activities/{id}/delete(id=${activity.getId()})}">Admin Delete Post</a></button>
+        <br>
+        <button class="btn btn-outline-primary mb-3"><a th:href="@{/admin/activities/{id}/edit(id=${activity.getId()})}">Admin Edit Post</a></button>
+    </div>
 
 </div>
 
