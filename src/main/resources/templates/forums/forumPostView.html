@@ -94,7 +94,7 @@
 </nav>
 <!----------------Heder----------------- -->
 <div class="p-5 text-center bg-image"
-     style=" background-image: url('https://images.pexels.com/photos/1337382/pexels-photo-1337382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+     style="background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
       height: 150px; ">
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="d-flex justify-content-center align-items-center h-100">
@@ -107,6 +107,7 @@
         </div>
     </div>
 </div>
+<div class="spacer"></div>
 <!----------------- content ------------------- -->
 <div class="container">
     <!--    breadcrumb-->
@@ -116,152 +117,142 @@
             <li class="breadcrumb-item active" aria-current="page" th:text="${posts.title}"></li>
         </ol>
     </nav>
+    <br>
     <!--            breadcrumb end-->
-    <div class="row">
-        <div class="topic_box">
-            <!--    breadcrumb-->
 
-            <!--            breadcrumb end-->
-            <div class="topic_signature_area">
-                <h1 class="single-title" th:text="${posts.title}"></h1>
-                <ul class="ipsTags ipsList_inline p-0">
-                    <li class="topic_cats_list" style="" th:each="cat : ${categories}">
-                        <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
-                            <span th:text="${cat.name}"><!--category tags--></span>
-                        </a>
-                    </li>
-                </ul>
+    <!-- -------------- NEW --------------- -->
+    <div class=" row topic_main_body">
+        <div class="d-flex flex-column align-items-center col-md-3">
+
+            <div th:if="${posts.user.getUserIMG() != null}">
+                <img class=" single-img img-fluid" alt="Profile Picture"
+                     th:src="${posts.user.getUserIMG()}">
             </div>
-        </div>
-        <hr>
-    </div>
-    <div class="roe thread">
-        <div class="panel">
-            <div class="panel-body one">
 
-                <!-- Thread Content -->
-                <!--===================================================-->
-                <div class="media-block" s>
-                    <a class="media-left" href="#">
-                        <span th:if="${posts.user.getUserIMG() != null}">
-                            <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;"
-                                 th:src="${posts.user.getUserIMG()}">
-                        </span>
-                    </a>
-                    <div class="media-body">
-                        <div id="topic_creator_signature" class="mar-btm">
-                            <a id="topic_author" th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}"
-                               class="btn-link text-semibold media-heading box-inline"
-                               th:text="${posts.getUser().getUsername()}">
-                                <!--username of post author-->
-                            </a>,&nbsp;
-                            <time class="text-muted text-sm" th:text="${posts.timestamp}">
-                                <!--timestamp here-->
-                            </time>
+            <a th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}"
+               class="username-time   "
+               th:text="${posts.getUser().getUsername()}">
+                ,&nbsp
+                <!--username of post author-->
+            </a>
+            <time class="text-muted time-stamp" th:text="${posts.timestamp}">
+                <!--timestamp here-->
+            </time>
+
+        </div>
+
+
+        <!--               figure out pagination-->
+        <div class=" justify-content-between d-flex flex-column col-md-9 " th:each="post : ${posts}">
+
+            <span>
+                <a th:href="@{/forum_post/{id}(id=${post.id})}">
+                    <h1 class="single-title mt-3" th:text="${posts.title}"></h1>
+                </a>
+            </span>
+
+            <div class="post-body" th:text="${post.body}"></div>
+            <div class="d-flex">
+                <div class=" " role="list">
+
+                    <div class="post-cats row">
+                        <div class="post-cat-label ">Categories:&nbsp;
+                            <a class="post-cat col-sm-2 mx-1"
+                               th:each="cat : ${post.getForumPostCategories()}"
+                               th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+
+                                <span class="topic_cat_name " th:text="${cat.getName()}"></span>
+                            </a>
                         </div>
-                        <p th:text="${posts.body}">
-                            <!--body of topic post-->
-                        </p>
-                        <div class="pad-ver">
-                            <!--link for comment creation page-->
-                            <a class="btn add-comment-btn" href="#comment_form">
-                                Add comment
-                            </a>
-                            <a class="btn edit-post-btn"
-                               th:if="${posts.user.getId() == user.getId()}"
-                               th:href="@{/edit/{id}/post(id=${posts.id})}">
-                                Edit Post
-                            </a>
-                            <span sec:authorize="hasAuthority('ADMIN')">
-                                <a class="btn Admin-delete-btn"
+                    </div>
+                </div>
+            </div>
+            <div class="post-main-btns mb-3">
+                <!--link for comment creation page-->
+                <a class="btn add-comment-btn" href="#reply-textarea-container">
+                    Add comment
+                </a>
+                <a class="btn edit-post-btn"
+                   th:if="${posts.user.getId() == user.getId()}"
+                   th:href="@{/edit/{id}/post(id=${posts.id})}">
+                    Edit Post
+                </a>
+                <span sec:authorize="hasAuthority('ADMIN')">
+                                <a class="btn Admin-delete-btn mt-1 mb-md-0"
                                    th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
                                     Admin Delete Post
                                 </a>
-                                <a class="btn btn-sm btn-default btn-hover-primary"
+                                <a class="btn Admin-edit-btn mt-1 mb-md-0"
                                    th:href="@{/admin/edit/{id}/post(id=${posts.id})}">
                                     Admin Edit Post
                                 </a>
                             </span>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-                <div class="panel-body two">
-                    <!-- Reply feed Content -->
-                    <!--===================================================-->
-                    <div class="media-block">
-                        <div class="media-body" style="position: relative; left: 20px;">
-
-                            <!-- Comments -->
-                            <div>
-                                <div class="media-block" th:each="reply : ${replies}">
-                                    <div style="position: relative; right: 20px;">
-                                        <i class="fab fa-replyd"></i>
-                                    </div>&nbsp;
-                                    <!--                                user avatar image-->
-                                    <a class="media-left" href="#">
-                                        <span th:if="${reply.user.getUserIMG() != null}">
-                                          <img class="avatar img-fluid" style="height: 150px;"
-                                               th:src="@{${reply.user.getUserIMG()}}">
-                                        </span>
-                                    </a>
-                                    <!--                                reply of user-->
-                                    <div class="media-body">
-                                        <div class="mar-btm" style="display: flex;">
-                                            <a th:href="@{/posts/user/{user_id}(user_id=${reply.user.getId()})}"
-                                               class="btn-link text-semibold media-heading box-inline"
-                                               th:text="${reply.user.getUsername()}">
-                                                <!--reply username-->
-                                            </a>,&nbsp;
-                                            <p class="text-muted text-sm" th:text="${reply.timestamp}">
-                                                <!--timestamp-->
-                                            </p>
-                                        </div>
-                                        <div><p th:text="${reply.body}"><!-- body of reply--></p></div>
-
-                                        <div class="pad-ver">
-                                            <a class="btn btn-trans btn-icon add-tooltip"
-                                               th:if="${reply.user.getId() == user.getId()}"
-                                               th:href="@{/edit/reply/{id}(id=${reply.getId()})}">
-                                                Edit Comment
-                                            </a>
-                                            <a class="btn btn-trans text-danger add-tooltip"
-                                               th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">
-                                                Report Comment
-                                            </a>
-                                            <span sec:authorize="hasAuthority('ADMIN')">
-                                                <a class="btn btn-trans btn-icon add-tooltip"
-                                                   th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete Comment</a>
-                                            </span>
-                                        </div>
-                                        <hr>
-                                    </div>
-                                </div>
-                            </div> <!--reply population end-->
-                        </div>
-                    </div>
-                    <!--=================== End Reply Feed Content ==============================-->
-                </div>
             </div>
-            <div class="panel">
-                <div id="comment_form" class="panel-body" style="position: relative;right: 15px;">
-                    <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}"
-                          method="post" th:object="${reply}">
-                        <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message"
-                                  th:field="*{body}" required></textarea>
-                        <button class="btn-primary pull-right" type="submit">Post Reply</button>
-                    </form>
-                    <div class="mar-top clearfix">
-                        <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
-                            forum</a>
-                        <a class="btn btn-trans text-danger add-tooltip"
-                           th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
-                    </div>
+        </div>
+    </div>
+
+    <!-- Comments -->
+
+    <div class=" mx-4">
+        <div class="media-block topic_main_body mt-5 row" th:each="reply : ${replies}">
+
+            <div class="left d-flex flex-column align-items-center col-md-2">
+                <!--                                user image-->
+                <div th:if="${reply.user.getUserIMG() != null}">
+                    <img class="avatar img-fluid" style="height: 100px;"
+                         th:src="@{${reply.user.getUserIMG()}}">
+                </div>
+                <!--                                reply of user-->
+
+                <a th:href="@{/posts/user/{user_id}(user_id=${reply.user.getId()})}"
+                   class="username-time text-semibold media-heading box-inline"
+                   th:text="${reply.user.getUsername()}">,&nbsp
+                    <!--reply username-->
+                </a>
+                <p class="text-muted time-stamp" th:text="${reply.timestamp}">
+                    <!--timestamp-->
+                </p>
+
+
+            </div>
+            <div class="right justify-content-between d-flex flex-column col-md-9 ">
+                <p class="reply-tag">Comment:</p>
+                <p class="" th:text="${reply.body}"><!-- body of reply--></p>
+                <div class="mb-3">
+                    <a class="btn replt-edit-btn mt-1"
+                       th:if="${reply.user.getId() == user.getId()}"
+                       th:href="@{/edit/reply/{id}(id=${reply.getId()})}">
+                        Edit Comment
+                    </a>
+                    <a class="btn reply-report-btn mt-1"
+                       th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">
+                        Report Comment
+                    </a>
+                    <span sec:authorize="hasAuthority('ADMIN')">
+                        <a class="btn reply-admin-delete-btn mt-1"
+                           th:href="@{/admin/reply/{id}/delete(id=${reply.id},action='show_all')}">Admin Delete</a>
+                    </span>
                 </div>
             </div>
         </div>
-    </div> <!-- thread end -->
-</div> <!-- container end -->
+    </div>
+    <div class="reply-textarea-container mx-5 mt-5">
+        <form th:action="@{/create/reply/{id}(id=${posts.getId()})}"
+              method="post" th:object="${reply}">
+            <textarea class="form-control reply-textarea-input  " id="reply-textarea-container" placeholder="    Type your reply here..." rows="4"
+                      name="message"
+                      th:field="*{body}" required></textarea>
+            <div class="mt-3">
+                <button class="btn post-reply-btn" type="submit">Post Reply</button>
+                <a class="btn forum-back-btn" th:href="@{'/forum'}">Go back to forum</a>
+                <a class="btn report-main-post-btn"
+                   th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
+            </div>
+        </form>
+
+
+    </div> <!-- container end -->
+</div> <!--reply population end-->
 
 
 <footer class="text-center text-white  ">

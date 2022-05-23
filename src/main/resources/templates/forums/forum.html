@@ -95,7 +95,7 @@
 
 
 <div class="p-5 text-center bg-image"
-     style=" background-image: url('https://images.pexels.com/photos/1337382/pexels-photo-1337382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+     style="background-image: url('https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
       height: 150px; ">
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="d-flex justify-content-center align-items-center h-100">
@@ -149,7 +149,7 @@
 
         <!--    forum topics-->
         <section class="forum-content col-md-9 mt-2 ">
-            <div class="post_body ">
+            <div class=" ">
                 <!--               figure out pagination-->
                 <ul class="topic_main_body mb-5 ms-md-5" th:each="post : ${posts}">
                     <div class="inner_main_bloc">
@@ -180,7 +180,7 @@
                                     <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}"
                                        th:text="${post.user.getUsername()}" class="timeStamp-name">
                                     </a>,&nbsp;
-                                    <time th:text="${post.timestamp}"></time>
+                                    <time class="time-stamp" th:text="${post.timestamp}"></time>
                                 </p>
                             </div>
 
