@@ -146,7 +146,7 @@
                 <div>
                     <h3>Browse by category:</h3>
                     <div class="d-flex flex-md-column flex-wrap">
-                        <a th:each="category : ${categories}" th:text="${category.getName()}"
+                        <a class="mx-3 mx-md-0" th:each="category : ${categories}" th:text="${category.getName()}"
                            th:href="@{/activities/categories/{id} (id= ${category.getId()})}"></a>
                     </div>
                 </div>

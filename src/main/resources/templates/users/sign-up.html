@@ -148,14 +148,14 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingLocation" placeholder="San Antonio..."
-                               th:field="*{userLocation}" required>
-                        <label for="floatingLocation">City Location<span class="required"></span></label>
+                        <input type="text" class="form-control" id="floatingLocation"
+                               th:field="*{userLocation}" th:value="'San Antonio'" hidden>
+<!--                        <label for="floatingLocation">City Location<span class="required"></span></label>-->
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" style="width: 100%" required>
-                            <option value="" disabled>Select state *</option>
+                        <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" style="width: 100%" hidden>
+                            <option value="Texas">Texas</option>
                             <option value="Alabama">Alabama</option>
                             <option value="Alaska">Alaska</option>
                             <option value="Arizona">Arizona</option>

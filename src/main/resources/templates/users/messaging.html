@@ -112,15 +112,20 @@
 
 <div class="spacer"></div>
 <div class="container">
-    <form th:action="@{${url}}" th:object="${message}" method="post">
-        <h1>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h1>
-        <label for="title">Title:
+
+    <form th:action="@{${url}}" th:object="${message}" method="post" class="d-flex flex-column align-items-center">
+        <h3>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h3>
+        <br>
+        <label for="title">Subject:
             <input th:field="*{subject}" id="title" type="text">
         </label>
         <br>
         <textarea rows="12" cols="100" name="message" th:field="*{body}"></textarea>
-        <button type="submit">Send Message</button>
+        <br>
+        <br>
+        <input type="submit" class="btn btn-outline-primary" value="Send">
     </form>
+
 </div>
 <footer class="text-center text-white sticky-bottom">
     <!-- Grid container -->

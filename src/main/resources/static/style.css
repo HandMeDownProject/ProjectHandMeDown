@@ -73,6 +73,8 @@ a {
     text-decoration: none;
 }
 
+
+
 html:not([data-scroll='50px']) .left-side {
     position: sticky;
     top: 175px;
@@ -127,4 +129,14 @@ footer h4{
 
 .user-link{
     color: cornflowerblue;
+}
+
+.flex-body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+.delete-profile{
+    color: black;
 }
