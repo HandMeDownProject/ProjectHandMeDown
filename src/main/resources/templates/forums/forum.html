@@ -149,7 +149,7 @@
 
         <!--    forum topics-->
         <section class="forum-content col-md-9 mt-2 ">
-            <div class="post_body ">
+            <div class=" ">
                 <!--               figure out pagination-->
                 <ul class="topic_main_body mb-5 ms-md-5" th:each="post : ${posts}">
                     <div class="inner_main_bloc">
@@ -180,7 +180,7 @@
                                     <a th:href="@{/posts/user/{user_id}(user_id=${post.user.getId()})}"
                                        th:text="${post.user.getUsername()}" class="timeStamp-name">
                                     </a>,&nbsp;
-                                    <time th:text="${post.timestamp}"></time>
+                                    <time class="time-stamp" th:text="${post.timestamp}"></time>
                                 </p>
                             </div>
 
