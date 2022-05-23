@@ -119,59 +119,78 @@
     <!--            breadcrumb end-->
 
     <!-- -------------- NEW --------------- -->
-    <div class=" row">
-        <div class="topic_box col-md-3">
-            <a class="" href="#">
-                        <span th:if="${posts.user.getUserIMG() != null}">
-                            <img class="avatar img-fluid" alt="Profile Picture" style="height: 250px;"
-                                 th:src="${posts.user.getUserIMG()}">
-                        </span>
-            </a>
+    <div class=" row topic_main_body">
+        <div class="d-flex flex-column align-items-center col-md-3">
+
+            <div  th:if="${posts.user.getUserIMG() != null}">
+                <img class=" single-img img-fluid" alt="Profile Picture"
+                     th:src="${posts.user.getUserIMG()}">
+            </div>
+
             <a th:href="@{/posts/user/{user_id}(user_id=${posts.user.getId()})}"
                class="btn-link   "
-               th:text="${posts.getUser().getUsername()}">,&nbsp
-                <time class="text-muted text-sm" th:text="${posts.timestamp}">
-                    <!--timestamp here-->
-                </time>
+               th:text="${posts.getUser().getUsername()}">
+                ,&nbsp
                 <!--username of post author-->
-            </a>;
+            </a>
+            <time class="text-muted text-sm" th:text="${posts.timestamp}">
+                <!--timestamp here-->
+            </time>
 
         </div>
 
-        <section class="forum-content col-md-9  ">
-            <div class="post_body ">
-                <!--               figure out pagination-->
-                <ul class="topic_main_body " th:each="post : ${posts}">
-                    <div class="inner_main_bloc">
-                        <div class="topic_inside_title">
+
+        <!--               figure out pagination-->
+        <div class=" justify-content-between d-flex flex-column col-md-9 " th:each="post : ${posts}">
+
                             <span>
                                <a th:href="@{/forum_post/{id}(id=${post.id})}">
-                                   <h1 class="single-title" th:text="${posts.title}"></h1>
+                                   <h1 class="single-title mt-3" th:text="${posts.title}"></h1>
                                </a>
                             </span>
-                            <br>
-                            <span class="post-body" th:text="${post.body}"></span>
-                            <ul class="">
-                                <li class="topic_cats_list" style="" th:each="cat : ${categories}">
-                                    <a th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
-                                        <span th:text="${cat.name}"><!--category tags--></span>
-                                    </a>
-                                    <div class="post-cat-label ">Categories:&nbsp;
-                                        <a class="post-cat col-sm-2 mx-1"
-                                           th:each="cat : ${post.getForumPostCategories()}"
-                                           th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
 
-                                            <span class="topic_cat_name " th:text="${cat.getName()}"></span>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div> <!-- end of topic_inside_title-->
+            <span class="post-body" th:text="${post.body}"></span>
+            <div class="d-flex">
+                <div class=" " role="list">
 
-                    </div> <!-- end of inner_main_bloc-->
-                </ul>
-            </div> <!-- end of post_body-->
-        </section>
+                    <div class="post-cats row">
+                        <div class="post-cat-label ">Categories:&nbsp;
+                            <a class="post-cat col-sm-2 mx-1"
+                               th:each="cat : ${post.getForumPostCategories()}"
+                               th:href="@{/FilterByCategory/{cat_id}(cat_id=${cat.getId()})}">
+
+                                <span class="topic_cat_name " th:text="${cat.getName()}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-main-btns">
+                <!--link for comment creation page-->
+                <a class="btn add-comment-btn" href="#comment_form">
+                    Add comment
+                </a>
+                <a class="btn edit-post-btn"
+                   th:if="${posts.user.getId() == user.getId()}"
+                   th:href="@{/edit/{id}/post(id=${posts.id})}">
+                    Edit Post
+                </a>
+                <span sec:authorize="hasAuthority('ADMIN')">
+                                <a class="btn Admin-delete-btn"
+                                   th:href="@{/admin/post/{id}/delete(id=${posts.id})}">
+                                    Admin Delete Post
+                                </a>
+                                <a class="btn Admin-edit-btn"
+                                   th:href="@{/admin/edit/{id}/post(id=${posts.id})}">
+                                    Admin Edit Post
+                                </a>
+                            </span>
+            </div>
+
+
+        </div>
+
+
     </div>
 
 
@@ -180,7 +199,7 @@
         <div class="media-block" th:each="reply : ${replies}">
             <div style="position: relative; right: 20px;">
                 <i class="fab fa-replyd"></i>
-            </div>&nbsp;
+            </div>
             <!--                                user avatar image-->
             <a class="media-left" href="#">
                                         <span th:if="${reply.user.getUserIMG() != null}">
@@ -203,12 +222,12 @@
                 <div><p th:text="${reply.body}"><!-- body of reply--></p></div>
 
                 <div class="pad-ver">
-                    <a class="btn btn-trans btn-icon add-tooltip"
+                    <a class="btn "
                        th:if="${reply.user.getId() == user.getId()}"
                        th:href="@{/edit/reply/{id}(id=${reply.getId()})}">
                         Edit Comment
                     </a>
-                    <a class="btn btn-trans text-danger add-tooltip"
+                    <a class="btn "
                        th:href="@{/report/{type}/{id}(type = 'forum_reply', id = ${reply.getId()})}">
                         Report Comment
                     </a>
@@ -220,26 +239,25 @@
                 <hr>
             </div>
         </div>
-    </div> <!--reply population end-->
-</div>
-
-<div class="panel">
-    <div id="comment_form" class="panel-body" style="position: relative;right: 15px;">
-        <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}"
-              method="post" th:object="${reply}">
+        <div class="panel">
+            <div id="comment_form" class="panel-body" style="position: relative;right: 15px;">
+                <form style="margin-bottom: 2em;" th:action="@{/create/reply/{id}(id=${posts.getId()})}"
+                      method="post" th:object="${reply}">
                         <textarea style="margin-bottom: .25em;" class="form-control" rows="4" name="message"
                                   th:field="*{body}" required></textarea>
-            <button class="btn-primary pull-right" type="submit">Post Reply</button>
-        </form>
-        <div class="mar-top clearfix">
-            <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
-                forum</a>
-            <a class="btn btn-trans text-danger add-tooltip"
-               th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
-        </div>
-    </div>
+                    <button class="btn-primary pull-right" type="submit">Post Reply</button>
+                </form>
+                <div class="mar-top clearfix">
+                    <a class="btn btn-trans add-tooltip" th:href="@{'/forum'}">Go back to
+                        forum</a>
+                    <a class="btn btn-trans text-danger add-tooltip"
+                       th:href="@{/report/{type}/{id}(type = 'forum_post', id = ${posts.getId()})}">Report Post</a>
+                </div>
+            </div>
 
-</div> <!-- container end -->
+        </div> <!-- container end -->
+    </div> <!--reply population end-->
+</div>
 
 
 <footer class="text-center text-white  ">
