@@ -137,3 +137,6 @@ footer h4{
     min-height: 100vh;
     justify-content: space-between;
 }
+.delete-profile{
+    color: black;
+}

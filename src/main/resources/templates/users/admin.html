@@ -111,72 +111,81 @@
 
 <div class="spacer"></div>
 <div class="container">
-<h1>This is the Admin page</h1>
-<img th:src="*{user.getUserIMG()}" height="200px">
-<h1>Hello, <span th:text="${user.getUsername()}"></span>!</h1>
-<button class="clicker" >Edit Profile</button>
-<div class="container">
-    <p class="text-danger">* required</p>
-    <form th:action="@{/profile}" method="POST" th:object="${user}">
-        <input th:field="*{id}" th:value="*{id}" hidden />
-        <label class="required" for="username">Username</label>
-        <input id="username" th:field="*{username}" required />
-        <br>
-        <br>
-        <label class="required" for="email">Email</label>
-        <input id="email" th:field="*{email}" required />
-        <br>
-        <br>
-        <label class="required" for="password">Password</label>
-        <input id="password" type="password" th:field="*{password}" required />
-        <br>
-        <br>
-        <label class="required" for="user-phone">Phone Number</label>
-        <input id="user-phone" type="text" th:field="*{userPhone}" required />
-        <br>
-        <br>
-        <label class="required" for="user-location">Location</label>
-        <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
-        <br>
-        <br>
-        <label class="required" for="user-location">Location State</label>
-        <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
-            <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
-            <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
-            <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
-            <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
-            <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
-            <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
-            <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
-            <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
-            <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
-            <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
-            <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
-            <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
-            <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
-            <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
-            <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
-            <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
-            <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
-        </select>
-        <br>
-        <br>
-        <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url"/>
-        <button type="button" onclick="upload()">upload image</button>
-        <p>preview: </p>
-        <img id="profile-preview" src="" height="75px">
-        <br>
-        <br>
-        <input value="Edit Profile" type="submit" />
-    </form>
+<!--<h1>This is the Admin page</h1>-->
+
+<!--<button class="clicker" >Edit Profile</button>-->
+<div class="row">
+    <div class="col-md-4 text-md-right">
+        <h2 class="mb-4">Hello, <span th:text="${user.getUsername()}"></span>!</h2>
+        <img th:src="*{user.getUserIMG()}" height="200px">
+    </div>
+    <div class="col-md-4 text-md-right">
+        <h2>Edit Admin Profile</h2>
+        <p class="text-danger">* required</p>
+        <form th:action="@{/profile}" method="POST" th:object="${user}" class="form-card">
+            <input th:field="*{id}" th:value="*{id}" hidden />
+            <label class="required" for="username">Username</label><br>
+            <input id="username" class="form-control" th:field="*{username}" required />
+            <br>
+            <label class="required" for="email">Email</label><br>
+            <input id="email" class="form-control" th:field="*{email}" required />
+            <br>
+            <label class="required" for="password">Password</label><br>
+            <input id="password" type="password" class="form-control" th:field="*{password}" required />
+            <br>
+            <label class="required" for="user-phone">Phone Number</label><br>
+            <input id="user-phone" type="text" class="form-control" th:field="*{userPhone}" required />
+            <br>
+<!--            <label class="required" for="user-location">Location</label>-->
+            <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required hidden/>
+<!--            <br>-->
+<!--            <br>-->
+<!--            <label class="required" for="user-location">Location State</label>-->
+            <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required hidden>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+            </select>
+<!--            <br>-->
+<!--            <br>-->
+            <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
+            <button type="button" onclick="upload()" class="btn mb-2">upload image</button>
+<!--            <p>preview: </p>--><br>
+            <img id="profile-preview" src="" height="75px" class="mb-3">
+            <br>
+            <input value="Submit" type="submit" class="btn" />
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2 class="mb-4">Manage Posts and Users</h2>
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary"><a th:href="@{/listings}">All Listings</a></button>
+            <br>
+            <button class="btn btn-outline-primary"><a th:href="@{/forum}">All Forum Posts</a></button>
+            <br>
+            <button class="btn btn-outline-primary"><a th:href="@{/activities}">All Activities</a></button>
+            <br>
+            <button class="btn btn-outline-primary"><a th:href="@{/admin/users}">All Users</a></button>
+            <br>
+            <button class="btn btn-outline-primary"><a th:href="@{/admin/email_list}">Admin Deleted Emails</a></button>
+        </div>
+    </div>
 </div>
-<div>
-    <a th:href="@{/listings/}">All Listings</a>
-    <a th:href="@{/forum}">All Forum Posts</a>
-    <a th:href="@{/activities/filter}">All Activities</a>
-    <a th:href="@{/admin/users}">All Users</a>
-    <a th:href="@{/admin/email_list}">Admin Deleted Emails</a>
-</div>
+
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->

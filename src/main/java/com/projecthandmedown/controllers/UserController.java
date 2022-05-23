@@ -79,6 +79,7 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setUserIsAdmin(false);
+        user.setUserLocation("San Antonio");
         List<AdminDeletedEmail> emailList = adminDeletedEmailDao.findAll();
         for(int i = 0; i < emailList.size(); i++){
             if(user.getEmail().equals(emailList.get(i).getEmail())){
@@ -232,6 +233,7 @@ public class UserController {
     public String forgotPassword(Model model) {
         model.addAttribute("message", "a link to reset your password");
         model.addAttribute("url", "forgot_password");
+        model.addAttribute("title", "Forgot Password");
         return "users/forgot-password";
     }
 
@@ -301,6 +303,7 @@ public class UserController {
     public String forgotUsername(Model model) {
         model.addAttribute("message", "your username with a link to login");
         model.addAttribute("url", "forgot_username");
+        model.addAttribute("title", "Forgot Username");
         return "users/forgot-password";
     }
 
