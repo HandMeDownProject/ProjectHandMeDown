@@ -17,7 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
-<body>
+<body class="flex-body">
+<div class="main">
 <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-white d-flex sticky-top" th:fragment="navBar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <!-- Container wrapper -->
@@ -145,7 +146,8 @@
 <!--    </form>-->
 <!--    <span><a th:href="@{/post/{id}/delete(id=${post.id},action='show_all')}"><sup>Delete Post</sup></a></span>&nbsp;-->
 </div>
-
+</div>
+<div class="bottom">
 <footer class="text-center text-white">
     <div class="container p-4"></div><!-- Grid container -->
     <!-- Copyright -->
@@ -153,6 +155,7 @@
         <h4>Project HandMeDown 2022</h4>
     </div>
 </footer>
+</div>
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
 </body>
