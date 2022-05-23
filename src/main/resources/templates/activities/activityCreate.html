@@ -97,13 +97,13 @@
         <p class="text-danger">* required</p>
         <div class="form-group mb-3">
             <label class="required" for="title">title:</label>
-            <input class="form-control create_activity_item" th:field="*{title}" id="title" type="text" required>
+            <input class="form-control create_activity_item" th:field="*{title}" id="title" type="text" required maxlength="50">
 
         </div>
         <div class="form-group mb-3">
             <label class="required" for="body">New Activity
             </label>
-            <textarea class="form-control create_activity_item" th:field="*{body}" id="body" type="text" required rows="3"></textarea>
+            <textarea class="form-control create_activity_item" th:field="*{body}" id="body" type="text" required rows="3" maxlength="999"></textarea>
 
         </div>
         <div class="form-group mb-3">
