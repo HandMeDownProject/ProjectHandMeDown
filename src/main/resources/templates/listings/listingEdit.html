@@ -125,18 +125,18 @@
             <input th:field="*{timestamp}" th:value="${listing.getTimestamp()}" hidden>
             <p class="text-danger">* required</p>
             <div class="form-group mb-3">
-                <label class="required" for="title">title:</label>
+                <label class="required" for="title">Title:</label>
                 <input class="form-control create_activity_item" th:field="*{title}" id="title" type="text" required>
 
             </div>
             <div class="form-group mb-3">
-                <label class="required" for="body">description:</label>
+                <label class="required" for="body">Description:</label>
                 <textarea class="form-control create_activity_item" th:field="*{body}" id="body" type="text" required rows="3"></textarea>
             </div>
             <div class="form-outline mb-4">
-                <label class="required" for="ListingPrice"></label>
-                <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="create_activity_item" placeholder="Price"
-                       required/>
+                <label class="required" for="ListingPrice">Price:</label>
+                <br>
+                <input th:field="*{price}" type="text" name="ListingPrice" id="ListingPrice" class="create_activity_item" required/>
             </div>
             <div class="form-group mb-3">
                 <button class="btn activity_img" type="button" onclick="upload()">Add an image</button>
