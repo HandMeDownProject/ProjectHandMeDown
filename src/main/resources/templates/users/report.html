@@ -133,10 +133,10 @@
     </div>
     <form th:action="@{/report/{type}/{id}(type = ${type}, id = ${id})}" th:object="${message}" method="post" class="d-flex flex-column align-items-center" >
     <label for="title">Subject:
-        <input th:field="*{subject}" id="title" type="text">
+        <input th:field="*{subject}" id="title" type="text" maxlength="50">
     </label>
     <br>
-    <textarea rows="12" cols="100" name="report" th:field="*{body}"></textarea>
+    <textarea rows="12" cols="100" name="report" th:field="*{body}" maxlength="254"></textarea>
         <br>
         <br>
         <input type="submit" class="btn btn-outline-primary" value="Send">
