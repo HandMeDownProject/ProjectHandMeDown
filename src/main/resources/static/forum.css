@@ -92,7 +92,7 @@ ol[role='list'] {
 
 .topic_main_body {
     padding: 1em 2em 0 1em;
-    margin: 0 0 30px 30px;
+    /*margin: 0 0 30px 30px;*/
     border: 1px solid #FF9B85;
     border-radius: 20px;
     /*height: 120px;*/
