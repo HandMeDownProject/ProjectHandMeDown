@@ -111,14 +111,14 @@
 
                             <!-- Name Input -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="post-title" type="text" placeholder="Title" data-sb-validations="required" th:field="*{title}" required/>
+                                <input class="form-control" id="post-title" type="text" placeholder="Title" data-sb-validations="required" th:field="*{title}" required maxlength="50"/>
                                 <label class="required" for="post-title">Enter title</label>
                                 <div class="invalid-feedback" data-sb-feedback="title:required">A title is required.</div>
                             </div>
 
                             <!-- Body Input -->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="post-body" placeholder="Body" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required></textarea>
+                                <textarea class="form-control" id="post-body" placeholder="Body" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required maxlength="999"></textarea>
                                 <label class="required" for="post-body">Write something...</label>
                                 <div class="invalid-feedback" data-sb-feedback="body:required">Post body is required.</div>
                             </div>
