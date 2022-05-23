@@ -169,11 +169,11 @@
         <div class="col-md-4">
             <h2>Account Options</h2>
             <div class="d-grid gap-2">
-                <button class="btn btn-outline-primary"><a th:href="@{/listings/user/{user_id}(user_id = ${user.getId()})}">Your Listings</a></button>
+                <a class="btn btn-outline-primary delete-profile" th:href="@{/listings/user/{user_id}(user_id = ${user.getId()})}">Your Listings</a>
                 <br>
-                <button class="btn btn-outline-primary"><a th:href="@{/posts/user/{id}(id = ${user.getId()})}">Your Forum Posts</a></button>
+                <a class="btn btn-outline-primary delete-profile" th:href="@{/posts/user/{id}(id = ${user.getId()})}">Your Forum Posts</a></button>
                 <br>
-                <button class="btn btn-outline-primary"><a th:href="@{/activities/user/{user_id}(user_id = ${user.getId()})}">Your Activities</a></button>
+                <a class="btn btn-outline-primary delete-profile" th:href="@{/activities/user/{user_id}(user_id = ${user.getId()})}">Your Activities</a></button>
                 <br>
                 <button class="btn btn-outline-primary delete-profile" onclick="confirmDelete()">Delete Account</button>
             </div>
