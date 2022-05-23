@@ -124,8 +124,8 @@
 
                             <!-- Category Selection -->
                             <div><span>Tags:</span></div>
-                            <div class="categories" style="display: flex">
-                                <div class="form-check mb-3" th:each="category : ${categories}">
+                            <div class="categories" style="display: flex; flex-wrap: wrap;">
+                                <div class="form-check mb-3 col-sm-4" th:each="category : ${categories}">
                                     <input class="form-check-input" type="checkbox" id="categories"
                                            th:text="${category.getName()}"
                                            th:value="${category.id}"
