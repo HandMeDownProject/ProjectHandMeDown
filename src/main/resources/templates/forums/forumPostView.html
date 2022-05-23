@@ -241,7 +241,7 @@
               method="post" th:object="${reply}">
             <textarea class="form-control reply-textarea-input  " id="reply-textarea-container" placeholder="    Type your reply here..." rows="4"
                       name="message"
-                      th:field="*{body}" required></textarea>
+                      th:field="*{body}" required maxlength="999"></textarea>
             <div class="mt-3">
                 <button class="btn post-reply-btn" type="submit">Post Reply</button>
                 <a class="btn forum-back-btn" th:href="@{'/forum'}">Go back to forum</a>
