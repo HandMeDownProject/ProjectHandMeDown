@@ -113,12 +113,12 @@
 <div class="spacer"></div>
 <div class="container small-profile">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
             <h2>Hello, <span th:text="${user.getUsername()}"></span>!</h2>
             <img th:src="*{user.getUserIMG()}" height="200px" class="w-50">
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
             <h2>Edit Your Profile</h2>
             <p class="text-danger">* required</p>
             <form th:action="@{/profile}" method="POST" th:object="${user}" class="form-card">
@@ -157,11 +157,13 @@
                     <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
                     <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
                 </select>
-                <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
-                <button type="button" onclick="upload()" class="mb-2">Upload image</button><br>
-                <img id="profile-preview" src="" height="75px">
-                <br>
-                <input value="Submit" type="submit" class="mb-2"/>
+                <div class="d-flex flex-column align-items-center">
+                    <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
+                    <button type="button" onclick="upload()" class="btn btn-outline-primary delete-profile">Upload image</button><br>
+                    <img id="profile-preview" class="profile-image mb-2" src="" height="75px">
+                    <button type="submit" class="mb-2 btn btn-outline-primary delete-profile">Submit</button>
+                </div>
+
             </form>
         </div>
         <div class="col-md-4">
@@ -205,6 +207,7 @@
                     console.log(imgURL);
                     document.getElementById("ListingImage").value = imgURL;
                     document.getElementById("profile-preview").src = imgURL;
+                    document.getElementById("profile-preview").classList.remove("profile-image")
                 }
             };
             client.picker(options).open();

@@ -140,3 +140,7 @@ footer h4{
 .delete-profile{
     color: black;
 }
+
+.profile-image{
+    display: none;
+}
