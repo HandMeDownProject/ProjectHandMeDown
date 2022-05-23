@@ -63,32 +63,10 @@ public class ActivityController {
         List<ActivityCategory> categories = activityCatDao.findAll();
         model.addAttribute("categories", activityCatDao.findAll());
         List<Activity> activities = activityCatDao.getById(id).getActivities();
-        List<String> states = activitiesStateLocation(activities);
-        List<String> cities = activitiesCityLocation(activities);
-        model.addAttribute("cities", cities);
-        model.addAttribute("states", states);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userDAO.getUserById(loggedInUser.getId());
-            List<Activity> filteredList = new ArrayList<>();
-            for (int i = 0; i < activities.size(); i++) {
-                if (activities.get(i).getUser().getUserLocationState().equals(user.getUserLocationState())) {
-                    if (activities.get(i).getUser().getUserLocation().equals(user.getUserLocation())) {
-                        filteredList.add(activities.get(i));
-                    }
-                }
-            }
-            model.addAttribute("activities", filteredList);
-            model.addAttribute("user", user);
-            model.addAttribute("categories", categories);
-            return "activities/activitiesView";
-        }
         model.addAttribute("activities", activities);
         model.addAttribute("categories", categories);
         return "activities/activitiesView";
     }
-
 
     @Value("${filestack.api.key}")
     private String filestackKey;
@@ -179,10 +157,6 @@ public class ActivityController {
         User targetUser = userDAO.getUserById(user_id);
         List<Activity> activities = activityDao.getByUser(targetUser);
         model.addAttribute("categories", activityCatDao.findAll());
-        List<String> states = activitiesStateLocation(activityDao.findAll());
-        List<String> cities = activitiesCityLocation(activityDao.findAll());
-        model.addAttribute("cities", cities);
-        model.addAttribute("states", states);
         model.addAttribute("activities", activities);
         return "activities/activityUserPosts";
     }
@@ -221,10 +195,6 @@ public class ActivityController {
                 checkDuplicate(filteredActivities);
             }
         }
-        List<String> states = activitiesStateLocation(activities);
-        List<String> cities = activitiesCityLocation(activities);
-        model.addAttribute("cities", cities);
-        model.addAttribute("states", states);
         model.addAttribute("activities", filteredActivities);
         model.addAttribute("noLocation", true);
         return "activities/ActivityFiltered";
@@ -249,91 +219,6 @@ public class ActivityController {
         return "activities/activityEdit";
     }
 
-    @GetMapping("/activities/filter")
-    public String filterByStateAndCity(@RequestParam(required = false) String state, @RequestParam(required = false) String city, @RequestParam(required = false) String category,  Model model){
-//        List<Activity> activities = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<Activity> filteredList = activityDao.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        model.addAttribute("categories", activityCatDao.findAll());
-        List<String> states = activitiesStateLocation(filteredList);
-        List<String> cities = activitiesCityLocation(filteredList);
-        model.addAttribute("cities", cities);
-        model.addAttribute("states", states);
-
-            if(state != null && city != null && category != null){
-                List<Activity> activitiesByCat = activityCatDao.getActivityCategoryByName(category).getActivities();
-                List<Activity> activitiesByState = filterByState(activitiesByCat, state);
-                filteredList = filterByCity(activitiesByState, city);
-            }else if(state != null && city != null){
-                for (int i = 0; i < filteredList.size(); i++) {
-                    if (filteredList.get(i).getUser().getUserLocationState().equals(state)) {
-                        if (filteredList.get(i).getUser().getUserLocation().equals(city)) {
-                            filteredList.add(filteredList.get(i));
-                        }
-                    }
-                }
-            }else if(state != null && category != null){
-                List<Activity> activitiesByCat = activityCatDao.getActivityCategoryByName(category).getActivities();
-                filteredList = filterByState(activitiesByCat, state);
-            }else if(category != null && city != null){
-                List<Activity> activitiesByCat = activityCatDao.getActivityCategoryByName(category).getActivities();
-                filteredList = filterByCity(activitiesByCat, city);
-            }else if(category != null && state == null && city == null) {
-                ActivityCategory category1 = activityCatDao.getActivityCategoryByName(category);
-                String redirect = "redirect:/activities/categories/" + category1.getId();
-                return redirect;
-            }else if(category == null && state != null && city == null){
-                filteredList = filterByState(filteredList, state);
-            }else if(category == null && state == null && city != null){
-                filteredList = filterByCity(filteredList, city);
-            }
-
-            model.addAttribute("activities", filteredList);
-            return "activities/activitiesView";
-    }
-
-    private List<String> activitiesStateLocation(List<Activity> activities){
-        List<String> states = new ArrayList<>();
-        for(int i = 0; i < activities.size(); i++){
-            String stateLoop = activities.get(i).getUser().getUserLocationState();
-            if(!states.contains(stateLoop)){
-                states.add(stateLoop);
-            }
-        }
-        return states;
-    }
-
-    private List<String> activitiesCityLocation(List<Activity> activities){
-        List<String> cities = new ArrayList<>();
-        for(int i = 0; i < activities.size(); i++){
-            String cityLoop = WordUtils.capitalize(activities.get(i).getUser().getUserLocation());
-            if(!cities.contains(cityLoop)){
-                cities.add(cityLoop);
-            }
-        }
-        return cities;
-    }
-
-    private List<Activity> filterByState(List<Activity> activities, String state){
-        List<Activity> filtered = new ArrayList<>();
-        for(int i = 0; i < activities.size(); i++){
-            Activity activity = activities.get(i);
-            if(activity.getUser().getUserLocationState().equalsIgnoreCase(state)){
-                filtered.add(activity);
-            }
-        }
-        return filtered;
-    }
-
-    private List<Activity> filterByCity(List<Activity> activities, String city){
-        List<Activity> filtered = new ArrayList<>();
-        for(int i = 0; i < activities.size(); i++){
-            Activity activity = activities.get(i);
-            if(activity.getUser().getUserLocation().equalsIgnoreCase(city)){
-                filtered.add(activity);
-            }
-        }
-        return filtered;
-    }
 }
 
 

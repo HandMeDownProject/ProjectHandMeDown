@@ -111,67 +111,74 @@
 </header>
 
 <div class="spacer"></div>
-<div class="container">
-    <h1>This is the profile page</h1>
-    <img th:src="*{user.getUserIMG()}" height="200px">
-    <h1>Hello, <span th:text="${user.getUsername()}"></span>!</h1>
-    <button class="clicker" >Edit Profile</button>
-    <div class="container">
-        <p class="text-danger">* required</p>
-        <form th:action="@{/profile}" method="POST" th:object="${user}">
-            <input th:field="*{id}" th:value="*{id}" hidden />
-            <label class="required" for="username">Username</label>
-            <input id="username" th:field="*{username}" required />
-            <br>
-            <br>
-            <label class="required" for="email">Email</label>
-            <input id="email" th:field="*{email}" required />
-            <br>
-            <br>
-            <label class="required" for="password">Password</label>
-            <input id="password" type="password" th:field="*{password}" required />
-            <br>
-            <br>
-            <label class="required" for="user-phone">Phone Number</label>
-            <input id="user-phone" type="text" th:field="*{userPhone}" required />
-            <br>
-            <br>
-            <label class="required" for="user-location">Location</label>
-            <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" required />
-            <br>
-            <br>
-            <label class="required" for="user-location">Location State</label>
-            <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" required>
-                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
-            </select>
-            <br>
-            <br>
-            <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
-            <button type="button" onclick="upload()">upload image</button>
-            <p>preview: </p>
-            <img id="profile-preview" src="" height="75px">
-            <br>
-            <br>
-            <input value="Edit Profile" type="submit" />
-        </form>
-        <button onclick="confirmDelete()">Delete Account</button>
+<div class="container small-profile">
+    <div class="row">
+        <div class="col-md-4 d-flex flex-column align-items-sm-center">
+            <h2>Hello, <span th:text="${user.getUsername()}"></span>!</h2>
+            <img th:src="*{user.getUserIMG()}" height="200px" class="w-50">
+        </div>
+
+        <div class="col-md-4">
+            <h2>Edit Your Profile</h2>
+            <p class="text-danger">* required</p>
+            <form th:action="@{/profile}" method="POST" th:object="${user}" class="form-card">
+                <input th:field="*{id}" th:value="*{id}" hidden />
+                <label class="required" for="username">Username</label><br>
+                <input id="username" class="form-control" th:field="*{username}" required />
+                <br>
+                <label class="required" for="email">Email</label><br>
+                <input id="email" class="form-control" th:field="*{email}" required />
+                <br>
+                <label class="required" for="password">Password</label><br>
+                <input id="password" class="form-control" type="password" th:field="*{password}" required />
+                <br>
+                <label class="required" for="user-phone">Phone Number</label><br>
+                <input id="user-phone" class="form-control" type="text" th:field="*{userPhone}" required />
+                <br>
+                <!--            <label class="required" for="user-location">Location</label>-->
+                <input id="user-location" type="text" th:field="*{userLocation}" placeholder="San Antonio" hidden/>
+                <!--            <label class="required" for="user-location">Location State</label>-->
+                <select id="user-location-state" th:field="*{userLocationState}" name="user-location-state" hidden>
+                    <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                </select>
+                <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
+                <button type="button" onclick="upload()" class="mb-2">Upload image</button><br>
+                <img id="profile-preview" src="" height="75px">
+                <br>
+                <input value="Submit" type="submit" class="mb-2"/>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h2>Account Options</h2>
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-primary"><a th:href="@{/listings/user/{user_id}(user_id = ${user.getId()})}">Your Listings</a></button>
+                <br>
+                <button class="btn btn-outline-primary"><a th:href="@{/posts/user/{id}(id = ${user.getId()})}">Your Forum Posts</a></button>
+                <br>
+                <button class="btn btn-outline-primary"><a th:href="@{/activities/user/{user_id}(user_id = ${user.getId()})}">Your Activities</a></button>
+                <br>
+                <button class="btn btn-outline-primary delete-profile" onclick="confirmDelete()">Delete Account</button>
+            </div>
+
+        </div>
     </div>
+
 </div>
 <footer class="text-center text-white">
     <!-- Grid container -->
