@@ -115,11 +115,11 @@
 
 <!--<button class="clicker" >Edit Profile</button>-->
 <div class="row">
-    <div class="col-md-4 text-md-right">
+    <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
         <h2 class="mb-4">Hello, <span th:text="${user.getUsername()}"></span>!</h2>
         <img th:src="*{user.getUserIMG()}" height="200px">
     </div>
-    <div class="col-md-4 text-md-right">
+    <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
         <h2>Edit Admin Profile</h2>
         <p class="text-danger">* required</p>
         <form th:action="@{/profile}" method="POST" th:object="${user}" class="form-card">
@@ -162,12 +162,13 @@
             </select>
 <!--            <br>-->
 <!--            <br>-->
-            <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
-            <button type="button" onclick="upload()" class="btn mb-2">upload image</button>
-<!--            <p>preview: </p>--><br>
-            <img id="profile-preview" src="" height="75px" class="mb-3">
-            <br>
-            <input value="Submit" type="submit" class="btn" />
+            <div class="d-flex flex-column align-items-center">
+                <input th:field="*{userIMG}" type="text" name="ListingImage" id="ListingImage" class="" placeholder="Image Url" hidden/>
+                <button type="button" onclick="upload()" class="btn  btn-outline-primary delete-profile">upload image</button><br>
+                <img id="profile-preview" src="" height="75px" class="profile-image mb-2">
+                <button type="submit" class="btn btn-outline-primary delete-profile">Submit</button>
+            </div>
+
         </form>
     </div>
     <div class="col-md-4">
@@ -212,6 +213,7 @@
                 console.log(imgURL);
                 document.getElementById("ListingImage").value = imgURL;
                 document.getElementById("profile-preview").src = imgURL;
+                document.getElementById("profile-preview").classList.remove("profile-image")
             }
         };
         client.picker(options).open();

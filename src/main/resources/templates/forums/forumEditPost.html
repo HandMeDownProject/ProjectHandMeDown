@@ -109,11 +109,11 @@
 
                         <form th:action="@{/edit/post}" th:method="post" th:object="${post}">
                             <!-- Required fields -->
-                            <input th:field="*{id}" hidden> <input th:field="*{user}" hidden> <input th:field="*{timestamp}" hidden> <input th:field="*{title}" hidden>
+                            <input th:field="*{id}" hidden> <input th:field="*{user}" hidden> <input th:field="*{timestamp}" hidden> <input th:field="*{title}" hidden maxlength="50">
 
                             <!-- Body Input -->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="comment-body" placeholder="comment" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required></textarea>
+                                <textarea class="form-control" id="comment-body" placeholder="comment" style="height: 10rem;" th:field="*{body}" data-sb-validations="required" required maxlength="999"></textarea>
                                 <label for="comment-body">Make changes...</label>
                                 <div class="invalid-feedback" data-sb-feedback="body:required">Post body is required.</div>
                             </div>
