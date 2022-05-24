@@ -215,7 +215,8 @@
 
         function confirmDelete(){
             if(confirm("Are you sure want to delete your account?")){
-                window.location.replace("http://localhost:8080/profile/delete/" + [[${user.getId()}]]);
+                var url = window.location.href;
+                window.location.replace(url + "/delete/" + [[${user.getId()}]]);
             }
         }
 
