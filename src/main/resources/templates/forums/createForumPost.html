@@ -15,6 +15,8 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/forum.css">
+
     <link rel="icon" type="image/png" href="/favicon.png">
 </head>
 <body class="flex-body">
@@ -115,12 +117,13 @@
                         <li class="breadcrumb-item active" aria-current="page">New Topic</li>
                     </ol>
                 </nav>
-                <div class="card border-0 rounded-3 shadow-lg">
-                    <div class="card-body p-4">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4 rounded-5">
                         <div class="text-center">
                             <div class="h1 fw-light">Create New Topic</div>
                         </div>
                         <p class="text-danger">* required</p>
+
                         <form th:action="@{/create/post}" th:method="post" th:object="${post}">
 
                             <!-- Name Input -->
@@ -151,7 +154,7 @@
 
                             <!-- Submit button -->
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Post</button>
+                                <button class="btn reset-btn" id="submitButton" type="submit">Post</button>
                             </div>
                         </form>
                         <!-- End of contact form -->

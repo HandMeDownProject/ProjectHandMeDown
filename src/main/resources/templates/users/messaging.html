@@ -117,8 +117,8 @@
         <h3>Sending message to <span th:text="${messageReceiver.getUsername()}"></span></h3>
         <br>
         <label for="title">Subject:
-            <input th:field="*{subject}" id="title" type="text" maxlength="50">
         </label>
+        <input th:field="*{subject}" id="title" type="text" maxlength="50">
         <br>
         <textarea rows="12" cols="100" name="message" th:field="*{body}" maxlength="254"></textarea>
         <br>

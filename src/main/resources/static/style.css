@@ -27,8 +27,8 @@
 
 .listings-card {
     background-color: #9EC1A3;
-    -webkit-box-shadow: 5px 5px 30px 5px #858585;
-    box-shadow: 5px 5px 40px 5px #858585;
+    -webkit-box-shadow: 5px 5px 5px 10px #858585;
+    box-shadow: 5px 5px 5px 5px #858585;
 }
 
 
@@ -143,4 +143,8 @@ footer h4{
 
 .profile-image{
     display: none;
+}
+
+#title{
+    width: 822px;
 }
