@@ -158,8 +158,10 @@
                                         ></a></p>
                             </div>
                             <div class="card-body text-center text-black">
-                                <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
+                                <div>
+                                <a class="d-flex" th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
                                                                                          class="card-title"></h4></a>
+                                </div>
                                 <br>
                                 <p>price: <span th:text="${listing.price}"></span></p>
                                 <p>created by: <a
