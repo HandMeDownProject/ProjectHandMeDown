@@ -157,11 +157,11 @@
                                         th:src="@{${listing.imageUrl}}" class="img-fluid"
                                         ></a></p>
                             </div>
-                            <div class="card-body text-center text-black">
-                                <div>
-                                <a class="d-flex" th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
+                            <div class="card-body text-center text-black d-flex flex-column justify-items-center">
+
+                                <a th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
                                                                                          class="card-title"></h4></a>
-                                </div>
+
                                 <br>
                                 <p>price: <span th:text="${listing.price}"></span></p>
                                 <p>created by: <a
