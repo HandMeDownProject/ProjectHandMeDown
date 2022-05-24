@@ -144,3 +144,7 @@ footer h4{
 .profile-image{
     display: none;
 }
+
+#title{
+    width: 822px;
+}
