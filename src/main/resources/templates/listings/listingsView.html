@@ -151,24 +151,24 @@
                 <div class="d-flex justify-content-start flex-column flex-md-row flex-wrap">
                     <div th:each="listing : ${listings}" class="card-holder">
                         <div class="card mx-2 mt-3 p-3 listings-card text-black">
-                            <div class="bg-image hover-overlay ripple text-center" style="height:200px" data-mdb-ripple-color="light">
+                            <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
                                 <p th:if="${listing.imageUrl != null}"><a
                                         th:href="@{/listing/{id}(id=${listing.getId()})}"><img
                                         th:src="@{${listing.imageUrl}}" class="img-fluid"
                                         ></a></p>
                             </div>
                             <div class="card-body text-center text-black">
-                                <div>
-                                <a class="d-flex" th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
+
+                                <a class="d-flex justify-content-center" th:href="@{/listing/{id}(id=${listing.getId()})}"><h4 th:text="${listing.title}"
                                                                                          class="card-title"></h4></a>
-                                </div>
+
                                 <br>
                                 <p>price: <span th:text="${listing.price}"></span></p>
                                 <p>created by: <a
                                         th:href="@{'/listings/user/{user_id}'(user_id=${listing.getUser().getId()})}"
                                         th:text="${listing.getUser().getUsername()}"></a></p>
                                 <br>
-                                <br>
+
                                 <p>created on: <span th:text="${listing.timestamp}"></span></p>
                                 <br>
                                 <h6>Categories: </h6>
