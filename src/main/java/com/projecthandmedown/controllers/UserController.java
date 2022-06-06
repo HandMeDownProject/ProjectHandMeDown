@@ -241,6 +241,7 @@ public class UserController {
     public String forgotPassword(@RequestParam(name = "email") String email, HttpServletRequest request, Model model, RedirectAttributes redirectAttr) throws IOException {
         try{
             User user = userDao.getUserByEmail(email);
+            deleteUserTokens(user);
             String url = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
             String token = RandomString.make(30);
             userService.createPasswordResetTokenForUser(user, token);
@@ -287,7 +288,7 @@ public class UserController {
             String hash = passwordEncoder.encode(resetPassword.getPassword());
             user.setPassword(hash);
             userDao.save(user);
-            passwordResetTokenRepository.delete(pass);
+            deleteUserTokens(user);
             redirectAttr.addFlashAttribute("message", "Password has been reset.");
             redirectAttr.addFlashAttribute("alert", true);
             return "redirect:/login";
@@ -460,7 +461,7 @@ public class UserController {
             return "redirect:/login";
     }
 
-    public void deleteUserActivities(List<Activity> activities){
+    private void deleteUserActivities(List<Activity> activities){
         for(int i = 0; i < activities.size(); i++){
             Activity activity = activities.get(i);
             activity.getActivityCategories().clear();
@@ -468,7 +469,7 @@ public class UserController {
         }
     }
 
-    public void deleteUserForumPost(List<ForumPost> posts){
+    private void deleteUserForumPost(List<ForumPost> posts){
         for(int i = 0; i < posts.size(); i++){
             ForumPost post = posts.get(i);
             post.getForumPostCategories().clear();
@@ -476,18 +477,25 @@ public class UserController {
         }
     }
 
-    public void deleteUserForumPostReplies(List<ForumReply> replies){
+    private void deleteUserForumPostReplies(List<ForumReply> replies){
         for(int i = 0; i < replies.size(); i++){
             ForumReply reply = replies.get(i);
             forumReplyDao.delete(reply);
         }
     }
 
-    public void deleteUserListings(List<Listing> listings){
+    private void deleteUserListings(List<Listing> listings){
         for(int i = 0; i < listings.size(); i++){
             Listing listing = listings.get(i);
             listing.getListingsCategories().clear();
             listingDao.delete(listing);
+        }
+    }
+
+    private void deleteUserTokens(User user){
+        List<PasswordResetToken> tokens = passwordResetTokenRepository.findByUserId(user.getId());
+        for(int i = 0; i < tokens.size(); i++){
+            passwordResetTokenRepository.delete(tokens.get(i));
         }
     }
 

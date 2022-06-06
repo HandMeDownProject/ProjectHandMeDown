@@ -67,7 +67,7 @@ public class SendGridEmailService {
         Email from = new Email(senderEmail);
         String subject = "Reset Password Link";
         Email to = new Email(user.getEmail());
-        Content content = new Content("text/plain", "Here is the link to reset your password: \n" + url + "/reset_password?token=" + token);
+        Content content = new Content("text/plain", "Here is the link to reset your password: \n Password link will expire in 2 hours \n" + url + "/reset_password?token=" + token);
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendgridKey);
