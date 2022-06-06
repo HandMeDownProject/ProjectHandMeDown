@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
+import java.util.List;
 
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
 
@@ -21,5 +22,7 @@ public interface PasswordResetTokenRepository extends JpaRepository<PasswordRese
     @Modifying
     @Query("delete from PasswordResetToken t where t.expiryDate <= ?1")
     void deleteAllExpiredSince(Date now);
+
+    List<PasswordResetToken> findByUserId(long id);
 }
 
